@@ -5,7 +5,7 @@ find . -name "*.pyc" -exec rm -rf {} \;
 python -m py_compile python-file
 
 -- base user for lambda call
-https://k8hann910c.execute-api.us-east-1.amazonaws.com/dev
+https://xja36rg9of.execute-api.us-east-1.amazonaws.com/dev
 
 -- copyright 
 #  Created by Aryeh Pechet on 10/28/18.
