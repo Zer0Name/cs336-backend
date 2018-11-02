@@ -29,6 +29,13 @@ def getDrinkerTopBeer():
         raise InvalidInfo("Drinker not provided")
     return drinkerService.getDrinkerTopBeer(drinker)
 
+@drinkerController.route('/bar/spent', methods=['GET'])
+def getDrinkerBarSpending():
+    drinker = str(request.args.get('drinker'))
+    if variable.isEmpty(drinker):
+        raise InvalidInfo("Drinker not provided")
+    return drinkerService.getDrinkerBarSpending(drinker)
+
 @drinkerController.route('/bar/spent/day', methods=['GET'])
 def getDrinkerBarSpendingByDay():
     drinker = str(request.args.get('drinker'))

@@ -57,6 +57,20 @@ class DrinkerRepo(SQL.SQL_table):
 		self.close()
 		return result	
 
+	def getDrinkerBarSpending(self,drinker):
+		sql =  "SELECT NULL AS period, 	b.bar, SUM(b.total_price) AS amount_spent \
+				FROM (SELECT * \
+				FROM Bills \
+				WHERE drinker = \""+str(drinker)+"\") b \
+				GROUP BY b.bar;"
+		items = self.query(sql)
+		result = []
+		for item in items:
+			drinkerBarSpendingDTO = DrinkerBarSpendingDTO()
+			drinkerBarSpendingDTO.map(item)
+			result.append(drinkerBarSpendingDTO)
+		self.close()
+		return result	
 
 	def getDrinkerBarSpendingByDay(self,drinker):
 		sql =  "SELECT b.date AS period, SUM(b.total_price) AS amount_spent,b.bar \
