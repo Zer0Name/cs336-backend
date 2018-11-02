@@ -3,7 +3,10 @@ from v1.Entity.Drinker import Drinker
 from v1.DTO.DrinkerTransactionDTO import DrinkerTransactionDTO
 from v1.DTO.DrinkerTopBeerDTO import DrinkerTopBeerDTO
 from v1.DTO.DrinkerBarSpendingDTO import DrinkerBarSpendingDTO
+from v1.DTO.DrinkerSpendingByTimeDTO import DrinkerSpendingByTimeDTO
+
 class DrinkerRepo(SQL.SQL_table):
+	
 	def __init__(self):
 		super(DrinkerRepo, self).__init__()
 
@@ -58,7 +61,7 @@ class DrinkerRepo(SQL.SQL_table):
 		return result	
 
 	def getDrinkerBarSpending(self,drinker):
-		sql =  "SELECT NULL AS period, 	b.bar, SUM(b.total_price) AS amount_spent \
+		sql =  "SELECT 	b.bar, SUM(b.total_price) AS amount_spent \
 				FROM (SELECT * \
 				FROM Bills \
 				WHERE drinker = \""+str(drinker)+"\") b \
@@ -72,8 +75,8 @@ class DrinkerRepo(SQL.SQL_table):
 		self.close()
 		return result	
 
-	def getDrinkerBarSpendingByDay(self,drinker):
-		sql =  "SELECT b.date AS period, SUM(b.total_price) AS amount_spent,b.bar \
+	def getDrinkerSpendingByDay(self,drinker):
+		sql =  "SELECT b.date AS period, SUM(b.total_price) AS amount_spent \
 				FROM (SELECT * \
 				FROM Bills \
 				WHERE drinker = \""+str(drinker)+"\") b \
@@ -81,14 +84,14 @@ class DrinkerRepo(SQL.SQL_table):
 		items = self.query(sql)
 		result = []
 		for item in items:
-			drinkerBarSpendingDTO = DrinkerBarSpendingDTO()
-			drinkerBarSpendingDTO.map(item)
-			result.append(drinkerBarSpendingDTO)
+			drinkerSpendingByTimeDTO = DrinkerSpendingByTimeDTO()
+			drinkerSpendingByTimeDTO.map(item)
+			result.append(drinkerSpendingByTimeDTO)
 		self.close()
 		return result	
 
-	def getDrinkerBarSpendingByWeek(self,drinker):
-		sql = "SELECT week(b.date) AS period, SUM(b.total_price) AS amount_spent, b.bar \
+	def getDrinkerSpendingByWeek(self,drinker):
+		sql = "SELECT week(b.date) AS period, SUM(b.total_price) AS amount_spent \
 				FROM (SELECT *\
 				FROM Bills \
 				WHERE drinker = \""+str(drinker)+"\") b \
@@ -97,14 +100,14 @@ class DrinkerRepo(SQL.SQL_table):
 		items = self.query(sql)
 		result = []
 		for item in items:
-			drinkerBarSpendingDTO = DrinkerBarSpendingDTO()
-			drinkerBarSpendingDTO.map(item)
-			result.append(drinkerBarSpendingDTO)
+			drinkerSpendingByTimeDTO = DrinkerSpendingByTimeDTO()
+			drinkerSpendingByTimeDTO.map(item)
+			result.append(drinkerSpendingByTimeDTO)
 		self.close()
 		return result	
 
-	def getDrinkerBarSpendingByMonth(self,drinker):
-		sql = "SELECT monthname(b.date) AS period, SUM(b.total_price) AS amount_spent, b.bar \
+	def getDrinkerSpendingByMonth(self,drinker):
+		sql = "SELECT monthname(b.date) AS period, SUM(b.total_price) AS amount_spent \
 				FROM (SELECT *\
 				FROM Bills \
 				WHERE drinker = \""+str(drinker)+"\") b \
@@ -113,8 +116,8 @@ class DrinkerRepo(SQL.SQL_table):
 		items = self.query(sql)
 		result = []
 		for item in items:
-			drinkerBarSpendingDTO = DrinkerBarSpendingDTO()
-			drinkerBarSpendingDTO.map(item)
-			result.append(drinkerBarSpendingDTO)
+			drinkerSpendingByTimeDTO = DrinkerSpendingByTimeDTO()
+			drinkerSpendingByTimeDTO.map(item)
+			result.append(drinkerSpendingByTimeDTO)
 		self.close()
 		return result	

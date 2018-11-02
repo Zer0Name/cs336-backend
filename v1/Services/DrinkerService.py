@@ -22,18 +22,18 @@ def getDrinkerBarSpending(drinker):
     return  jsonify([e.toJson() for e in results])  
 
 
-def getDrinkerBarSpendingByDay(drinker):
+def getDrinkerSpendingByDay(drinker):
     drinkerRepo = DrinkerRepo.DrinkerRepo()
-    results = drinkerRepo.getDrinkerBarSpendingByDay(drinker)
+    results = drinkerRepo.getDrinkerSpendingByDay(drinker)
     return  jsonify([e.toJson() for e in results])  
 
 
-def getDrinkerBarSpendingByWeek(drinker):
+def getDrinkerSpendingByWeek(drinker):
     drinkerRepo = DrinkerRepo.DrinkerRepo()
-    results = drinkerRepo.getDrinkerBarSpendingByWeek(drinker)
+    results = drinkerRepo.getDrinkerSpendingByWeek(drinker)
     return  jsonify([e.toJson() for e in results])  
 
-def getDrinkerBarSpendingByMonth(drinker):
+def getDrinkerSpendingByMonth(drinker):
     drinkerRepo = DrinkerRepo.DrinkerRepo()
-    results = drinkerRepo.getDrinkerBarSpendingByMonth(drinker)
+    results = drinkerRepo.getDrinkerSpendingByMonth(drinker)
     return  jsonify([e.toJson() for e in results])  

@@ -36,24 +36,24 @@ def getDrinkerBarSpending():
         raise InvalidInfo("Drinker not provided")
     return drinkerService.getDrinkerBarSpending(drinker)
 
-@drinkerController.route('/bar/spent/day', methods=['GET'])
-def getDrinkerBarSpendingByDay():
+@drinkerController.route('/spent/day', methods=['GET'])
+def getDrinkerSpendingByDay():
     drinker = str(request.args.get('drinker'))
     if variable.isEmpty(drinker):
         raise InvalidInfo("Drinker not provided")
-    return drinkerService.getDrinkerBarSpendingByDay(drinker)
+    return drinkerService.getDrinkerSpendingByDay(drinker)
 
-@drinkerController.route('/bar/spent/week', methods=['GET'])
-def getDrinkerBarSpendingByWeek():
+@drinkerController.route('/spent/week', methods=['GET'])
+def getDrinkerSpendingByWeek():
     drinker = str(request.args.get('drinker'))
     if variable.isEmpty(drinker):
         raise InvalidInfo("Drinker not provided")
-    return drinkerService.getDrinkerBarSpendingByWeek(drinker)
+    return drinkerService.getDrinkerSpendingByWeek(drinker)
 
-@drinkerController.route('/bar/spent/month', methods=['GET'])
-def getDrinkerBarSpendingByMonth():
+@drinkerController.route('/spent/month', methods=['GET'])
+def getDrinkerSpendingByMonth():
     drinker = str(request.args.get('drinker'))
     if variable.isEmpty(drinker):
         raise InvalidInfo("Drinker not provided")
-    return drinkerService.getDrinkerBarSpendingByMonth(drinker)
+    return drinkerService.getDrinkerSpendingByMonth(drinker)
     
