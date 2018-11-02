@@ -1,0 +1,12 @@
+-- command to remove all .pyc files that are generated
+find . -name "*.pyc" -exec rm -rf {} \;
+
+-- command to check python files for errors 
+python -m py_compile python-file
+
+-- base user for lambda call
+https://k8hann910c.execute-api.us-east-1.amazonaws.com/dev
+
+-- copyright 
+#  Created by Aryeh Pechet on 10/28/18.
+#  Copyright © 2018 Aryeh Pechet. All rights reserved.
