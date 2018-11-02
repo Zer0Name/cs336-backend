@@ -49,7 +49,6 @@ class DrinkerRepo(SQL.SQL_table):
 				LIMIT 5; \
 				"
 		items = self.query(sql)
-		print items
 		result = []
 		for item in items:
 			drinkerTopBeerDTO = DrinkerTopBeerDTO()
@@ -59,14 +58,45 @@ class DrinkerRepo(SQL.SQL_table):
 		return result	
 
 
-	def getDrinkerBarSpending(self,drinker):
-		sql =  "SELECT b.date, SUM(b.total_price) AS amount_spent,b.bar \
+	def getDrinkerBarSpendingByDay(self,drinker):
+		sql =  "SELECT b.date AS period, SUM(b.total_price) AS amount_spent,b.bar \
 				FROM (SELECT * \
 				FROM Bills \
 				WHERE drinker = \""+str(drinker)+"\") b \
 				GROUP BY b.date;"
 		items = self.query(sql)
-		print items
+		result = []
+		for item in items:
+			drinkerBarSpendingDTO = DrinkerBarSpendingDTO()
+			drinkerBarSpendingDTO.map(item)
+			result.append(drinkerBarSpendingDTO)
+		self.close()
+		return result	
+
+	def getDrinkerBarSpendingByWeek(self,drinker):
+		sql = "SELECT week(b.date) AS period, SUM(b.total_price) AS amount_spent, b.bar \
+				FROM (SELECT *\
+				FROM Bills \
+				WHERE drinker = \""+str(drinker)+"\") b \
+				GROUP BY period;"
+
+		items = self.query(sql)
+		result = []
+		for item in items:
+			drinkerBarSpendingDTO = DrinkerBarSpendingDTO()
+			drinkerBarSpendingDTO.map(item)
+			result.append(drinkerBarSpendingDTO)
+		self.close()
+		return result	
+
+	def getDrinkerBarSpendingByMonth(self,drinker):
+		sql = "SELECT monthname(b.date) AS period, SUM(b.total_price) AS amount_spent, b.bar \
+				FROM (SELECT *\
+				FROM Bills \
+				WHERE drinker = \""+str(drinker)+"\") b \
+				GROUP BY period;"
+
+		items = self.query(sql)
 		result = []
 		for item in items:
 			drinkerBarSpendingDTO = DrinkerBarSpendingDTO()

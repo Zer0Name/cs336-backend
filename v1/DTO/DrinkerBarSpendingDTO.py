@@ -6,20 +6,20 @@ class DrinkerBarSpendingDTO(object):
 	
 	def __init__(self):
 		self.totalPrice = None
-		self.date = None
+		self.period = None
 		self.bar = None
 
 
 	def toJson(self):
 		return {
-			"date" : self.date,
+			"period" : self.period,
 			"total_price" : self.totalPrice,
 			"bar" : self.bar 
 		}
 		
 	def map(self, data):
 		self.totalPrice = str(data["amount_spent"])
-		self.date = str(data["date"])
+		self.period = str(data["period"])
 		self.bar = str(data["bar"])
 
 	# def __str__(self):
