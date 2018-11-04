@@ -163,7 +163,6 @@ params:
 [
     {
         "bar": String,
-        "period": String,
         "total_price": String
     }
 ]
@@ -178,16 +177,136 @@ baseURL/v1/drinker/bar/spent?drinker=Aaron Butler
 [
     {
         "bar": "Interesting Trumpet Inn",
-        "period": "None",
         "total_price": "51.31"
     },
     {
         "bar": "Iron Library Tavern",
-        "period": "None",
         "total_price": "23.53"
     }
 ]
 ```
+
+---
+
+**URL: /v1/drinker/spent/day**
+
+- Description: Get the amount the drinker spent each day 
+- request type: GET
+- 
+
+### Request: 
+```
+params:
+    drinker = "name of drinker"
+```
+
+### Response: 
+```
+[
+    {
+        "period": String,
+        "total_price": String
+    }
+]
+```
+
+### Example request: 
+```
+baseURL/v1/drinker/spent/day?drinker=Aaron Butler
+```
+### Example response: 
+```
+[
+    {
+        "period": "2018-10-10",
+        "total_price": "23.55"
+    },
+    {
+        "period": "2018-10-12",
+        "total_price": "13.49"
+    }
+]
+```
+
+---
+
+**URL: /v1/drinker/spent/week**
+
+- Description: Get the amount the drinker spent each week
+- request type: GET
+- 
+
+### Request: 
+```
+params:
+    drinker = "name of drinker"
+```
+
+### Response: 
+```
+[
+    {
+        "period": String,
+        "total_price": String
+    }
+]
+```
+
+### Example request: 
+```
+baseURL/v1/drinker/spent/week?drinker=Aaron Butler
+```
+### Example response: 
+```
+[
+   {
+        "period": "40",
+        "total_price": "43.31"
+    },
+    {
+        "period": "41",
+        "total_price": "31.55"
+    }
+]
+```
+---
+
+**URL: /v1/drinker/spent/month**
+
+- Description: Get the amount the drinker spent each month
+- request type: GET
+- 
+
+### Request: 
+```
+params:
+    drinker = "name of drinker"
+```
+
+### Response: 
+```
+[
+    {
+        "period": String,
+        "total_price": String
+    }
+]
+```
+
+### Example request: 
+```
+baseURL/v1/drinker/spent/month?drinker=Aaron Butler
+```
+### Example response: 
+```
+[
+    {
+        "period": "October",
+        "total_price": "98.39"
+    }
+]
+```
+
 
 
 
