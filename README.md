@@ -51,7 +51,6 @@
 
 - Description: Get all transactions for a given drinker
 - request type: GET
-- 
 
 ### Request: 
 ```
@@ -108,7 +107,6 @@ baseURL/v1/drinker/transactions?drinker=Aaron Adkins
 
 - Description: Get the top 10 beers the drinker orders the most
 - request type: GET
-- 
 
 ### Request: 
 ```
@@ -150,7 +148,6 @@ baseURL/v1/drinker/beer/top?drinker=Aaron Adkins
 
 - Description: Get the amount the drinker spent at each bar 
 - request type: GET
-- 
 
 ### Request: 
 ```
@@ -192,7 +189,6 @@ baseURL/v1/drinker/bar/spent?drinker=Aaron Butler
 
 - Description: Get the amount the drinker spent each day 
 - request type: GET
-- 
 
 ### Request: 
 ```
@@ -234,7 +230,6 @@ baseURL/v1/drinker/spent/day?drinker=Aaron Butler
 
 - Description: Get the amount the drinker spent each week
 - request type: GET
-- 
 
 ### Request: 
 ```
@@ -275,7 +270,6 @@ baseURL/v1/drinker/spent/week?drinker=Aaron Butler
 
 - Description: Get the amount the drinker spent each month
 - request type: GET
-- 
 
 ### Request: 
 ```
