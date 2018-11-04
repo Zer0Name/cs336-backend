@@ -3,6 +3,7 @@ from flask import jsonify
 
 from v1.Controllers.VersionController import versionController
 from v1.Controllers.DrinkerController import drinkerController
+from v1.Controllers.BarController import barController
 
 from v1.Exceptions.DrinkerNotFound import DrinkerNotFound
 from v1.Exceptions.InvalidInfo import InvalidInfo
@@ -13,6 +14,7 @@ CORS(app)
 
 app.register_blueprint(versionController,url_prefix='/v1/version')
 app.register_blueprint(drinkerController,url_prefix='/v1/drinker')
+app.register_blueprint(barController,url_prefix='/v1/bar')
 
 
 @app.errorhandler(InvalidInfo)
