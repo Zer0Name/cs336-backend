@@ -159,8 +159,8 @@ params:
 ```
 [
     {
-        "bar": String,
-        "total_price": String
+        "name": String,
+        "total": String
     }
 ]
 ```
@@ -173,12 +173,12 @@ baseURL/v1/drinker/bar/spent?drinker=Aaron Butler
 ```
 [
     {
-        "bar": "Interesting Trumpet Inn",
-        "total_price": "51.31"
+        "name": "Interesting Trumpet Inn",
+        "total": "51.31"
     },
     {
-        "bar": "Iron Library Tavern",
-        "total_price": "23.53"
+        "name": "Iron Library Tavern",
+        "total": "23.53"
     }
 ]
 ```
