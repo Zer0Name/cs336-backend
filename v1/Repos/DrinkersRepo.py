@@ -2,7 +2,7 @@ import v1.Repos.SQL as SQL
 from v1.Entity.Drinker import Drinker
 from v1.DTO.DrinkerTransactionDTO import DrinkerTransactionDTO
 from v1.DTO.DrinkerTopBeerDTO import DrinkerTopBeerDTO
-from v1.DTO.DrinkerBarSpendingDTO import DrinkerBarSpendingDTO
+from v1.DTO.SpendingDTO import SpendingDTO
 from v1.DTO.DrinkerSpendingByTimeDTO import DrinkerSpendingByTimeDTO
 
 class DrinkerRepo(SQL.SQL_table):
@@ -61,7 +61,7 @@ class DrinkerRepo(SQL.SQL_table):
 		return result	
 
 	def getDrinkerBarSpending(self,drinker):
-		sql =  "SELECT 	b.bar, SUM(b.total_price) AS amount_spent \
+		sql =  "SELECT 	b.bar AS name, SUM(b.total_price) AS amount_spent \
 				FROM (SELECT * \
 				FROM Bills \
 				WHERE drinker = \""+str(drinker)+"\") b \
@@ -69,9 +69,9 @@ class DrinkerRepo(SQL.SQL_table):
 		items = self.query(sql)
 		result = []
 		for item in items:
-			drinkerBarSpendingDTO = DrinkerBarSpendingDTO()
-			drinkerBarSpendingDTO.map(item)
-			result.append(drinkerBarSpendingDTO)
+			spendingDTO = SpendingDTO()
+			spendingDTO.map(item)
+			result.append(spendingDTO)
 		self.close()
 		return result	
 
