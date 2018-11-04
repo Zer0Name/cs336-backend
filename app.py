@@ -8,6 +8,7 @@ from v1.Controllers.BeerController import beerController
 
 from v1.Exceptions.DrinkerNotFound import DrinkerNotFound
 from v1.Exceptions.InvalidInfo import InvalidInfo
+from v1.Exceptions.BarNotFound import BarNotFound
 
 from flask_cors import CORS
 app = Flask(__name__)
@@ -21,6 +22,7 @@ app.register_blueprint(beerController,url_prefix='/v1/beer')
 
 @app.errorhandler(InvalidInfo)
 @app.errorhandler(DrinkerNotFound)
+@app.errorhandler(BarNotFound)
 def CreateUserException(error):
     response = jsonify(error.to_dict())
     response.status_code = error.status_code
@@ -33,4 +35,4 @@ def hello_world():
 
 
 
-app.run(debug = True, port=8000)
+# app.run(debug = True, port=8000)
