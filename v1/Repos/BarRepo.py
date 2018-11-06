@@ -40,19 +40,29 @@ class BarRepo(SQL.SQL_table):
 				FROM Bills \
 				WHERE bar = \""+str(bar)+"\") b \
 				GROUP BY b.drinker \
-				ORDER BY amount_spent DESC \
+				ORDER BY amount DESC \
 				LIMIT 10; "
 		items = self.query(sql,QuantityDTO)
 		return items
 
 
 	def getSaleDistributionDays(self,bar):
-		sql = "SELECT b.day AS period, COUNT(b.bill_id) AS amount \
+		sql = "SELECT s.day AS period, AVG(s.num_sold) AS amount \
+				FROM (SELECT SUM(t.quantity) AS num_sold, b1.date AS date, b1.day AS day \
 				FROM (SELECT * \
-				FROM Bills \
-				WHERE bar = \""+str(bar)+"\") b \
-				GROUP BY b.day \
-				ORDER BY dayofweek(b.date);"
+				FROM Bills b \
+				WHERE b.bar = \""+str(bar)+"\") b1, \
+				Transactions t \
+				WHERE b1.bill_id = t.bill_id \
+				GROUP BY b1.date) s \
+				GROUP BY s.day \
+				ORDER BY dayofweek(s.date);"
+		# sql = "SELECT b.day AS period, COUNT(b.bill_id) AS amount \
+		# 		FROM (SELECT * \
+		# 		FROM Bills \
+		# 		WHERE bar = \""+str(bar)+"\") b \
+		# 		GROUP BY b.day \
+		# 		ORDER BY dayofweek(b.date);"
 		items = self.query(sql,PeriodDistributionDTO)
 		return items
 
