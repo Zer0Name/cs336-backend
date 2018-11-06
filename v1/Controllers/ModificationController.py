@@ -6,6 +6,7 @@ from v1.Exceptions.InvalidInfo import InvalidInfo
 import v1.Services.ModificationService as modificationService
 
 from v1.Entity.Drinker import Drinker
+from v1.Entity.Beer import Beer
 
 modificationController = Blueprint('modificationController', __name__)
 
@@ -33,7 +34,9 @@ def deleteDrinker():
 # --------------------- BEER ------------------------------
 @modificationController.route('/beer/insert', methods=['POST'])
 def insertBeer():
-    pass
+    beer = Beer()
+    beer.requestMap(request.get_json())
+    modificationService.updateDrinker(beer)
 
 @modificationController.route('/beer/update', methods=['POST'])
 def updateBeer():

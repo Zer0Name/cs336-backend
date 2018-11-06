@@ -1,6 +1,8 @@
 import random
 import time
 import datetime
+import v1.Util.Variable as variable
+from v1.Exceptions.MissingParamaters import MissingParamaters
 class Beer(object):
 	
 	def __init__(self):
@@ -29,6 +31,17 @@ class Beer(object):
 		self.setName(data["name"])
 		self.setManf(data["manf"])
 
+	def requestMap(self,request):
+		if variable.isEmpty(request):
+			return "Error"
+		name = str(request.get('name'))
+		manf = str(request.get('manf'))
+		if variable.isEmpty(name) or variable.isEmpty(manf):
+			raise MissingParamaters("Missing parameter")
+		self.setName(name)
+		self.setManf(manf)
+
+		
 	def reset(self):
 		self.name = None
 		self.manf = None

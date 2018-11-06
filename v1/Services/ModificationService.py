@@ -1,5 +1,6 @@
 import mysql.connector
 import v1.Repos.DrinkersRepo as DrinkerRepo
+import v1.Repos.BeerRepo as BeerRepo
 
 
 
@@ -12,7 +13,7 @@ check is implemented in table
 def insertDrinker(drinker):
 	drinkerRepo = DrinkerRepo.DrinkerRepo()
 	return drinkerRepo.insertDrinker(drinker)
-	
+
 '''
 checks to make:
 No drinker can have the same name
@@ -26,4 +27,11 @@ def updateDrinker(drinker):
 def deleteDrinker(drinker):
 	drinkerRepo = DrinkerRepo.DrinkerRepo()
 	return drinkerRepo.deleteDrinker(drinker)
+
+
+# --------------------- BEER ------------------------------
+
+def insertBeer(beer):
+	pass
+
 
