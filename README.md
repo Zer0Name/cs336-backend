@@ -118,8 +118,8 @@ params:
 ```
 [
      {
-        "beer": String,
-        "quantity": String
+        "name": String,
+        "total": String
     }
 ]
 ```
@@ -132,12 +132,12 @@ baseURL/v1/drinker/beer/top?drinker=Aaron Adkins
 ```
 [
     {
-        "beer": "Southside Strong",
-        "quantity": "5"
+        "name": "Southside Strong",
+        "total": "5"
     },
     {
-        "beer": "Dry Stout",
-        "quantity": "3"
+        "name": "Dry Stout",
+        "total": "3"
     }
 ]
 ```
@@ -301,6 +301,250 @@ baseURL/v1/drinker/spent/month?drinker=Aaron Butler
 ]
 ```
 
+---
+**URL: /v1/bar**
 
+- Description: Will return all bars that are found in the bar table
+- request type: GET
 
+### Request: 
+```
+{
+}
+```
+### Response: 
+```
+[
+    {
+        "name": String,
+        "state": String
+    }
+]
+```
 
+### Example request: 
+```
+{
+}
+```
+### Example response: 
+```
+[
+    {
+        "name": "Absent Snow",
+        "state": "AL"
+    },
+    {
+        "name": "Admiral Benbow Inn",
+        "state": "AL"
+    }
+]
+```
+
+---
+
+---
+**URL: /v1/bar/beer/top**
+
+- Description: Will return the top 10 beer brands (manufacturers) that are most popular in a specified bar on a specified day
+- request type: GET
+
+### Request: 
+```
+params:
+    bar = "name of bar"
+    day_of_week = "name of the day of the week"
+```
+### Response: 
+```
+[
+    {
+        "name": String,
+        "total": String
+    }
+]
+```
+
+### Example request: 
+```
+baseURL/v1/bar/beer/top?bar=Armed Pudding Bar&day_of_week=Thursday
+```
+### Example response: 
+```
+[
+    {
+        "name": "Asahi",
+        "total": "28"
+    },
+    {
+        "name": "Tsingtao Brewery Group",
+        "total": "25"
+    }
+]
+```
+
+---
+
+---
+**URL: /v1/bar/top/spenders**
+
+- Description: Will return the top 10 drinkers who are the largest spenders at a specified bar
+- request type: GET
+
+### Request: 
+```
+params:
+    bar = "name of bar"
+```
+### Response: 
+```
+[
+    {
+        "name": String,
+        "total": String
+    }
+]
+```
+
+### Example request: 
+```
+baseURL/v1/bar/top/spenders?bar=Armed Pudding Bar
+```
+### Example response: 
+```
+[
+    {
+        "name": "Keith Morales",
+        "total": "375.28"
+    },
+    {
+        "name": "Sheila Sloan",
+        "total": "254.53"
+    }
+]
+```
+
+---
+
+---
+**URL: /v1/bar/sale/distribution/days**
+
+- Description: Time distributions of sales (average number of items sold) to indicate busiest periods of the day
+- request type: GET
+
+### Request: 
+```
+params:
+    bar = "name of bar"
+```
+### Response: 
+```
+[
+    {
+        "period": String,
+        "total": String
+    }
+]
+```
+
+### Example request: 
+```
+baseURL/v1/bar/sale/distribution/days?bar=Armed Pudding Bar
+```
+### Example response: 
+```
+[
+    {
+        "period": "Sunday",
+        "total": "85"
+    },
+    {
+        "period": "Monday",
+        "total": "80"
+    }
+]
+```
+
+---
+
+---
+**URL: /v1/bar/sale/distribution/days**
+
+- Description: Time distributions of sales (average number of items sold) to indicate busiest periods of the week (busiest days of the week)
+- request type: GET
+
+### Request: 
+```
+params:
+    bar = "name of bar"
+```
+### Response: 
+```
+[
+    {
+        "period": String,
+        "total": String
+    }
+]
+```
+
+### Example request: 
+```
+baseURL/v1/bar/sale/distribution/days?bar=Armed Pudding Bar
+```
+### Example response: 
+```
+[
+    {
+        "period": "Sunday",
+        "total": "128.0000"
+    },
+    {
+        "period": "Monday",
+        "total": "128.5000"
+    }
+]
+```
+
+---
+
+---
+**URL: /v1/bar/sale/time/distribution**
+
+- Description: Time distributions of sales (average number of items sold) to indicate busiest periods of the day
+- request type: GET
+
+### Request: 
+```
+params:
+    bar = "name of bar"
+```
+### Response: 
+```
+[
+  {
+        "afternoon_avg_sold": String,
+        "evening_avg_sold": String,
+        "morning_avg_sold": String,
+        "night_avg_sold": String
+    }
+]
+```
+
+### Example request: 
+```
+baseURL/v1/bar/sale/time/distribution?bar=Armed Pudding Bar
+```
+### Example response: 
+```
+[
+    {
+        "afternoon_avg_sold": "31.0714",
+        "evening_avg_sold": "45.9286",
+        "morning_avg_sold": "13.9286",
+        "night_avg_sold": "47.6429"
+    }
+]
+```
+
+---
