@@ -24,3 +24,8 @@ def getSaleDistributionDays(bar):
     barRepo = BarRepo.BarRepo()
     results = barRepo.getSaleDistributionDays(bar)
     return  jsonify([e.toJson() for e in results])
+
+def getTimeDistrubition(bar):
+    barRepo = BarRepo.BarRepo()
+    results = barRepo.getTimeDistrubition(bar)
+    return  jsonify([e.toJson() for e in results])

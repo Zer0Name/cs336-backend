@@ -24,3 +24,11 @@ def getBarsWhichSoldTheMost():
     if variable.isEmpty(beer):
         raise InvalidInfo("beer not provided") 
     return beerService.getBarsWhichSoldTheMost(beer)
+
+
+@beerController.route('/sale/time/distribution', methods=['GET'])
+def getTimedistribution():
+    beer = str(request.args.get('beer'))
+    if variable.isEmpty(beer):
+        raise InvalidInfo("beer not provided")
+    return beerService.getTimeDistrubition(beer)

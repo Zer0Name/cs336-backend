@@ -2,7 +2,7 @@ import random
 import time
 import datetime
 
-class DistributionDTO(object):
+class PeriodDistributionDTO(object):
 	
 	def __init__(self):
 		self.total = None
@@ -16,7 +16,7 @@ class DistributionDTO(object):
 		}
 		
 	def map(self, data):
-		self.total = str(data["num_bills"])
+		self.total = str(data["amount"])
 		self.name = str(data["period"])
 
 	# def __str__(self):

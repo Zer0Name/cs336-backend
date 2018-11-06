@@ -33,3 +33,11 @@ def saleDistributioDays():
     if variable.isEmpty(bar):
         raise InvalidInfo("bar not provided") 
     return barService.getSaleDistributionDays(bar)
+
+
+@barController.route('/sale/time/distribution', methods=['GET'])
+def getTimedistribution():
+    bar = str(request.args.get('bar'))
+    if variable.isEmpty(bar):
+        raise InvalidInfo("bar not provided")
+    return barService.getTimeDistrubition(bar)

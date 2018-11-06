@@ -2,7 +2,7 @@ import v1.Repos.SQL as SQL
 from v1.Entity.Drinker import Drinker
 from v1.DTO.DrinkerTransactionDTO import DrinkerTransactionDTO
 from v1.DTO.QuantityDTO import QuantityDTO
-from v1.DTO.DistributionDTO import DistributionDTO
+from v1.DTO.PeriodDistributionDTO import PeriodDistributionDTO
 
 class DrinkerRepo(SQL.SQL_table):
 	
@@ -51,30 +51,30 @@ class DrinkerRepo(SQL.SQL_table):
 		return items	
 
 	def getDrinkerSpendingByDay(self,drinker):
-		sql =  "SELECT b.date AS period, SUM(b.total_price) AS amount_spent \
+		sql =  "SELECT b.date AS period, SUM(b.total_price) AS amount \
 				FROM (SELECT * \
 				FROM Bills \
 				WHERE drinker = \""+str(drinker)+"\") b \
 				GROUP BY b.date;"
-		items = self.query(sql,DistributionDTO)
+		items = self.query(sql,PeriodDistributionDTO)
 		return items	
 
 	def getDrinkerSpendingByWeek(self,drinker):
-		sql = "SELECT week(b.date) AS period, SUM(b.total_price) AS amount_spent \
+		sql = "SELECT week(b.date) AS period, SUM(b.total_price) AS amount \
 				FROM (SELECT *\
 				FROM Bills \
 				WHERE drinker = \""+str(drinker)+"\") b \
 				GROUP BY period;"
 
-		items = self.query(sql,DistributionDTO)
+		items = self.query(sql,PeriodDistributionDTO)
 		return items	
 
 	def getDrinkerSpendingByMonth(self,drinker):
-		sql = "SELECT monthname(b.date) AS period, SUM(b.total_price) AS amount_spent \
+		sql = "SELECT monthname(b.date) AS period, SUM(b.total_price) AS amount \
 				FROM (SELECT *\
 				FROM Bills \
 				WHERE drinker = \""+str(drinker)+"\") b \
 				GROUP BY period;"
 
-		items = self.query(sql,DistributionDTO)
+		items = self.query(sql,PeriodDistributionDTO)
 		return items	

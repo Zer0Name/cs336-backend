@@ -17,3 +17,8 @@ def getBiggestConsumers(beer):
     beerRepo = BeerRepo.BeerRepo()
     results = beerRepo.getBiggestConsumers(beer)
     return  jsonify([e.toJson() for e in results])
+
+def getTimeDistrubition(beer):
+    beerRepo = BeerRepo.BeerRepo()
+    results = beerRepo.getTimeDistrubition(beer)
+    return  jsonify([e.toJson() for e in results])

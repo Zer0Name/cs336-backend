@@ -3,7 +3,8 @@ import v1.Repos.SQL as SQL
 from v1.DTO.QuantityDTO import QuantityDTO
 from v1.Entity.Bar import Bar
 
-from v1.DTO.DistributionDTO import DistributionDTO
+from v1.DTO.PeriodDistributionDTO import PeriodDistributionDTO
+from v1.DTO.TimeDistributionDTO import TimeDistributionDTO
 
 
 class BarRepo(SQL.SQL_table):
@@ -52,6 +53,54 @@ class BarRepo(SQL.SQL_table):
 				WHERE bar = \""+str(bar)+"\") b \
 				GROUP BY b.day \
 				ORDER BY dayofweek(b.date);"
-		items = self.query(sql,DistributionDTO)
+		items = self.query(sql,PeriodDistributionDTO)
 		return items
 
+
+	def getTimeDistrubition(self,bar):
+		sql = "SELECT m.morning_avg_sold AS morning_avg_sold, a.afternoon_avg_sold AS afternoon_avg_sold, \
+			e.evening_avg_sold AS evening_avg_sold, n.night_avg_sold AS night_avg_sold \
+			FROM \
+			(SELECT AVG(s.num_sold) as morning_avg_sold \
+			FROM \
+			(SELECT SUM(t.quantity) AS num_sold \
+			FROM \
+			(SELECT *  \
+			FROM Bills b \
+			WHERE b.bar = \""+str(bar)+"\" AND b.time >= \"" +str("08:00")+ "\" AND b.time < \"" +str("12:00")+ "\") b1, \
+			Transactions t \
+			WHERE b1.bill_id = t.bill_id \
+			GROUP BY b1.date) s) m, \
+			(SELECT AVG(s.num_sold) as afternoon_avg_sold \
+			FROM \
+			(SELECT SUM(t.quantity) AS num_sold \
+			FROM \
+			(SELECT *  \
+			FROM Bills b \
+			WHERE b.bar = \""+str(bar)+"\" AND b.time >= \""+ str("12:00") + "\" AND b.time < \""+ str("16:00") +"\") b1, \
+			Transactions t \
+			WHERE b1.bill_id = t.bill_id \
+			GROUP BY b1.date) s) a, \
+			(SELECT AVG(s.num_sold) as evening_avg_sold \
+			FROM \
+			(SELECT SUM(t.quantity) AS num_sold \
+			FROM \
+			(SELECT *  \
+			FROM Bills b \
+			WHERE b.bar = \""+str(bar)+"\" AND b.time >= \"" +str("16:00") + "\" AND b.time < \""+str("20:00")+ "\") b1, \
+			Transactions t \
+			WHERE b1.bill_id = t.bill_id \
+			GROUP BY b1.date) s) e, \
+			(SELECT AVG(s.num_sold) as night_avg_sold \
+			FROM \
+			(SELECT SUM(t.quantity) AS num_sold \
+			FROM \
+			(SELECT *  \
+			FROM Bills b \
+			WHERE b.bar =\""+str(bar)+"\" AND b.time >= \""+str("20:00")+"\" AND b.time < \""+str("24:00")+"\") b1, \
+			Transactions t \
+			WHERE b1.bill_id = t.bill_id \
+			GROUP BY b1.date) s) n;"
+
+		items = self.query(sql,TimeDistributionDTO)
+		return items
