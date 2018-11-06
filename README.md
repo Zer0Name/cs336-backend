@@ -511,7 +511,7 @@ baseURL/v1/bar/sale/distribution/days?bar=Armed Pudding Bar
 ---
 **URL: /v1/bar/sale/time/distribution**
 
-- Description: Time distributions of sales (average number of items sold) to indicate busiest periods of the day
+- Description: Time distributions of sales (average number of items sold) to indicate busiest periods of the day (morning 8:00-12:00, afternoon 12:00-16:00, evening 16:00-20:00, night 20:00-24:00)
 - request type: GET
 
 ### Request: 
@@ -543,6 +543,171 @@ baseURL/v1/bar/sale/time/distribution?bar=Armed Pudding Bar
         "evening_avg_sold": "45.9286",
         "morning_avg_sold": "13.9286",
         "night_avg_sold": "47.6429"
+    }
+]
+```
+
+---
+
+---
+**URL: /v1/beer**
+
+- Description: Will return all beers that are found in the beer table
+- request type: GET
+
+### Request: 
+```
+{
+}
+```
+### Response: 
+```
+[
+    {
+        "manf": String,
+        "name": String
+    }
+]
+```
+
+### Example request: 
+```
+{
+}
+```
+### Example response: 
+```
+[
+    {
+        "manf": "Groupe Castel",
+        "name": "Amstel Bock"
+    },
+    {
+        "manf": "China Resources Snow Breweries",
+        "name": "Amstel Bright"
+    }
+]
+```
+
+---
+
+---
+**URL: /v1/beer/biggest/consumers**
+
+- Description: Show the (top 10) bars where this beer sells the most
+- request type: GET
+
+### Request: 
+```
+params:
+    beer = "name of bar"
+```
+### Response: 
+```
+[
+    {
+        "name": String,
+        "total": String
+    }
+]
+```
+
+### Example request: 
+```
+baseURL/v1/beer/biggest/consumers?beer=Code Blue
+```
+### Example response: 
+```
+[
+    {
+        "name": "Juan Brechbiel",
+        "total": "14"
+    },
+    {
+        "name": "Jarrod Sharpe",
+        "total": "13"
+    }
+]
+```
+
+---
+
+---
+**URL: /v1/beer/sold/most**
+
+- Description: (Top 10) Drinkers who are the biggest consumers of the beer
+- request type: GET
+
+### Request: 
+```
+params:
+    beer = "name of bar"
+```
+### Response: 
+```
+[
+    {
+        "name": String,
+        "total": String
+    }
+]
+```
+
+### Example request: 
+```
+baseURL/v1/beer/sold/most?beer=Code Blue
+```
+### Example response: 
+```
+[
+    {
+        "name": "Chubby Badger Pub",
+        "total": "165"
+    },
+    {
+        "name": "Natural Squash Tavern",
+        "total": "166"
+    }
+]
+```
+
+---
+
+---
+**URL: /v1/beer/sale/time/distribution**
+
+- Description: Time distribution of when this beer sells the most (morning 8:00-12:00, afternoon 12:00-16:00, evening 16:00-20:00, night 20:00-24:00)
+- request type: GET
+
+### Request: 
+```
+params:
+    beer = "name of bar"
+```
+### Response: 
+```
+[
+    {
+        "afternoon_avg_sold": String,
+        "evening_avg_sold": String,
+        "morning_avg_sold": String,
+        "night_avg_sold": String
+    }
+]
+```
+
+### Example request: 
+```
+baseURL/v1/beer/sale/time/distribution?beer=Code Blue
+```
+### Example response: 
+```
+[
+    {
+        "afternoon_avg_sold": "45.2857",
+        "evening_avg_sold": "69.0000",
+        "morning_avg_sold": "22.1429",
+        "night_avg_sold": "52.6429"
     }
 ]
 ```
