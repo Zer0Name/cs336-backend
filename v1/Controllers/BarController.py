@@ -14,8 +14,6 @@ def topBeer():
         raise InvalidInfo("bar or day of the week was not provided")
     return barService.getbarTopBeerBrand(bar,dayOfWeek)
 
-
-
 @barController.route('/top/spenders', methods=['GET'])
 def topLargestSpenders():
     bar = str(request.args.get('bar'))

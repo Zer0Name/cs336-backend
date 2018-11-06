@@ -5,3 +5,9 @@ def getAllBeers():
     beerRepo = BeerRepo.BeerRepo()
     results = beerRepo.getAllBeers()
     return  jsonify([e.toJson() for e in results])
+
+
+def getBarsWhichSoldTheMost(beer):
+    beerRepo = BeerRepo.BeerRepo()
+    results = beerRepo.getBarsWhichSoldTheMost(beer)
+    return  jsonify([e.toJson() for e in results])

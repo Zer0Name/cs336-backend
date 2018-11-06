@@ -1,6 +1,6 @@
 import v1.Repos.SQL as SQL
 
-from v1.DTO.SpendingDTO import SpendingDTO
+from v1.DTO.QuantityDTO import QuantityDTO
 from v1.DTO.BarTopBeerBrandDTO import BarTopBeerBrandDTO
 from v1.DTO.SaleDistribution import SaleDistribution
 
@@ -33,7 +33,7 @@ class BarRepo(SQL.SQL_table):
 
 
 	def getTopLargestSpenders(self,bar):
-		sql = "SELECT b.drinker AS name, SUM(b.total_price) AS amount_spent \
+		sql = "SELECT b.drinker AS name, SUM(b.total_price) AS amount \
 				FROM (SELECT * \
 				FROM Bills \
 				WHERE bar = \""+str(bar)+"\") b \
@@ -43,9 +43,9 @@ class BarRepo(SQL.SQL_table):
 		items = self.query(sql)
 		result = []
 		for item in items:
-			spendingDTO = SpendingDTO()
-			spendingDTO.map(item)
-			result.append(spendingDTO)
+			quantityDTO = QuantityDTO()
+			quantityDTO.map(item)
+			result.append(quantityDTO)
 		self.close()
 		return result
 
@@ -56,7 +56,7 @@ class BarRepo(SQL.SQL_table):
 				FROM Bills \
 				WHERE bar = \""+str(bar)+"\") b \
 				GROUP BY b.day \
-				ORDER BY dayofweek(day);"
+				ORDER BY dayofweek(b.date);"
 		items = self.query(sql)
 		result = []
 		for item in items:
