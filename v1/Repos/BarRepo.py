@@ -19,7 +19,7 @@ class BarRepo(SQL.SQL_table):
 
 
 	def getbarTopBeerBrand(self,bar,dayOfWeek):
-		sql = "SELECT manf, SUM(quantity) AS quantity \
+		sql = "SELECT manf AS name, SUM(quantity) AS amount \
 				FROM Beer b RIGHT JOIN \
 				(SELECT t.item AS item, SUM(t.quantity) AS quantity\
 				FROM (SELECT * \
