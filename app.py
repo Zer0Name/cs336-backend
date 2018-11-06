@@ -5,6 +5,8 @@ from v1.Controllers.VersionController import versionController
 from v1.Controllers.DrinkerController import drinkerController
 from v1.Controllers.BarController import barController
 from v1.Controllers.BeerController import beerController
+from v1.Controllers.BartenderController import bartenderController
+from v1.Controllers.ManufacturerController import manufacturerController
 
 from v1.Exceptions.DrinkerNotFound import DrinkerNotFound
 from v1.Exceptions.InvalidInfo import InvalidInfo
@@ -18,6 +20,8 @@ app.register_blueprint(versionController,url_prefix='/v1/version')
 app.register_blueprint(drinkerController,url_prefix='/v1/drinker')
 app.register_blueprint(barController,url_prefix='/v1/bar')
 app.register_blueprint(beerController,url_prefix='/v1/beer')
+app.register_blueprint(bartenderController,url_prefix='/v1/bartender')
+app.register_blueprint(manufacturerController,url_prefix='/v1/manufacturer')
 
 
 @app.errorhandler(InvalidInfo)

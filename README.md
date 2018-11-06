@@ -682,7 +682,7 @@ baseURL/v1/beer/sold/most?beer=Code Blue
 ### Request: 
 ```
 params:
-    beer = "name of bar"
+    beer = "name of beer"
 ```
 ### Response: 
 ```
@@ -708,6 +708,341 @@ baseURL/v1/beer/sale/time/distribution?beer=Code Blue
         "evening_avg_sold": "69.0000",
         "morning_avg_sold": "22.1429",
         "night_avg_sold": "52.6429"
+    }
+]
+```
+
+---
+
+---
+**URL: /v1/bartender**
+
+- Description: Will return all bartenders that are found in the bartender table
+- request type: GET
+
+### Request: 
+```
+{
+}
+```
+### Response: 
+```
+[
+  {
+        "name": String,
+        "phone": String,
+        "state": String
+    }
+]
+```
+
+### Example request: 
+```
+{
+}
+```
+### Example response: 
+```
+[
+    {
+        "name": "Aaron Allen",
+        "phone": "883-576-1442",
+        "state": "FL"
+    },
+    {
+        "name": "Aaron Bundy",
+        "phone": "775-363-1039",
+        "state": "NJ"
+    }
+]
+```
+
+---
+
+---
+**URL: /v1/bartender/shifts/past**
+
+- Description: Gets all shifts a given bartender has had in the past at a given bar
+- request type: GET
+
+### Request: 
+```
+params:
+    bartender = "name of bartender"
+    bar = "name of bar"
+```
+### Response: 
+```
+[
+    {
+        "day": String,
+        "end": String,
+        "start": String
+    }
+]
+```
+
+### Example request: 
+```
+baseURL/v1/bartender/shifts/past?bartender=Alice Fico&bar=Latino Magpie
+```
+### Example response: 
+```
+[
+    {
+        "day": "Monday",
+        "end": "23:15",
+        "start": "15:00"
+    },
+    {
+        "day": "Tuesday",
+        "end": "14:50",
+        "start": "11:00"
+    }
+]
+```
+
+---
+
+---
+**URL: /v1/bartender/sold/beer/brands**
+
+- Description: Gets how many beers of each brand/manufacturer a given bartender sold at a given bar
+- request type: GET
+
+### Request: 
+```
+params:
+    bartender = "name of bartender"
+    bar = "name of bar"
+```
+### Response: 
+```
+[
+    {
+        "name": String,
+        "total": String
+    }
+]
+```
+
+### Example request: 
+```
+baseURL/v1/bartender/sold/beer/brands?bartender=Alice Fico&bar=Latino Magpie
+```
+### Example response: 
+```
+[
+   {
+        "name": "Carlsberg",
+        "total": "44"
+    },
+    {
+        "name": "China Resources Snow Breweries",
+        "total": "21"
+    }
+]
+```
+
+---
+
+---
+**URL: /v1/bartender/rank/sold/beers**
+
+- Description: Ranks the bartenders at a given bar by total number of beers sold on a given day of the week and a given shift. The bartender must be working for the entirety of the shift to be included.
+- request type: GET
+
+### Request: 
+```
+params:
+    startTime = "time when the shift starts"
+    endTime = "time when the shift ends"
+    day = "day of the week"
+    bar = "name of bar"
+```
+### Response: 
+```
+[
+    {
+        "name": String,
+        "total": String
+    }
+]
+```
+
+### Example request: 
+```
+baseURL/v1/bartender/rank/sold/beers?bar=Latino Magpie&day=Monday&startTime=20:00&endTime=22:00
+```
+### Example response: 
+```
+[
+    {
+        "name": "Alice Fico",
+        "total": "11"
+    },
+    {
+        "name": "Cindy Laso",
+        "total": "7"
+    }
+]
+```
+
+---
+
+---
+**URL: /v1/manufacturer**
+
+- Description: Will return all manufacturers that are found in the beer table
+- request type: GET
+
+### Request: 
+```
+{
+}
+```
+### Response: 
+```
+[
+    {
+        "name": String
+    }
+]
+```
+
+### Example request: 
+```
+{
+}
+```
+### Example response: 
+```
+[
+    {
+        "name": "Groupe Castel"
+    },
+    {
+        "name": "China Resources Snow Breweries"
+    }
+]
+```
+
+---
+
+---
+**URL: /v1/manufacturer/beers**
+
+- Description: Will return all beers that are made by a given manufacturer
+- request type: GET
+
+### Request: 
+```
+params:
+    manf = "name of manufacturer"
+```
+### Response: 
+```
+[
+    {
+        "name": String
+    }
+]
+```
+
+### Example request: 
+```
+baseURL/v1/manufacturer/beers?manf=kirin
+```
+### Example response: 
+```
+[
+    {
+        "name": "Amstel Lager"
+    },
+    {
+        "name": "Amstel Lentebock"
+    }
+]
+```
+
+---
+
+---
+**URL: /v1/manufacturer/sales/lastweek/top/states**
+
+- Description: Will return the top 10 states where a given manufacturer had the highest sales (sold largest number of their beers) in the last week
+- request type: GET
+
+### Request: 
+```
+params:
+    manf = "name of manufacturer"
+```
+### Response: 
+```
+[
+    {
+        "name": String,
+        "total": String
+    }
+]
+```
+
+### Example request: 
+```
+baseURL/v1/manufacturer/sales/lastweek/top/states?manf=kirin
+```
+### Example response: 
+```
+[
+    {
+        "name": "CO",
+        "total": "604"
+    },
+    {
+        "name": "ND",
+        "total": "601"
+    }
+]
+```
+
+---
+
+---
+**URL: /v1/manufacturer/liked/top/states**
+
+- Description: Will return the top 10 states where the beers of a given manufacturer are liked the most
+- request type: GET
+
+### Request: 
+```
+params:
+    manf = "name of manufacturer"
+```
+### Response: 
+```
+[
+    {
+        "name": String,
+        "total": String
+    }
+]
+```
+
+### Example request: 
+```
+baseURL/v1/manufacturer/liked/top/states?manf=kirin
+```
+### Example response: 
+```
+[
+    {
+        "name": "AK",
+        "total": "76"
+    },
+    {
+        "name": "WI",
+        "total": "70"
     }
 ]
 ```
