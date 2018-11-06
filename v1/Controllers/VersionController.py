@@ -5,4 +5,4 @@ versionController = Blueprint('versionController', __name__)
 
 @versionController.route('', methods=['GET'])
 def version():
-    return jsonify({"version": "0.1.2","date_time" : str((datetime.datetime.utcnow() - datetime.timedelta(hours=4))) })
+    return jsonify({"version": "0.1.3","date_time" : str((datetime.datetime.utcnow() - datetime.timedelta(hours=4))) })
