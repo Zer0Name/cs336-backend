@@ -47,7 +47,7 @@ class BarRepo(SQL.SQL_table):
 
 
 	def getSaleDistributionDays(self,bar):
-		sql = "SELECT b.day AS period, COUNT(b.bill_id) AS num_bills \
+		sql = "SELECT b.day AS period, COUNT(b.bill_id) AS amount \
 				FROM (SELECT * \
 				FROM Bills \
 				WHERE bar = \""+str(bar)+"\") b \
