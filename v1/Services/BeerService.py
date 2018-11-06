@@ -11,3 +11,9 @@ def getBarsWhichSoldTheMost(beer):
     beerRepo = BeerRepo.BeerRepo()
     results = beerRepo.getBarsWhichSoldTheMost(beer)
     return  jsonify([e.toJson() for e in results])
+
+
+def getBiggestConsumers(beer):
+    beerRepo = BeerRepo.BeerRepo()
+    results = beerRepo.getBiggestConsumers(beer)
+    return  jsonify([e.toJson() for e in results])

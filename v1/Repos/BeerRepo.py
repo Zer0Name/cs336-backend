@@ -38,3 +38,20 @@ class BeerRepo(SQL.SQL_table):
 			result.append(quantityDTO)
 		self.close()
 		return result
+
+
+	def getBiggestConsumers(self,beer):
+		sql = "SELECT drinker as name, SUM(quantity) AS amount\
+				FROM Transactions \
+				WHERE item = \""+str(beer)+"\" \
+				GROUP BY drinker \
+				ORDER BY amount DESC \
+				LIMIT 10;"
+		items = self.query(sql)
+		result = []
+		for item in items:
+			quantityDTO = QuantityDTO()
+			quantityDTO.map(item)
+			result.append(quantityDTO)
+		self.close()
+		return result

@@ -11,9 +11,12 @@ def getAllBeers():
     return beerService.getAllBeers()
 
 
-@beerController.route('/biggest/consumes', methods=['GET'])
+@beerController.route('/biggest/consumers', methods=['GET'])
 def getBiggestConsumers():
-    return "finish"
+    beer = str(request.args.get('beer'))
+    if variable.isEmpty(beer):
+        raise InvalidInfo("beer not provided") 
+    return beerService.getBiggestConsumers(beer)
 
 @beerController.route('/sold/most', methods=['GET'])
 def getBarsWhichSoldTheMost():
