@@ -6,6 +6,12 @@ from v1.Exceptions.InvalidInfo import InvalidInfo
 
 barController = Blueprint('barController', __name__)
 
+
+@barController.route('', methods=['GET'])
+def getAllBars():
+    return barService.getAllBars()
+
+
 @barController.route('/beer/top', methods=['GET'])
 def topBeer():
     bar = str(request.args.get('bar'))

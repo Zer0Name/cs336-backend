@@ -1,6 +1,7 @@
 import v1.Repos.SQL as SQL
 
 from v1.DTO.QuantityDTO import QuantityDTO
+from v1.Entity.Bar import Bar
 
 from v1.DTO.DistributionDTO import DistributionDTO
 
@@ -11,7 +12,9 @@ class BarRepo(SQL.SQL_table):
 		super(BarRepo, self).__init__()
 
 	def getAllBars(self):
-		pass
+		sql = "Select * from Bar"
+		items = self.query(sql,Bar)
+		return items
 
 
 	def getbarTopBeerBrand(self,bar,dayOfWeek):
