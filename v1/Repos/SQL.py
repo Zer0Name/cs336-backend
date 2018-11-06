@@ -22,14 +22,20 @@ class SQL_table(object):
 		return mydb
 
 
-	def query(self,sql_query):
+	def query(self,sql_query,Obj):
 		self.cursor.execute(sql_query)
 		myresult = self.cursor.fetchall()
 		result = []
 		columns = tuple( [d[0].decode('utf8') for d in self.cursor.description] )
 		for row in myresult:
 			result.append(dict(zip(columns, row)))
-		return result
+		final_results = []
+		for item in result:
+			obj = Obj()
+			obj.map(item)
+			final_results.append(obj)
+		self.close()
+		return final_results
 
 		
 

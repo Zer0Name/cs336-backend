@@ -1,14 +1,18 @@
 import v1.Repos.SQL as SQL
 
 from v1.DTO.QuantityDTO import QuantityDTO
-from v1.DTO.BarTopBeerBrandDTO import BarTopBeerBrandDTO
-from v1.DTO.SaleDistribution import SaleDistribution
+
+from v1.DTO.DistributionDTO import DistributionDTO
 
 
 class BarRepo(SQL.SQL_table):
 	
 	def __init__(self):
 		super(BarRepo, self).__init__()
+
+	def getAllBars(self):
+		pass
+
 
 	def getbarTopBeerBrand(self,bar,dayOfWeek):
 		sql = "SELECT manf, SUM(quantity) AS quantity \
@@ -22,14 +26,8 @@ class BarRepo(SQL.SQL_table):
 				GROUP BY manf \
 				ORDER BY quantity DESC \
 				LIMIT 10;"
-		items = self.query(sql)
-		result = []
-		for item in items:
-			barTopBeerBrandDTO = BarTopBeerBrandDTO()
-			barTopBeerBrandDTO.map(item)
-			result.append(barTopBeerBrandDTO)
-		self.close()
-		return result
+		items = self.query(sql,QuantityDTO)
+		return items
 
 
 	def getTopLargestSpenders(self,bar):
@@ -40,14 +38,8 @@ class BarRepo(SQL.SQL_table):
 				GROUP BY b.drinker \
 				ORDER BY amount_spent DESC \
 				LIMIT 10; "
-		items = self.query(sql)
-		result = []
-		for item in items:
-			quantityDTO = QuantityDTO()
-			quantityDTO.map(item)
-			result.append(quantityDTO)
-		self.close()
-		return result
+		items = self.query(sql,QuantityDTO)
+		return items
 
 
 	def getSaleDistributionDays(self,bar):
@@ -57,12 +49,6 @@ class BarRepo(SQL.SQL_table):
 				WHERE bar = \""+str(bar)+"\") b \
 				GROUP BY b.day \
 				ORDER BY dayofweek(b.date);"
-		items = self.query(sql)
-		result = []
-		for item in items:
-			saleDistribution = SaleDistribution()
-			saleDistribution.map(item)
-			result.append(saleDistribution)
-		self.close()
-		return result
+		items = self.query(sql,DistributionDTO)
+		return items
 

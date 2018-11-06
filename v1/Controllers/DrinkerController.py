@@ -10,7 +10,6 @@ from v1.Exceptions.InvalidInfo import InvalidInfo
 
 drinkerController = Blueprint('drinkerController', __name__)
 
-
 @drinkerController.route('', methods=['GET'])
 def getAllDrinkers():
     return drinkerService.getAllDrinkers()

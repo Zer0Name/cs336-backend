@@ -12,14 +12,8 @@ class BeerRepo(SQL.SQL_table):
 	
 	def getAllBeers(self):
 		sql = "Select * from Beer"
-		items = self.query(sql)
-		result = []
-		for item in items:
-			beer = Beer()
-			beer.map(item)
-			result.append(beer)
-		self.close()
-		return result
+		items = self.query(sql,Beer)
+		return items
 
 	def getBarsWhichSoldTheMost(self,beer):
 		sql = "SELECT bar AS name, total_start-total_end AS amount \
@@ -30,14 +24,8 @@ class BeerRepo(SQL.SQL_table):
 				GROUP BY bar) s \
 				ORDER BY amount \
 				LIMIT 10"
-		items = self.query(sql)
-		result = []
-		for item in items:
-			quantityDTO = QuantityDTO()
-			quantityDTO.map(item)
-			result.append(quantityDTO)
-		self.close()
-		return result
+		items = self.query(sql,QuantityDTO)
+		return items
 
 
 	def getBiggestConsumers(self,beer):
@@ -47,11 +35,5 @@ class BeerRepo(SQL.SQL_table):
 				GROUP BY drinker \
 				ORDER BY amount DESC \
 				LIMIT 10;"
-		items = self.query(sql)
-		result = []
-		for item in items:
-			quantityDTO = QuantityDTO()
-			quantityDTO.map(item)
-			result.append(quantityDTO)
-		self.close()
-		return result
+		items = self.query(sql,QuantityDTO)
+		return items

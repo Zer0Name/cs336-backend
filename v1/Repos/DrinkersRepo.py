@@ -1,9 +1,8 @@
 import v1.Repos.SQL as SQL
 from v1.Entity.Drinker import Drinker
 from v1.DTO.DrinkerTransactionDTO import DrinkerTransactionDTO
-from v1.DTO.DrinkerTopBeerDTO import DrinkerTopBeerDTO
 from v1.DTO.QuantityDTO import QuantityDTO
-from v1.DTO.DrinkerSpendingByTimeDTO import DrinkerSpendingByTimeDTO
+from v1.DTO.DistributionDTO import DistributionDTO
 
 class DrinkerRepo(SQL.SQL_table):
 	
@@ -12,14 +11,8 @@ class DrinkerRepo(SQL.SQL_table):
 
 	def getAllDrinkers(self):
 		sql = "Select * from Drinker"
-		items = self.query(sql)
-		result = []
-		for item in items:
-			drinker = Drinker()
-			drinker.map(item)
-			result.append(drinker)
-		self.close()
-		return result
+		items = self.query(sql,Drinker)
+		return items
 
 	def getDrinkerTransactions(self,drinker):
 		sql = "SELECT b.bar AS bar, b.date AS date, b.time, b.bill_id AS bill_id,\
@@ -31,18 +24,12 @@ class DrinkerRepo(SQL.SQL_table):
 				GROUP BY b.bar, b.date, t.item \
 				ORDER BY b.date DESC, b.time DESC; \
 				"
-		items = self.query(sql)
-		result = []
-		for item in items:
-			drinkerTransactionDTO = DrinkerTransactionDTO()
-			drinkerTransactionDTO.map(item)
-			result.append(drinkerTransactionDTO)
-		self.close()
-		return result
+		items = self.query(sql,DrinkerTransactionDTO)
+		return items
 
 	def getDrinkerTopBeer(self,drinker):
 		sql =  "SELECT \
-				t.item AS beer, SUM(t.quantity) AS quantity \
+				t.item AS name, SUM(t.quantity) AS amount \
 				FROM Transactions t, (SELECT *  \
 				FROM Bills \
 				WHERE drinker = \""+str(drinker)+"\") b \
@@ -51,14 +38,8 @@ class DrinkerRepo(SQL.SQL_table):
 				ORDER BY quantity DESC \
 				LIMIT 5; \
 				"
-		items = self.query(sql)
-		result = []
-		for item in items:
-			drinkerTopBeerDTO = DrinkerTopBeerDTO()
-			drinkerTopBeerDTO.map(item)
-			result.append(drinkerTopBeerDTO)
-		self.close()
-		return result	
+		items = self.query(sql,QuantityDTO)
+		return items	
 
 	def getDrinkerBarSpending(self,drinker):
 		sql =  "SELECT 	b.bar AS name, SUM(b.total_price) AS amount \
@@ -66,14 +47,8 @@ class DrinkerRepo(SQL.SQL_table):
 				FROM Bills \
 				WHERE drinker = \""+str(drinker)+"\") b \
 				GROUP BY b.bar;"
-		items = self.query(sql)
-		result = []
-		for item in items:
-			quantityDTO = QuantityDTO()
-			quantityDTO.map(item)
-			result.append(quantityDTO)
-		self.close()
-		return result	
+		items = self.query(sql,QuantityDTO)
+		return items	
 
 	def getDrinkerSpendingByDay(self,drinker):
 		sql =  "SELECT b.date AS period, SUM(b.total_price) AS amount_spent \
@@ -81,14 +56,8 @@ class DrinkerRepo(SQL.SQL_table):
 				FROM Bills \
 				WHERE drinker = \""+str(drinker)+"\") b \
 				GROUP BY b.date;"
-		items = self.query(sql)
-		result = []
-		for item in items:
-			drinkerSpendingByTimeDTO = DrinkerSpendingByTimeDTO()
-			drinkerSpendingByTimeDTO.map(item)
-			result.append(drinkerSpendingByTimeDTO)
-		self.close()
-		return result	
+		items = self.query(sql,DistributionDTO)
+		return items	
 
 	def getDrinkerSpendingByWeek(self,drinker):
 		sql = "SELECT week(b.date) AS period, SUM(b.total_price) AS amount_spent \
@@ -97,14 +66,8 @@ class DrinkerRepo(SQL.SQL_table):
 				WHERE drinker = \""+str(drinker)+"\") b \
 				GROUP BY period;"
 
-		items = self.query(sql)
-		result = []
-		for item in items:
-			drinkerSpendingByTimeDTO = DrinkerSpendingByTimeDTO()
-			drinkerSpendingByTimeDTO.map(item)
-			result.append(drinkerSpendingByTimeDTO)
-		self.close()
-		return result	
+		items = self.query(sql,DistributionDTO)
+		return items	
 
 	def getDrinkerSpendingByMonth(self,drinker):
 		sql = "SELECT monthname(b.date) AS period, SUM(b.total_price) AS amount_spent \
@@ -113,11 +76,5 @@ class DrinkerRepo(SQL.SQL_table):
 				WHERE drinker = \""+str(drinker)+"\") b \
 				GROUP BY period;"
 
-		items = self.query(sql)
-		result = []
-		for item in items:
-			drinkerSpendingByTimeDTO = DrinkerSpendingByTimeDTO()
-			drinkerSpendingByTimeDTO.map(item)
-			result.append(drinkerSpendingByTimeDTO)
-		self.close()
-		return result	
+		items = self.query(sql,DistributionDTO)
+		return items	
