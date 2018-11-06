@@ -1,5 +1,6 @@
 import mysql.connector
 
+from v1.Exceptions.Error import Error
 
 class SQL_table(object):
 	def __init__(self):
@@ -23,8 +24,12 @@ class SQL_table(object):
 
 
 	def query(self,sql_query,Obj):
-		self.cursor.execute(sql_query)
-		myresult = self.cursor.fetchall()
+		try:
+			self.cursor.execute(sql_query)
+			myresult = self.cursor.fetchall()
+		except mysql.connector.Error as err:
+			self.close()
+			raise Error(err.msg)
 		result = []
 		columns = tuple( [d[0].decode('utf8') for d in self.cursor.description] )
 		for row in myresult:
@@ -37,5 +42,37 @@ class SQL_table(object):
 		self.close()
 		return final_results
 
+
+	def insert(self,sql,vals):
+		try:
+			self.cursor.execute(sql,vals)
+		except mysql.connector.Error as err:
+			self.close()
+			raise Error(err.msg)
+		self.mydb.commit()
+		self.close()
+		return "Success"
+
+
+	def update(self,sql,vals):
+		try:
+			self.cursor.execute(sql,vals)
+		except mysql.connector.Error as err:
+			self.close()
+			raise Error(err.msg)
+		self.mydb.commit()
+		self.close()
+		return "Success"
+
+
+	def delete(self,sql,vals):
+		try:
+			self.cursor.execute(sql,vals)
+		except mysql.connector.Error as err:
+			self.close()
+			raise Error(err.msg)
+		self.mydb.commit()
+		self.close()
+		return "Success"
 		
 

@@ -77,4 +77,20 @@ class DrinkerRepo(SQL.SQL_table):
 				GROUP BY period;"
 
 		items = self.query(sql,PeriodDistributionDTO)
-		return items	
+		return items
+
+	def insertDrinker(self,drinker):
+		sql = "Insert INTO Drinker Values (%s,%s,%s)"
+		vals = (drinker.getName(),drinker.getPhone(),drinker.getState())
+		return self.insert(sql,vals)
+
+
+	def updateDrinker(self,drinker):
+		sql = "UPDATE Drinker SET name = %s, phone = %s, state = %s WHERE name = %s "
+		vals = (drinker.getName(),drinker.getPhone(),drinker.getState(),drinker.getName())
+		return self.update(sql,vals)
+
+	def deleteDrinker(self,drinker):
+		sql = "DELETE FROM Drinker where name = %s "
+		vals = (drinker.getName(),)
+		return self.delete(sql,vals)

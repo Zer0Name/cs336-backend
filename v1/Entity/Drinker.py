@@ -1,6 +1,9 @@
 import random
 import time
 import datetime
+import v1.Util.Variable as variable
+from v1.Exceptions.MissingParamaters import MissingParamaters
+
 class Drinker(object):
 	
 	def __init__(self):
@@ -43,6 +46,18 @@ class Drinker(object):
 		self.phone = None
 		self.state = None
 
+
+	def requestMap(self,request):
+		if variable.isEmpty(request):
+			return "Error"
+		name = str(request.get('name'))
+		phone = str(request.get('phone'))
+		state = str(request.get('state'))
+		if variable.isEmpty(name) or variable.isEmpty(phone) or variable.isEmpty(state):
+			raise MissingParamaters("Missing parameter")
+		self.setName(name)
+		self.setPhone(phone)
+		self.setState(state)
 
 
 	def __str__(self):
