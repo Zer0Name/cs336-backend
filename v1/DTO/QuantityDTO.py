@@ -2,7 +2,7 @@ import random
 import time
 import datetime
 
-class SpendingDTO(object):
+class QuantityDTO(object):
 	
 	def __init__(self):
 		self.total = None
@@ -16,7 +16,7 @@ class SpendingDTO(object):
 		}
 		
 	def map(self, data):
-		self.total = str(data["amount_spent"])
+		self.total = str(data["amount"])
 		self.name = str(data["name"])
 
 	# def __str__(self):
