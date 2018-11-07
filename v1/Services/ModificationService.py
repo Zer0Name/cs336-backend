@@ -19,9 +19,9 @@ checks to make:
 No drinker can have the same name
 check is implemented in table
 '''
-def updateDrinker(drinker):
+def updateDrinker(drinker,oldName):
 	drinkerRepo = DrinkerRepo.DrinkerRepo()
-	return drinkerRepo.updateDrinker(drinker)
+	return drinkerRepo.updateDrinker(drinker,oldName)
 
 ''' no check cascade should be handled by table '''
 def deleteDrinker(drinker):
@@ -32,6 +32,6 @@ def deleteDrinker(drinker):
 # --------------------- BEER ------------------------------
 
 def insertBeer(beer):
-	pass
-
+	beerRepo = BeerRepo.BeerRepo()
+	return beerRepo.
 
