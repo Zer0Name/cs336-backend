@@ -88,9 +88,9 @@ class DrinkerRepo(SQL.SQL_table):
 		return self.insert(sql,vals)
 
 
-	def updateDrinker(self,drinker):
+	def updateDrinker(self,drinker,oldName):
 		sql = "UPDATE Drinker SET name = %s, phone = %s, state = %s WHERE name = %s "
-		vals = (drinker.getName(),drinker.getPhone(),drinker.getState(),drinker.getName())
+		vals = (drinker.getName(),drinker.getPhone(),drinker.getState(),oldName)
 		return self.update(sql,vals)
 
 	def deleteDrinker(self,drinker):

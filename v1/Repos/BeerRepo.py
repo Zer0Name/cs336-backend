@@ -85,3 +85,4 @@ class BeerRepo(SQL.SQL_table):
 			GROUP BY b1.date) s) n;" 
 		items = self.query(sql,TimeDistributionDTO)
 		return items
+
