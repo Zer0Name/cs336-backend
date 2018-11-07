@@ -14,6 +14,9 @@ class DrinkerRepo(SQL.SQL_table):
 		items = self.query(sql,Drinker)
 		return items
 
+	def insertDrinker(self, drinker):
+		sql = "INSERT INTO Drinker (name, phone, state) VALUES ("
+
 	def getDrinkerTransactions(self,drinker):
 		sql = "SELECT b.bar AS bar, b.date AS date, b.time, b.bill_id AS bill_id,\
 				t.item AS item, t.quantity AS quantity, t.price AS price\

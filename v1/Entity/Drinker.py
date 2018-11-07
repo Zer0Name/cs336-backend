@@ -59,6 +59,6 @@ class Drinker(object):
 		self.setPhone(phone)
 		self.setState(state)
 
-
 	def __str__(self):
-		return "name = %s, phone = %s, state = %s" % (self.getName(),self.getPhone(),self.getState() )
+		return "name = %s, phone = %s, state = %s" % (self.getName(),self.getPhone(),self.getState())
+	
