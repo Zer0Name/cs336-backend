@@ -14,9 +14,6 @@ class DrinkerRepo(SQL.SQL_table):
 		items = self.query(sql,Drinker)
 		return items
 
-	def insertDrinker(self, drinker):
-		sql = "INSERT INTO Drinker (name, phone, state) VALUES ("
-
 	def getDrinkerTransactions(self,drinker):
 		sql = "SELECT b.bar AS bar, b.date AS date, b.time, b.bill_id AS bill_id,\
 				t.item AS item, t.quantity AS quantity, t.price AS price\
@@ -83,7 +80,7 @@ class DrinkerRepo(SQL.SQL_table):
 		return items
 
 	def insertDrinker(self,drinker):
-		sql = "Insert INTO Drinker Values (%s,%s,%s)"
+		sql = "INSERT INTO Drinker VALUES (%s,%s,%s)"
 		vals = (drinker.getName(),drinker.getPhone(),drinker.getState())
 		return self.insert(sql,vals)
 
@@ -94,6 +91,6 @@ class DrinkerRepo(SQL.SQL_table):
 		return self.update(sql,vals)
 
 	def deleteDrinker(self,drinker):
-		sql = "DELETE FROM Drinker where name = %s "
-		vals = (drinker.getName(),)
+		sql = "DELETE FROM Drinker WHERE name = %s "
+		vals = (drinker.getName())
 		return self.delete(sql,vals)

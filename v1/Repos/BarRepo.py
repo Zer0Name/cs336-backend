@@ -114,3 +114,19 @@ class BarRepo(SQL.SQL_table):
 
 		items = self.query(sql,TimeDistributionDTO)
 		return items
+
+	def insertBar(self,bar):
+		sql = "INSERT INTO Bar VALUES (%s,%s,%s)"
+		vals = (bar.getName(),bar.getState())
+		return self.insert(sql,vals)
+
+
+	def updateBar(self,bar,oldName):
+		sql = "UPDATE Bar SET name = %s, state = %s WHERE name = %s "
+		vals = (bar.getName(), bar.getState(), oldName)
+		return self.update(sql,vals)
+
+	def deleteBar(self,bar):
+		sql = "DELETE FROM Bar WHERE name = %s "
+		vals = (bar.getName())
+		return self.delete(sql,vals)
