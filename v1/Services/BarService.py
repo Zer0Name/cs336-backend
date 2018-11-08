@@ -18,8 +18,6 @@ def getTopLargestSpenders(bar):
     results = barRepo.getTopLargestSpenders(bar)
     return  jsonify([e.toJson() for e in results])
 
-
-
 def getSaleDistributionDays(bar):
     barRepo = BarRepo.BarRepo()
     results = barRepo.getSaleDistributionDays(bar)
@@ -29,3 +27,26 @@ def getTimeDistrubition(bar):
     barRepo = BarRepo.BarRepo()
     results = barRepo.getTimeDistrubition(bar)
     return  jsonify([e.toJson() for e in results])
+
+'''
+checks to make:
+No bar can have the same name
+check is implemented in table
+'''
+def insertBar(bar):
+	barRepo = BarRepo.BarRepo()
+	return barRepo.insertBar(bar)
+
+'''
+checks to make:
+No bar can have the same name
+check is implemented in table
+'''
+def updateBar(bar,oldName):
+	barRepo = BarRepo.BarRepo()
+	return barRepo.updateBar(bar,oldName)
+
+''' no check cascade should be handled by table '''
+def deleteBar(bar):
+	barRepo = BarRepo.BarRepo()
+	return barRepo.deleteBar(bar)

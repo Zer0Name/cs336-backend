@@ -5,11 +5,12 @@ from v1.Exceptions.MissingParamaters import MissingParamaters
 
 import v1.Services.ModificationService as modificationService
 import v1.Services.BeerService as beerService
+import v1.Services.BarService as barService
+import v1.Services.DrinkerService as drinkerService
 
 from v1.Entity.Drinker import Drinker
 from v1.Entity.Beer import Beer
-
-import v1.Services.DrinkerService as drinkerService
+from v1.Entity.Bar import Bar
 
 modificationController = Blueprint('modificationController', __name__)
 
@@ -60,3 +61,26 @@ def deleteBeer():
 	beer = Beer()
 	beer.requestMap(request.get_json())
 	return beerService.deleteBeer(beer)
+
+# --------------------- BAR ------------------------------
+@modificationController.route('/bar/insert', methods=['POST'])
+def insertBar():
+	bar = Bar()
+	bar.requestMap(request.get_json())
+	return barService.insertBar(bar)
+
+@modificationController.route('/bar/update', methods=['POST'])
+def updateBar():
+	bar = Bar()
+	req = request.get_json()
+	bar.requestMap(req)
+	oldName = str(req.get('old_name'))
+	if variable.isEmpty(oldName) :
+		raise MissingParamaters("Missing parameter")
+	return barService.updateBar(bar,oldName)
+
+@modificationController.route('/bar/delete', methods=['POST'])
+def deleteBar():
+	bar = Bar()
+	bar.requestMap(request.get_json())
+	return barService.deleteBar(bar)
