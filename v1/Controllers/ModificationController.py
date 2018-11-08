@@ -15,6 +15,9 @@ import v1.Services.SellsBeerService as sellsBeerService
 import v1.Services.SellsFoodService as sellsFoodService
 import v1.Services.OperatesService as operatesService
 import v1.Services.InventoryService as inventoryService
+import v1.Services.TransactionsService as transactionsService
+import v1.Services.BillsService as billsService
+import v1.Services.ShiftsService as shiftsService
 
 
 from v1.Entity.Drinker import Drinker
@@ -29,6 +32,9 @@ from v1.Entity.SellsBeer import SellsBeer
 from v1.Entity.SellsFood import SellsFood
 from v1.Entity.Operates import Operates
 from v1.Entity.Inventory import Inventory
+from v1.Entity.Transactions import Transactions
+from v1.Entity.Bills import Bills
+from v1.Entity.Shifts import Shifts
 
 
 modificationController = Blueprint('modificationController', __name__)
