@@ -19,12 +19,12 @@ class FrequentsRepo(SQL.SQL_table):
 
 
 	def updateFrequents(self,frequents,oldDrinker, oldBar):
-		sql = "UPDATE Frequents SET drinker = %s, bar = %s WHERE drinker = %s, bar = %s "
+		sql = "UPDATE Frequents SET drinker = %s, bar = %s WHERE drinker = %s and bar = %s "
 		vals = (frequents.getDrinker(),frequents.getBar(), oldDrinker, oldBar)
 		return self.update(sql,vals)
 
 	def deleteFrequents(self,frequents):
-		sql = "DELETE FROM Frequents WHERE drinker = %s, bar = %s "
+		sql = "DELETE FROM Frequents WHERE drinker = %s and bar = %s "
 		vals = (frequents.getDrinker(),frequents.getBar())
 		return self.delete(sql,vals)
 
