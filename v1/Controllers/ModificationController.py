@@ -4,6 +4,7 @@ import v1.Util.Variable as variable
 from v1.Exceptions.MissingParamaters import MissingParamaters
 
 import v1.Services.ModificationService as modificationService
+import v1.Services.BeerService as beerService
 
 from v1.Entity.Drinker import Drinker
 from v1.Entity.Beer import Beer
@@ -40,12 +41,20 @@ def deleteDrinker():
 def insertBeer():
 	beer = Beer()
 	beer.requestMap(request.get_json())
-	modificationService.insertBeer(beer)
+	return beerService.insertBeer(beer)
 
 @modificationController.route('/beer/update', methods=['POST'])
 def updateBeer():
-	pass
+	beer = Beer()
+	req = request.get_json()
+	beer.requestMap(req)
+	oldName = str(req.get('old_name'))
+	if variable.isEmpty(oldName) :
+		raise MissingParamaters("Missing parameter")
+	return beerService.updateBeer(beer,oldName)
 
 @modificationController.route('/beer/delete', methods=['POST'])
 def deleteBeer():
-	pass
+	beer = Beer()
+	beer.requestMap(request.get_json())
+	return beerService.deleteBeer(beer)

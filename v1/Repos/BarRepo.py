@@ -116,7 +116,7 @@ class BarRepo(SQL.SQL_table):
 		return items
 
 	def insertBar(self,bar):
-		sql = "INSERT INTO Bar VALUES (%s,%s,%s)"
+		sql = "INSERT INTO Bar (name, state) VALUES (%s,%s)"
 		vals = (bar.getName(),bar.getState())
 		return self.insert(sql,vals)
 
@@ -128,5 +128,5 @@ class BarRepo(SQL.SQL_table):
 
 	def deleteBar(self,bar):
 		sql = "DELETE FROM Bar WHERE name = %s "
-		vals = (bar.getName())
+		vals = (bar.getName(),)
 		return self.delete(sql,vals)
