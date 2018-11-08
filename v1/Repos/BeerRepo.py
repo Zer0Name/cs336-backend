@@ -86,3 +86,17 @@ class BeerRepo(SQL.SQL_table):
 		items = self.query(sql,TimeDistributionDTO)
 		return items
 
+	def insertBeer(self,Beer):
+		sql = "INSERT INTO Beer (name, manf) VALUES (%s,%s)"
+		vals = (Beer.getName(),Beer.getManf())
+		return self.insert(sql,vals)
+
+	def updateBeer(self,Beer,oldName):
+		sql = "UPDATE Beer SET name = %s, manf = %s WHERE name = %s "
+		vals = (Beer.getName(),Beer.getManf(), oldName)
+		return self.update(sql,vals)
+
+	def deleteBeer(self,Beer):
+		sql = "DELETE FROM Beer WHERE name = %s "
+		vals = (Beer.getName(),)
+		return self.delete(sql,vals)
