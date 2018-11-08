@@ -14,6 +14,7 @@ import v1.Services.LikesService as likesService
 import v1.Services.SellsBeerService as sellsBeerService
 import v1.Services.SellsFoodService as sellsFoodService
 import v1.Services.OperatesService as operatesService
+import v1.Services.InventoryService as inventoryService
 
 
 from v1.Entity.Drinker import Drinker
@@ -27,6 +28,7 @@ from v1.Entity.Likes import Likes
 from v1.Entity.SellsBeer import SellsBeer
 from v1.Entity.SellsFood import SellsFood
 from v1.Entity.Operates import Operates
+from v1.Entity.Inventory import Inventory
 
 
 modificationController = Blueprint('modificationController', __name__)
@@ -290,3 +292,28 @@ def deleteOperates():
 	operates = Operates()
 	operates.requestMap(request.get_json())
 	return operatesService.deleteOperates(operates)
+
+# --------------------- INVENTORY ------------------------------
+@modificationController.route('/inventory/insert', methods=['POST'])
+def insertInventory():
+	inventory = Inventory()
+	inventory.requestMap(request.get_json())
+	return inventoryService.insertInventory(inventory)
+
+@modificationController.route('/inventory/update', methods=['POST'])
+def updateInventory():
+	inventory = Inventory()
+	req = request.get_json()
+	operates.requestMap(req)
+	oldBar = str(req.get('old_bar'))
+	oldDate = str(req.get('old_date'))
+	oldBeer = str(req.get('old_beer'))
+	if variable.isEmpty(oldBar) or variable.isEmpty(oldDate) or variable.isEmpty(oldBeer):
+		raise MissingParamaters("Missing parameter")
+	return inventoryService.updateInventory(inventory, oldDate, oldBar, oldBeer)
+
+@modificationController.route('/inventory/delete', methods=['POST'])
+def deleteInventory():
+	inventory = Inventory()
+	inventory.requestMap(request.get_json())
+	return inventoryService.deleteInventory(inventory)

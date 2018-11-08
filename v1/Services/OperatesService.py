@@ -31,7 +31,11 @@ def updateOperates(operates,oldDay, oldBar):
 	operatesRepo = OperatesRepo.OperatesRepo()
 	return operatesRepo.updateOperates(operates, oldDay, oldBar)
 
-''' no check cascade should be handled by table '''
+''' 
+checks:
+past transactions and shifts shouldn't be affected
+no bartender works during those hours
+'''
 def deleteOperates(operates):
 	operatesRepo = OperatesRepo.OperatesRepo()
 	return operatesRepo.deleteOperates(operates)

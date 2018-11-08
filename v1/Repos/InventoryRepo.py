@@ -14,9 +14,19 @@ class InventoryRepo(SQL.SQL_table):
 		return items
 
 	def insertInventory(self,inventory):
-		sql = "INSERT INTO Inventory (bar, beer, date, startquantity, endquantity )VALUES (%s,%s,%s,%s,%s)"
+		sql = "INSERT INTO Inventory (bar, beer, date, startquantity, endquantity) VALUES (%s,%s,%s,%s,%s)"
 		vals = (inventory.getBar(),inventory.getBeer(),inventory.getDate(),inventory.getStartQuantity(),inventory.getEndQuantity())
 		return self.insert(sql,vals)
+
+	def updateInventory(self,inventory,oldDate, oldBar, oldBeer):
+		sql = "UPDATE Inventory SET bar = %s, beer = %s, date = %s, startquantity = %s, endquantity = %s WHERE bar = %s and date = %s and beer= %s "
+		vals = (inventory.getBar(), inventory.getBeer(), inventory.getDate(), inventory.getStartQuantity(), inventory.getEndQuantity(), oldBar, oldDate, oldBeer)
+		return self.update(sql,vals)
+
+	def deleteInventory(self,inventory):
+		sql = "DELETE FROM Inventory WHERE bar = %s and date = %s and beer= %s "
+		vals = (inventory.getBar(), inventory.getBeer(), inventory.getDate())
+		return self.delete(sql,vals)
 
 	def getAllInventoryFromYesterday(self):
 		num = 1

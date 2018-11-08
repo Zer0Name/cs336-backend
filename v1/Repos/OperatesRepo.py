@@ -25,7 +25,7 @@ class OperatesRepo(SQL.SQL_table):
 
 	def updateOperates(self,operates,oldDay, oldBar):
 		sql = "UPDATE Operates SET bar = %s, day = %s, start = %s, end = %s WHERE bar = %s and day = %s "
-		vals = (operates.getBar(),operates.getDay(), operates.getStart(), operates.getEnd(), oldDay, oldBar)
+		vals = (operates.getBar(),operates.getDay(), operates.getStart(), operates.getEnd(), oldBar, oldDay)
 		return self.update(sql,vals)
 
 	def deleteOperates(self,operates):
