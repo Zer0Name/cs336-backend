@@ -2,6 +2,7 @@ from flask import Flask, jsonify, Blueprint, request, json, make_response
 import datetime
 import v1.Util.Variable as variable
 import v1.Services.BarService as barService
+import v1.Services.OperatesService as operatesService
 from v1.Exceptions.InvalidInfo import InvalidInfo
 
 barController = Blueprint('barController', __name__)
@@ -10,6 +11,13 @@ barController = Blueprint('barController', __name__)
 @barController.route('', methods=['GET'])
 def getAllBars():
     return barService.getAllBars()
+
+@barController.route('/operates', methods=['GET'])
+def getOperatesForBar():
+    bar = str(request.args.get('bar'))
+    if variable.isEmpty(bar):
+        raise InvalidInfo("bar was not provided")
+    return operatesService.getOperatesForBar(bar)
 
 @barController.route('/inventory/fraction', methods=['GET'])
 def getAllFractionsOfInventory():

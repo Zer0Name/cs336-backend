@@ -11,3 +11,8 @@ class OperatesRepo(SQL.SQL_table):
 		sql = "Select * from Operates"
 		items = self.query(sql,Operates)
 		return items
+	
+	def getOperatesForBar(self,bar):
+		sql = "SELECT * FROM Operates WHERE bar = \""+str(bar)+"\""
+		items = self.query(sql,Operates)
+		return items
