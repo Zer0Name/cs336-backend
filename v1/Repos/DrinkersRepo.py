@@ -92,5 +92,5 @@ class DrinkerRepo(SQL.SQL_table):
 
 	def deleteDrinker(self,drinker):
 		sql = "DELETE FROM Drinker WHERE name = %s "
-		vals = (drinker.getName())
+		vals = (drinker.getName(),)
 		return self.delete(sql,vals)

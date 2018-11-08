@@ -8,6 +8,8 @@ import v1.Services.ModificationService as modificationService
 from v1.Entity.Drinker import Drinker
 from v1.Entity.Beer import Beer
 
+import v1.Services.DrinkerService as drinkerService
+
 modificationController = Blueprint('modificationController', __name__)
 
 
@@ -17,7 +19,7 @@ modificationController = Blueprint('modificationController', __name__)
 def insertDrinker():
 	drinker = Drinker()
 	drinker.requestMap(request.get_json())
-	return modificationService.insertDrinker(drinker)
+	return drinkerService.insertDrinker(drinker)
 
 @modificationController.route('/drinker/update', methods=['POST'])
 def updateDrinker():
@@ -27,13 +29,13 @@ def updateDrinker():
 	oldName = str(req.get('old_name'))
 	if variable.isEmpty(oldName) :
 		raise MissingParamaters("Missing parameter")
-	return modificationService.updateDrinker(drinker,oldName)
+	return drinkerService.updateDrinker(drinker,oldName)
 
 @modificationController.route('/drinker/delete', methods=['POST'])
 def deleteDrinker():
 	drinker = Drinker()
 	drinker.requestMap(request.get_json())
-	return modificationService.deleteDrinker(drinker)
+	return drinkerService.deleteDrinker(drinker)
 
 # --------------------- BEER ------------------------------
 @modificationController.route('/beer/insert', methods=['POST'])

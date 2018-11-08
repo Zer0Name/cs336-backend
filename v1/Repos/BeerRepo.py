@@ -89,7 +89,7 @@ class BeerRepo(SQL.SQL_table):
 
 	def insertBeer(self,Beer):
 		sql = "INSERT INTO Beer VALUES (%s,%s)"
-		vals = (Beer.getName(),Beer.getManf(),)
+		vals = (Beer.getName(),Beer.getManf())
 		return self.insert(sql,vals)
 
 	def updateBeer(self,Beer,oldName):
@@ -99,5 +99,5 @@ class BeerRepo(SQL.SQL_table):
 
 	def deleteBeer(self,Beer):
 		sql = "DELETE FROM Beer WHERE name = %s "
-		vals = (Beer.getName())
+		vals = (Beer.getName(),)
 		return self.delete(sql,vals)
