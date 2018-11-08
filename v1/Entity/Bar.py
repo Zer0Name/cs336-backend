@@ -36,7 +36,7 @@ class Bar(object):
 			return "Error"
 		name = str(request.get('name'))
 		state = str(request.get('state'))
-		if variable.isEmpty(name) or variable.isEmpty(manf):
+		if variable.isEmpty(name) or variable.isEmpty(state):
 			raise MissingParamaters("Missing parameter")
 		self.setName(name)
 		self.setState(state)
