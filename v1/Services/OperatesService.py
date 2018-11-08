@@ -3,6 +3,35 @@ import v1.Repos.OperatesRepo as OperatesRepo
 
 
 def getOperatesForBar(bar):
-    operatesRepo = OperatesRepo.OperatesRepo() 
-    results = operatesRepo.getOperatesForBar(bar)
-    return  jsonify([e.toJson() for e in results])
+	operatesRepo = OperatesRepo.OperatesRepo() 
+	results = operatesRepo.getOperatesForBar(bar)
+	return  jsonify([e.toJson() for e in results])
+
+'''
+checks to make:
+no duplicate entries
+bar exists
+day exists
+end time is before 24:00
+start time is before end time
+'''
+def insertOperates(operates):
+	operatesRepo = OperatesRepo.OperatesRepo()
+	return operatesRepo.insertOperates(operates)
+
+'''
+checks to make:
+no duplicate entries
+bar exists
+day exists
+end time is before 24:00
+start time is before end time
+'''
+def updateOperates(operates,oldDay, oldBar):
+	operatesRepo = OperatesRepo.OperatesRepo()
+	return operatesRepo.updateOperates(operates, oldDay, oldBar)
+
+''' no check cascade should be handled by table '''
+def deleteOperates(operates):
+	operatesRepo = OperatesRepo.OperatesRepo()
+	return operatesRepo.deleteOperates(operates)

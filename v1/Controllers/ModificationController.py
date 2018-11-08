@@ -13,6 +13,7 @@ import v1.Services.FrequentsService as frequentsService
 import v1.Services.LikesService as likesService
 import v1.Services.SellsBeerService as sellsBeerService
 import v1.Services.SellsFoodService as sellsFoodService
+import v1.Services.OperatesService as operatesService
 
 
 from v1.Entity.Drinker import Drinker
@@ -25,6 +26,7 @@ from v1.Entity.Frequents import Frequents
 from v1.Entity.Likes import Likes
 from v1.Entity.SellsBeer import SellsBeer
 from v1.Entity.SellsFood import SellsFood
+from v1.Entity.Operates import Operates
 
 
 modificationController = Blueprint('modificationController', __name__)
@@ -264,3 +266,27 @@ def deleteSellsFood():
 	sellsFood = SellsFood()
 	sellsFood.requestMap(request.get_json())
 	return sellsFoodService.deleteSellsFood(sellsFood)
+
+# --------------------- OPERATES ------------------------------
+@modificationController.route('/operates/insert', methods=['POST'])
+def insertOperates():
+	operates = Operates()
+	operates.requestMap(request.get_json())
+	return operatesService.insertOperates(operates)
+
+@modificationController.route('/operates/update', methods=['POST'])
+def updateOperates():
+	operates = Operates()
+	req = request.get_json()
+	operates.requestMap(req)
+	oldBar = str(req.get('old_bar'))
+	oldDay = str(req.get('old_day'))
+	if variable.isEmpty(oldBar) or variable.isEmpty(oldDay):
+		raise MissingParamaters("Missing parameter")
+	return operatesService.updateOperates(operates, oldDay, oldBar)
+
+@modificationController.route('/operates/delete', methods=['POST'])
+def deleteOperates():
+	operates = Operates()
+	operates.requestMap(request.get_json())
+	return operatesService.deleteOperates(operates)
