@@ -74,5 +74,14 @@ class SQL_table(object):
 		self.mydb.commit()
 		self.close()
 		return "Success"
+
+	def insertWithoutClose(self,sql,vals):
+		try:
+			self.cursor.execute(sql,vals)
+		except mysql.connector.Error as err:
+			self.close()
+			raise Error(err.msg)
+		self.mydb.commit()
+		return "Success"
 		
 
