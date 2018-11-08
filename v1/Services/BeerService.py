@@ -22,3 +22,26 @@ def getTimeDistrubition(beer):
     beerRepo = BeerRepo.BeerRepo()
     results = beerRepo.getTimeDistrubition(beer)
     return  jsonify([e.toJson() for e in results])
+
+'''
+checks to make:
+No beer can have the same name
+check is implemented in table
+'''
+def insertBeer(beer):
+	beerRepo = BeerRepo.BeerRepo()
+	return beerRepo.insertBeer(beer)
+
+'''
+checks to make:
+No beer can have the same name
+check is implemented in table
+'''
+def updateBeer(beer,oldName):
+	beerRepo = BeerRepo.BeerRepo()
+	return beerRepo.updateBeer(beer,oldName)
+
+''' no check cascade should be handled by table '''
+def deleteBeer(beer):
+	beerRepo = BeerRepo.BeerRepo()
+	return beerRepo.deleteBeer(beer)
