@@ -19,12 +19,12 @@ class SellsBeerRepo(SQL.SQL_table):
 
 
 	def updateSellsBeer(self,sellsBeer,oldBeer, oldBar):
-		sql = "UPDATE SellsBeer SET beername = %s, barname = %s, price = %s WHERE beername = %s, barname = %s "
+		sql = "UPDATE SellsBeer SET beername = %s, barname = %s, price = %s WHERE beername = %s and barname = %s "
 		vals = (sellsBeer.getBeer(),sellsBeer.getBar(), sellsBeer.getPrice(), oldBeer, oldBar)
 		return self.update(sql,vals)
 
 	def deleteSellsBeer(self,sellsBeer):
-		sql = "DELETE FROM SellsBeer WHERE beername = %s, barname = %s "
+		sql = "DELETE FROM SellsBeer WHERE beername = %s and barname = %s "
 		vals = (sellsBeer.getBeer(),sellsBeer.getBar())
 		return self.delete(sql,vals)
 

@@ -19,11 +19,11 @@ class SellsFoodRepo(SQL.SQL_table):
 
 
 	def updateSellsFood(self,sellsFood,oldFood, oldBar):
-		sql = "UPDATE SellsFood SET foodname = %s, barname = %s, price = %s WHERE foodname = %s, barname = %s "
+		sql = "UPDATE SellsFood SET foodname = %s, barname = %s, price = %s WHERE foodname = %s and barname = %s "
 		vals = (sellsFood.getFood(),sellsFood.getBar(), sellsFood.getPrice(), oldFood, oldBar)
 		return self.update(sql,vals)
 
 	def deleteSellsFood(self,sellsFood):
-		sql = "DELETE FROM SellsFood WHERE foodname = %s, barname = %s "
+		sql = "DELETE FROM SellsFood WHERE foodname = %s and barname = %s "
 		vals = (sellsFood.getFood(),sellsFood.getBar())
 		return self.delete(sql,vals)

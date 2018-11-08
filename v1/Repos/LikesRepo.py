@@ -19,12 +19,12 @@ class LikesRepo(SQL.SQL_table):
 
 
 	def updateLikes(self,likes,oldDrinker, oldBeer):
-		sql = "UPDATE Likes SET drinker = %s, beer = %s WHERE drinker = %s, beer = %s "
+		sql = "UPDATE Likes SET drinker = %s, beer = %s WHERE drinker = %s and beer = %s "
 		vals = (likes.getDrinker(),likes.getBeer(), oldDrinker, oldBeer)
 		return self.update(sql,vals)
 
 	def deleteLikes(self,likes):
-		sql = "DELETE FROM Likes WHERE drinker = %s, beer = %s "
+		sql = "DELETE FROM Likes WHERE drinker = %s and beer = %s "
 		vals = (likes.getDrinker(),likes.getBeer())
 		return self.delete(sql,vals)
 
