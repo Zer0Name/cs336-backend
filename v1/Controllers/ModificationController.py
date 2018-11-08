@@ -8,12 +8,15 @@ import v1.Services.BarService as barService
 import v1.Services.BartenderService as bartenderService
 import v1.Services.DrinkerService as drinkerService
 import v1.Services.BarFoodService as barFoodService
+import v1.Services.DayService as dayService
 
 from v1.Entity.Drinker import Drinker
 from v1.Entity.Beer import Beer
 from v1.Entity.Bar import Bar
 from v1.Entity.Bartender import Bartender
 from v1.Entity.BarFood import BarFood
+from v1.Entity.Day import Day
+
 
 modificationController = Blueprint('modificationController', __name__)
 
@@ -133,3 +136,26 @@ def deleteBarFood():
 	barFood = BarFood()
 	barFood.requestMap(request.get_json())
 	return barFoodService.deleteBarFood(barFood)
+
+# --------------------- DAY ------------------------------
+@modificationController.route('/day/insert', methods=['POST'])
+def insertDay():
+	day = Day()
+	day.requestMap(request.get_json())
+	return dayService.insertDay(day)
+
+@modificationController.route('/day/update', methods=['POST'])
+def updateDay():
+	day = Day()
+	req = request.get_json()
+	day.requestMap(req)
+	oldName = str(req.get('old_name'))
+	if variable.isEmpty(oldName) :
+		raise MissingParamaters("Missing parameter")
+	return dayService.updateDay(day,oldName)
+
+@modificationController.route('/day/delete', methods=['POST'])
+def deleteDay():
+	day = Day()
+	day.requestMap(request.get_json())
+	return dayService.deleteDay(day)

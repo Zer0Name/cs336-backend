@@ -12,18 +12,18 @@ class BarFoodRepo(SQL.SQL_table):
 		items = self.query(sql,BarFood)
 		return items
 
-	def insertBarFood(self,BarFood):
+	def insertBarFood(self,barFood):
 		sql = "INSERT INTO BarFood (name) VALUES (%s)"
-		vals = (BarFood.getName(),)
+		vals = (barFood.getName(),)
 		return self.insert(sql,vals)
 
 
-	def updateBarFood(self,BarFood,oldName):
+	def updateBarFood(self,barFood,oldName):
 		sql = "UPDATE BarFood SET name = %s WHERE name = %s "
-		vals = (BarFood.getName(),oldName)
+		vals = (barFood.getName(),oldName)
 		return self.update(sql,vals)
 
-	def deleteBarFood(self,BarFood):
+	def deleteBarFood(self,barFood):
 		sql = "DELETE FROM BarFood WHERE name = %s "
-		vals = (BarFood.getName(),)
+		vals = (barFood.getName(),)
 		return self.delete(sql,vals)
