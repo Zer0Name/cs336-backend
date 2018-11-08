@@ -1,6 +1,8 @@
 import random
 import time
 import datetime
+import v1.Util.Variable as variable
+from v1.Exceptions.MissingParamaters import MissingParamaters
 class Bar(object):
 	
 	def __init__(self):
@@ -28,6 +30,16 @@ class Bar(object):
 	def map(self, data):
 		self.setName(data["name"])
 		self.setState(data["state"])
+
+	def requestMap(self,request):
+		if variable.isEmpty(request):
+			return "Error"
+		name = str(request.get('name'))
+		state = str(request.get('state'))
+		if variable.isEmpty(name) or variable.isEmpty(state):
+			raise MissingParamaters("Missing parameter")
+		self.setName(name)
+		self.setState(state)
 
 	def reset(self):
 		self.name = None
