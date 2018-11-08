@@ -20,11 +20,11 @@ class DayRepo(SQL.SQL_table):
 
 	def updateDay(self,day,oldName):
 		sql = "UPDATE Day SET name = %s WHERE name = %s "
-		vals = (Day.getName(),oldName)
+		vals = (day.getName(),oldName)
 		return self.update(sql,vals)
 
 	def deleteDay(self,day):
 		sql = "DELETE FROM Day WHERE name = %s "
-		vals = (Day.getName(),)
+		vals = (day.getName(),)
 		return self.delete(sql,vals)
 
