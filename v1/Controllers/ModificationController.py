@@ -11,6 +11,9 @@ import v1.Services.BarFoodService as barFoodService
 import v1.Services.DayService as dayService
 import v1.Services.FrequentsService as frequentsService
 import v1.Services.LikesService as likesService
+import v1.Services.SellsBeerService as sellsBeerService
+import v1.Services.SellsFoodService as sellsFoodService
+
 
 from v1.Entity.Drinker import Drinker
 from v1.Entity.Beer import Beer
@@ -20,6 +23,8 @@ from v1.Entity.BarFood import BarFood
 from v1.Entity.Day import Day
 from v1.Entity.Frequents import Frequents
 from v1.Entity.Likes import Likes
+from v1.Entity.SellsBeer import SellsBeer
+from v1.Entity.SellsFood import SellsFood
 
 
 modificationController = Blueprint('modificationController', __name__)
@@ -211,3 +216,51 @@ def deleteLikes():
 	likes = Likes()
 	likes.requestMap(request.get_json())
 	return likesService.deleteLikes(likes)
+
+# --------------------- SELLSBEER ------------------------------
+@modificationController.route('/sellsBeer/insert', methods=['POST'])
+def insertSellsBeer():
+	sellsBeer = SellsBeer()
+	sellsBeer.requestMap(request.get_json())
+	return sellsBeerService.insertSellsBeer(sellsBeer)
+
+@modificationController.route('/sellsBeer/update', methods=['POST'])
+def updateSellsBeer():
+	sellsBeer = SellsBeer()
+	req = request.get_json()
+	sellsBeer.requestMap(req)
+	oldBar = str(req.get('old_bar'))
+	oldBeer = str(req.get('old_beer'))
+	if variable.isEmpty(oldBar) or variable.isEmpty(oldBeer):
+		raise MissingParamaters("Missing parameter")
+	return sellsBeerService.updateSellsBeer(sellsBeer, oldBeer, oldBar)
+
+@modificationController.route('/sellsBeer/delete', methods=['POST'])
+def deleteSellsBeer():
+	sellsBeer = SellsBeer()
+	sellsBeer.requestMap(request.get_json())
+	return sellsBeerService.deleteSellsBeer(sellsBeer)
+
+# --------------------- SELLSFOOD ------------------------------
+@modificationController.route('/sellsFood/insert', methods=['POST'])
+def insertSellsFood():
+	sellsFood = SellsFood()
+	sellsFood.requestMap(request.get_json())
+	return sellsFoodService.insertSellsFood(sellsFood)
+
+@modificationController.route('/sellsFood/update', methods=['POST'])
+def updateSellsFood():
+	sellsFood = SellsFood()
+	req = request.get_json()
+	sellsFood.requestMap(req)
+	oldBar = str(req.get('old_bar'))
+	oldFood = str(req.get('old_food'))
+	if variable.isEmpty(oldBar) or variable.isEmpty(oldFood):
+		raise MissingParamaters("Missing parameter")
+	return sellsFoodService.updateSellsFood(sellsFood, oldFood, oldBar)
+
+@modificationController.route('/sellsFood/delete', methods=['POST'])
+def deleteSellsFood():
+	sellsFood = SellsFood()
+	sellsFood.requestMap(request.get_json())
+	return sellsFoodService.deleteSellsFood(sellsFood)
