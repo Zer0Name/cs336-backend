@@ -3,7 +3,7 @@ import v1.Repos.BarRepo as BarRepo
 
 
 def getAllBars():
-    barRepo = BarRepo.BarRepo()
+    barRepo = BarRepo.BarRepo() 
     results = barRepo.getAllBars()
     return  jsonify([e.toJson() for e in results])
 
@@ -11,7 +11,6 @@ def getbarTopBeerBrand(bar, dayOfWeek):
     barRepo = BarRepo.BarRepo()
     results = barRepo.getbarTopBeerBrand(bar,dayOfWeek)
     return  jsonify([e.toJson() for e in results])
-
 
 def getTopLargestSpenders(bar):
     barRepo = BarRepo.BarRepo()

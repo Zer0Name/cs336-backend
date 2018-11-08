@@ -13,7 +13,7 @@ class BarFoodRepo(SQL.SQL_table):
 		return items
 
 	def insertBarFood(self,BarFood):
-		sql = "INSERT INTO BarFood VALUES (%s)"
+		sql = "INSERT INTO BarFood (name) VALUES (%s)"
 		vals = (BarFood.getName(),)
 		return self.insert(sql,vals)
 
