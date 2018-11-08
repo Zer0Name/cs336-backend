@@ -48,3 +48,18 @@ class BartenderRepo(SQL.SQL_table):
 				ORDER BY amount DESC;"
 		items = self.query(sql,QuantityDTO)
 		return items
+
+	def insertBartender(self,Bartender):
+		sql = "INSERT INTO Bartender VALUES (%s,%s,%s)"
+		vals = (Bartender.getName(),Bartender.getPhone(),Bartender.getState())
+		return self.insert(sql,vals)
+
+	def updateBartender(self,Bartender,oldName):
+		sql = "UPDATE Bartender SET name = %s, state = %s, phone  = %s  WHERE name = %s "
+		vals = (Bartender.getName(), Bartender.getState(),Bartender.getPhone(), oldName)
+		return self.update(sql,vals)
+
+	def deleteBartender(self,Bartender):
+		sql = "DELETE FROM Bartender WHERE name = %s "
+		vals = (Bartender.getName())
+		return self.delete(sql,vals)
