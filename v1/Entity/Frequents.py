@@ -30,7 +30,7 @@ class Frequents(object):
 		
 	def map(self, data):
 		self.setBar(data["bar"])
-		self.setDrinker(date["drinker"])
+		self.setDrinker(data["drinker"])
 
 	def reset(self):
 		self.bar = None
