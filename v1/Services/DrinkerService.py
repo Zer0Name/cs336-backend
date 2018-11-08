@@ -42,6 +42,8 @@ def getDrinkerSpendingByMonth(drinker):
 checks to make:
 No drinker can have the same name
 check is implemented in table
+
+Check that no bartender has the same name (and phone number?)
 '''
 def insertDrinker(drinker):
 	drinkerRepo = DrinkerRepo.DrinkerRepo()
@@ -51,6 +53,8 @@ def insertDrinker(drinker):
 checks to make:
 No drinker can have the same name
 check is implemented in table
+
+Check that no bartender has the same name (and phone number?)
 '''
 def updateDrinker(drinker,oldName):
 	drinkerRepo = DrinkerRepo.DrinkerRepo()
