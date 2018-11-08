@@ -10,6 +10,7 @@ import v1.Services.DrinkerService as drinkerService
 import v1.Services.BarFoodService as barFoodService
 import v1.Services.DayService as dayService
 import v1.Services.FrequentsService as frequentsService
+import v1.Services.LikesService as likesService
 
 from v1.Entity.Drinker import Drinker
 from v1.Entity.Beer import Beer
@@ -18,6 +19,7 @@ from v1.Entity.Bartender import Bartender
 from v1.Entity.BarFood import BarFood
 from v1.Entity.Day import Day
 from v1.Entity.Frequents import Frequents
+from v1.Entity.Likes import Likes
 
 
 modificationController = Blueprint('modificationController', __name__)
@@ -185,3 +187,27 @@ def deleteFrequents():
 	frequents = Frequents()
 	frequents.requestMap(request.get_json())
 	return frequentsService.deleteFrequents(frequents)
+
+# --------------------- LIKES ------------------------------
+@modificationController.route('/likes/insert', methods=['POST'])
+def insertLikes():
+	likes = Likes()
+	likes.requestMap(request.get_json())
+	return likesService.insertLikes(likes)
+
+@modificationController.route('/likes/update', methods=['POST'])
+def updateLikes():
+	likes = Likes()
+	req = request.get_json()
+	likes.requestMap(req)
+	oldDrinker = str(req.get('old_drinker'))
+	oldBeer = str(req.get('old_beer'))
+	if variable.isEmpty(oldDrinker) or variable.isEmpty(oldBeer):
+		raise MissingParamaters("Missing parameter")
+	return likesService.updateLikes(likes, oldDrinker, oldBeer)
+
+@modificationController.route('/likes/delete', methods=['POST'])
+def deleteLikes():
+	likes = Likes()
+	likes.requestMap(request.get_json())
+	return likesService.deleteLikes(likes)
