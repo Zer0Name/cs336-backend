@@ -50,7 +50,7 @@ class BartenderRepo(SQL.SQL_table):
 		return items
 
 	def insertBartender(self,Bartender):
-		sql = "INSERT INTO Bartender VALUES (%s,%s,%s)"
+		sql = "INSERT INTO Bartender (name, phone, state) VALUES (%s,%s,%s)"
 		vals = (Bartender.getName(),Bartender.getPhone(),Bartender.getState())
 		return self.insert(sql,vals)
 
