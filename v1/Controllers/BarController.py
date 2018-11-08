@@ -12,6 +12,20 @@ barController = Blueprint('barController', __name__)
 def getAllBars():
     return barService.getAllBars()
 
+@barController.route('/rank/sales/manf', methods=['GET'])
+def getTop10RankBySalesOfManf():
+    manf = str(request.args.get('manf'))
+    if variable.isEmpty(manf):
+        raise InvalidInfo("manufacturer was not provided")
+    return barService.getTop10RankBySalesOfManf(manf)
+
+@barController.route('/rank/sales/day', methods=['GET'])
+def getTop10RankBySalesForDay():
+    day = str(request.args.get('day'))
+    if variable.isEmpty(day):
+        raise InvalidInfo("day was not provided")
+    return barService.getTop10RankBySalesForDay(day)
+
 @barController.route('/operates', methods=['GET'])
 def getOperatesForBar():
     bar = str(request.args.get('bar'))

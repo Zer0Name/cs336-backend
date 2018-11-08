@@ -7,6 +7,16 @@ def getAllBars():
     results = barRepo.getAllBars()
     return  jsonify([e.toJson() for e in results])
 
+def getTop10RankBySalesOfManf(manf):
+    barRepo = BarRepo.BarRepo() 
+    results = barRepo.getTop10RankBySalesOfManf(manf)
+    return  jsonify([e.toJson() for e in results])
+
+def getTop10RankBySalesForDay(day):
+    barRepo = BarRepo.BarRepo() 
+    results = barRepo.getTop10RankBySalesForDay(day)
+    return  jsonify([e.toJson() for e in results])
+
 def getAllFractionsOfInventory(bar):
     barRepo = BarRepo.BarRepo()
     results = barRepo.getAllFractionsOfInventory(bar)

@@ -344,6 +344,135 @@ baseURL/v1/drinker/spent/month?drinker=Aaron Butler
 ---
 
 ---
+**URL: /v1/bar/operates**
+
+- Description: Will return all the operating hours for a given bar
+- request type: GET
+
+### Request: 
+```
+params:
+    bar = "name of bar"
+```
+### Response: 
+```
+[
+    {
+        "bar": String,
+        "day": String,
+        "end": String,
+        "start": String
+    }
+]
+```
+
+### Example request: 
+```
+baseURL/v1/bar/operates?bar=Latino Magpie
+```
+### Example response: 
+```
+[
+    {
+        "bar": "Latino Magpie",
+        "day": "Monday",
+        "end": "23:15",
+        "start": "08:00"
+    },
+    {
+        "bar": "Latino Magpie",
+        "day": "Tuesday",
+        "end": "22:15",
+        "start": "11:00"
+    }
+]
+```
+
+---
+
+---
+**URL: /v1/bar/rank/sales/manf**
+
+- Description: Will return the top 10 bars based on their sales (number of beers sold) of a given brand of beer (manufacturer)
+- request type: GET
+
+### Request: 
+```
+params:
+    manf = "name of manufacturer"
+```
+### Response: 
+```
+[
+    {
+        "name": String,
+        "total": String
+    }
+]
+```
+
+### Example request: 
+```
+baseURL/v1/bar/rank/sales/manf?manf=kirin
+```
+### Example response: 
+```
+[
+    {
+        "name": "Purple Pint Bar and Grille",
+        "total": "706"
+    },
+    {
+        "name": "Courageous Melon",
+        "total": "523"
+    }
+]
+```
+
+---
+
+---
+**URL: /v1/bar/rank/sales/day**
+
+- Description: Will return the top 10 beers based on the total sales (number of beers sold) on a given day of the week
+- request type: GET
+
+### Request: 
+```
+params:
+    day = "day of the week"
+```
+### Response: 
+```
+[
+    {
+        "name": String,
+        "total": String
+    }
+]
+```
+
+### Example request: 
+```
+baseURL/v1/bar/rank/sales/day?day=Monday
+```
+### Example response: 
+```
+[
+    {
+        "name": "Spicy Cats Tavern",
+        "total": "262"
+    },
+    {
+        "name": "Brave Olive Pub",
+        "total": "260"
+    }
+]
+```
+
+---
+
+---
 **URL: /v1/bar/inventory/fraction**
 
 - Description: Will return the average fraction of inventory sold for a given bar for each day of the week

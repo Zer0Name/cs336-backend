@@ -15,6 +15,26 @@ class BarRepo(SQL.SQL_table):
 		sql = "Select * from Bar"
 		items = self.query(sql,Bar)
 		return items
+	
+	def getTop10RankBySalesOfManf(self, manf):
+		sql = "SELECT  bar AS name, SUM(startquantity) - SUM(endquantity) AS amount \
+		FROM Inventory i, (SELECT name AS beer FROM Beer WHERE manf = \""+str(manf)+"\") b \
+		WHERE i.beer = b.beer \
+		GROUP BY i.bar \
+		ORDER BY amount DESC \
+		LIMIT 10;"
+		items = self.query(sql,QuantityDTO)
+		return items
+	
+	def getTop10RankBySalesForDay(self,day):
+		sql = "SELECT bar AS name, SUM(startquantity) - SUM(endquantity) AS amount \
+		FROM Inventory \
+		WHERE dayname(date) = \""+str(day)+"\" \
+		GROUP BY bar \
+		ORDER BY amount DESC \
+		LIMIT 10;"
+		items = self.query(sql,QuantityDTO)
+		return items
 
 	def getAllFractionsOfInventory(self, bar):
 		sql = "SELECT dayname(date) as name, AVG(fraction_sold) as amount \
