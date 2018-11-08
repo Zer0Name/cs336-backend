@@ -115,13 +115,13 @@ def deleteBartender():
 	return bartenderService.deleteBartender(bartender)
 
 # --------------------- BAR FOOD------------------------------
-@modificationController.route('/barFood/insert', methods=['POST'])
+@modificationController.route('/barfood/insert', methods=['POST'])
 def insertBarFood():
 	barFood = BarFood()
 	barFood.requestMap(request.get_json())
 	return barFoodService.insertBarFood(barFood)
 
-@modificationController.route('/barFood/update', methods=['POST'])
+@modificationController.route('/barfood/update', methods=['POST'])
 def updateBarFood():
 	barFood = BarFood()
 	req = request.get_json()
@@ -131,7 +131,7 @@ def updateBarFood():
 		raise MissingParamaters("Missing parameter")
 	return barFoodService.updateBarFood(barFood,oldName)
 
-@modificationController.route('/barFood/delete', methods=['POST'])
+@modificationController.route('/barfood/delete', methods=['POST'])
 def deleteBarFood():
 	barFood = BarFood()
 	barFood.requestMap(request.get_json())
