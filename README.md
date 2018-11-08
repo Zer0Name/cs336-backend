@@ -344,6 +344,47 @@ baseURL/v1/drinker/spent/month?drinker=Aaron Butler
 ---
 
 ---
+**URL: /v1/bar/inventory/fraction**
+
+- Description: Will return the average fraction of inventory sold for a given bar for each day of the week
+- request type: GET
+
+### Request: 
+```
+params:
+    bar = "name of bar"
+```
+### Response: 
+```
+[
+    {
+        "name": String,
+        "total": String
+    }
+]
+```
+
+### Example request: 
+```
+baseURL/v1/bar/inventory/fraction?bar=Latino Magpie
+```
+### Example response: 
+```
+[
+    {
+        "name": "Sunday",
+        "total": "0.03360000"
+    },
+    {
+        "name": "Monday",
+        "total": "0.03305000"
+    }
+]
+```
+
+---
+
+---
 **URL: /v1/bar/beer/top**
 
 - Description: Will return the top 10 beer brands (manufacturers) that are most popular in a specified bar on a specified day

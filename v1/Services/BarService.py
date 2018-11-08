@@ -7,6 +7,11 @@ def getAllBars():
     results = barRepo.getAllBars()
     return  jsonify([e.toJson() for e in results])
 
+def getAllFractionsOfInventory(bar):
+    barRepo = BarRepo.BarRepo()
+    results = barRepo.getAllFractionsOfInventory(bar)
+    return  jsonify([e.toJson() for e in results])
+
 def getbarTopBeerBrand(bar, dayOfWeek):
     barRepo = BarRepo.BarRepo()
     results = barRepo.getbarTopBeerBrand(bar,dayOfWeek)

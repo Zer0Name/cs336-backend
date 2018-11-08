@@ -2,7 +2,6 @@ import v1.Repos.SQL as SQL
 
 from v1.DTO.QuantityDTO import QuantityDTO
 from v1.Entity.Bar import Bar
-
 from v1.DTO.PeriodDistributionDTO import PeriodDistributionDTO
 from v1.DTO.TimeDistributionDTO import TimeDistributionDTO
 
@@ -17,6 +16,17 @@ class BarRepo(SQL.SQL_table):
 		items = self.query(sql,Bar)
 		return items
 
+	def getAllFractionsOfInventory(self, bar):
+		sql = "SELECT dayname(date) as name, AVG(fraction_sold) as amount \
+				FROM (SELECT beer, date, (total_start - total_end)/total_start AS fraction_sold \
+				FROM (SELECT beer, date, SUM(startquantity) AS total_start, SUM(endquantity) AS total_end \
+				FROM Inventory \
+				WHERE bar = \""+str(bar)+"\" \
+				GROUP BY date) s) s1 \
+				GROUP BY name \
+				ORDER BY dayofweek(date);"
+		items = self.query(sql,QuantityDTO)
+		return items
 
 	def getbarTopBeerBrand(self,bar,dayOfWeek):
 		sql = "SELECT manf AS name, SUM(quantity) AS amount \

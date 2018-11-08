@@ -11,6 +11,12 @@ barController = Blueprint('barController', __name__)
 def getAllBars():
     return barService.getAllBars()
 
+@barController.route('/inventory/fraction', methods=['GET'])
+def getAllFractionsOfInventory():
+    bar = str(request.args.get('bar'))
+    if variable.isEmpty(bar):
+        raise InvalidInfo("bar was not provided")
+    return barService.getAllFractionsOfInventory(bar)
 
 @barController.route('/beer/top', methods=['GET'])
 def topBeer():
