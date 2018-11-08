@@ -61,5 +61,5 @@ class BartenderRepo(SQL.SQL_table):
 
 	def deleteBartender(self,Bartender):
 		sql = "DELETE FROM Bartender WHERE name = %s "
-		vals = (Bartender.getName())
+		vals = (Bartender.getName(),)
 		return self.delete(sql,vals)
