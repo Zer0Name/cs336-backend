@@ -38,10 +38,17 @@ def CreateUserException(error):
     return response
 
 
+
+# import v1.Services.InventoryService as inventoryService
+
+# import v1.Services.InventoryService as inventoryService
+
+
 @app.route('/')
 def hello_world():
+    # inventoryService.insertInventoryForToday()
     return "hello chris I am your master"
 
 
 
-app.run(debug = True, port=8000)
+# app.run(debug = True, port=8000)
