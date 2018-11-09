@@ -434,7 +434,7 @@ baseURL/v1/bar/rank/sales/manf?manf=kirin
 ---
 **URL: /v1/bar/rank/sales/day**
 
-- Description: Will return the top 10 beers based on the total sales (number of beers sold) on a given day of the week
+- Description: Will return the top 10 bars based on the total sales (number of beers sold) on a given day of the week
 - request type: GET
 
 ### Request: 
