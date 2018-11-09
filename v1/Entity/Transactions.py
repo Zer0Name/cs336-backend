@@ -4,7 +4,7 @@ import datetime
 import v1.Util.Variable as variable
 from v1.Exceptions.MissingParamaters import MissingParamaters
 
-class Bills(object):
+class Transactions(object):
 	
 	def __init__(self):
 		self.bill_id = None

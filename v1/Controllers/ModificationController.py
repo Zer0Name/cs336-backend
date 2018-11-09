@@ -310,7 +310,7 @@ def insertInventory():
 def updateInventory():
 	inventory = Inventory()
 	req = request.get_json()
-	operates.requestMap(req)
+	inventory.requestMap(req)
 	oldBar = str(req.get('old_bar'))
 	oldDate = str(req.get('old_date'))
 	oldBeer = str(req.get('old_beer'))
@@ -323,3 +323,28 @@ def deleteInventory():
 	inventory = Inventory()
 	inventory.requestMap(request.get_json())
 	return inventoryService.deleteInventory(inventory)
+
+# --------------------- TRANSACTIONS ------------------------------
+@modificationController.route('/transactions/insert', methods=['POST'])
+def insertTransactions():
+	transactions = Transactions()
+	transactions.requestMap(request.get_json())
+	return transactionsService.insertTransactions(transactions)
+
+@modificationController.route('/transactions/update', methods=['POST'])
+def updateTransactions():
+	transactions = Transactions()
+	req = request.get_json()
+	transactions.requestMap(req)
+	oldBillId = str(req.get('old_bill_id'))
+	oldItem = str(req.get('item'))
+	if variable.isEmpty(oldBillId) or variable.isEmpty(oldItem):
+		raise MissingParamaters("Missing parameter")
+	return transactionsService.updateTransactions(transactions, oldBillId, oldItem)
+
+@modificationController.route('/transactions/delete', methods=['POST'])
+def deleteTransactions():
+	transactions = Transactions()
+	transactions.requestMap(request.get_json())
+	return transactionsService.deleteTransactions(transactions)
+
