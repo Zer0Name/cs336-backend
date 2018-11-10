@@ -348,3 +348,25 @@ def deleteTransactions():
 	transactions.requestMap(request.get_json())
 	return transactionsService.deleteTransactions(transactions)
 
+# --------------------- BILLS ------------------------------
+@modificationController.route('/bills/insert', methods=['POST'])
+def insertBills():
+	bills = Bills()
+	bills.requestMap(request.get_json())
+	return billdService.insertBills(bills)
+
+@modificationController.route('/bills/update', methods=['POST'])
+def updateBills():
+	bills = Bills()
+	req = request.get_json()
+	bills.requestMap(req)
+	oldBillId = str(req.get('old_bill_id'))
+	if variable.isEmpty(oldBillId):
+		raise MissingParamaters("Missing parameter")
+	return billsService.updateBills(bills, oldBillId)
+
+@modificationController.route('/bills/delete', methods=['POST'])
+def deleteBills():
+	bills = Bills()
+	bills.requestMap(request.get_json())
+	return billsService.deleteBills(bills)
