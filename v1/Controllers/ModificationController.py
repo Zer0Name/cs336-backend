@@ -353,7 +353,7 @@ def deleteTransactions():
 def insertBills():
 	bills = Bills()
 	bills.requestMap(request.get_json())
-	return billdService.insertBills(bills)
+	return billsService.insertBills(bills)
 
 @modificationController.route('/bills/update', methods=['POST'])
 def updateBills():
@@ -370,3 +370,28 @@ def deleteBills():
 	bills = Bills()
 	bills.requestMap(request.get_json())
 	return billsService.deleteBills(bills)
+
+# --------------------- SHIFTS ------------------------------
+@modificationController.route('/shifts/insert', methods=['POST'])
+def insertShifts():
+	shifts = Shifts()
+	shifts.requestMap(request.get_json())
+	return shiftsService.insertShifts(shifts)
+
+@modificationController.route('/shifts/update', methods=['POST'])
+def updateShifts():
+	shifts = Shifts()
+	req = request.get_json()
+	shifts.requestMap(req)
+	oldBar = str(req.get('old_bar')) 
+	oldBartender = str(req.get('old_bartender'))
+	oldDate = str(req.get('old_date'))
+	if variable.isEmpty(oldBar) or variable.isEmpty(oldBartender) or variable.isEmpty(oldDate):
+		raise MissingParamaters("Missing parameter")
+	return shiftsService.updateShifts(shifts, oldBar, oldBartender, oldDate)
+
+@modificationController.route('/shifts/delete', methods=['POST'])
+def deleteShifts():
+	shifts = Shifts()
+	shifts.requestMap(request.get_json())
+	return shiftsService.deleteShifts(shifts)
