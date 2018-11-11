@@ -1,6 +1,11 @@
 from flask import Flask, jsonify, Blueprint, request, json, make_response
 import v1.Repos.FrequentsRepo as FrequentsRepo
 
+def getAllFrequents():
+    frequentsRepo = FrequentsRepo.FrequentsRepo() 
+    results = frequentsRepo.getAllFrequents()
+    return  jsonify([e.toJson() for e in results])
+
 '''
 checks to make:
 no duplicate entries

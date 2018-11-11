@@ -3,8 +3,11 @@ import v1.Repos.ShiftsRepo as ShiftsRepo
 from flask import Flask, jsonify, Blueprint, request, json, make_response
 import v1.Repos.ShiftsRepo as ShiftsRepo
 
- 
-   
+def getAllShifts():
+    shiftsRepo = ShiftsRepo.ShiftsRepo() 
+    results = shiftsRepo.getAllShifts()
+    return  jsonify([e.toJson() for e in results])
+  
 def insertShiftsForToday():
     shiftRepo = ShiftsRepo.ShiftsRepo()
     date =  shiftRepo.getLastInsertedDate()
@@ -15,7 +18,6 @@ def insertShiftsForToday():
     shiftRepo = ShiftsRepo.ShiftsRepo()
     shiftRepo.insertShiftsForToday(items,date)
     return "Success"
-
 
 '''
 checks to make:

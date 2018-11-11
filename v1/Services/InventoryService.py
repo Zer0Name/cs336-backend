@@ -1,6 +1,10 @@
 from flask import Flask, jsonify, Blueprint, request, json, make_response
 import v1.Repos.InventoryRepo as InventoryRepo
 
+def getAllInventory():
+    inventoryRepo = InventoryRepo.InventoryRepo() 
+    results = inventoryRepo.getAllInventory()
+    return  jsonify([e.toJson() for e in results])
 
 def insertInventoryForToday():
     inventoryRepo = InventoryRepo.InventoryRepo()
