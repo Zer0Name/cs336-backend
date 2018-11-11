@@ -244,17 +244,17 @@ def deleteLikes():
 	return likesService.deleteLikes(likes)
 
 # --------------------- SELLSBEER ------------------------------
-@modificationController.route('/sellsBeer', methods=['GET'])
+@modificationController.route('/sellsbeer', methods=['GET'])
 def getAllSellsBeer():
     return sellsBeerService.getAllSellsBeer()
 
-@modificationController.route('/sellsBeer/insert', methods=['POST'])
+@modificationController.route('/sellsbeer/insert', methods=['POST'])
 def insertSellsBeer():
 	sellsBeer = SellsBeer()
 	sellsBeer.requestMap(request.get_json())
 	return sellsBeerService.insertSellsBeer(sellsBeer)
 
-@modificationController.route('/sellsBeer/update', methods=['POST'])
+@modificationController.route('/sellsbeer/update', methods=['POST'])
 def updateSellsBeer():
 	sellsBeer = SellsBeer()
 	req = request.get_json()
@@ -265,24 +265,24 @@ def updateSellsBeer():
 		raise MissingParamaters("Missing parameter")
 	return sellsBeerService.updateSellsBeer(sellsBeer, oldBeer, oldBar)
 
-@modificationController.route('/sellsBeer/delete', methods=['POST'])
+@modificationController.route('/sellsbeer/delete', methods=['POST'])
 def deleteSellsBeer():
 	sellsBeer = SellsBeer()
 	sellsBeer.requestMap(request.get_json())
 	return sellsBeerService.deleteSellsBeer(sellsBeer)
 
 # --------------------- SELLSFOOD ------------------------------
-@modificationController.route('/sellsFood', methods=['GET'])
+@modificationController.route('/sellsfood', methods=['GET'])
 def getAllSellsFood():
     return sellsFoodService.getAllSellsFood()
 
-@modificationController.route('/sellsFood/insert', methods=['POST'])
+@modificationController.route('/sellsfood/insert', methods=['POST'])
 def insertSellsFood():
 	sellsFood = SellsFood()
 	sellsFood.requestMap(request.get_json())
 	return sellsFoodService.insertSellsFood(sellsFood)
 
-@modificationController.route('/sellsFood/update', methods=['POST'])
+@modificationController.route('/sellsfood/update', methods=['POST'])
 def updateSellsFood():
 	sellsFood = SellsFood()
 	req = request.get_json()
@@ -293,7 +293,7 @@ def updateSellsFood():
 		raise MissingParamaters("Missing parameter")
 	return sellsFoodService.updateSellsFood(sellsFood, oldFood, oldBar)
 
-@modificationController.route('/sellsFood/delete', methods=['POST'])
+@modificationController.route('/sellsfood/delete', methods=['POST'])
 def deleteSellsFood():
 	sellsFood = SellsFood()
 	sellsFood.requestMap(request.get_json())
