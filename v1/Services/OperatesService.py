@@ -39,3 +39,14 @@ no bartender works during those hours
 def deleteOperates(operates):
 	operatesRepo = OperatesRepo.OperatesRepo()
 	return operatesRepo.deleteOperates(operates)
+
+def insertOperatesForToday():
+    operatesRepo = OperatesRepo.OperatesRepo()
+    date =  operatesRepo.getLastInsertedDate()
+
+    operatesRepo = OperatesRepo.OperatesRepo()
+    items = operatesRepo.getLastOperates(date)
+
+    operatesRepo = OperatesRepo.OperatesRepo()
+    operatesRepo.insertOperatesForToday(items,date)
+    return "Success"

@@ -11,6 +11,7 @@ class Operates(object):
 		self.day = None
 		self.start = None
 		self.end = None
+		self.date = None
 	
 	def setBar(self, bar):
 		self.bar = str(bar)
@@ -23,6 +24,9 @@ class Operates(object):
 	
 	def setEnd(self, end):
 		self.end = str(end)
+
+	def setDate(self,date):
+		self.date = str(date)
 	
 	def getBar(self):
 		return str(self.bar)
@@ -35,13 +39,17 @@ class Operates(object):
 	
 	def getEnd(self):
 		return str(self.end)
+	
+	def getDate(self):
+		return str(self.date)
 
 	def toJson(self):
 		return {
 			"bar"  :  self.getBar(),
 			"day"  :  self.getDay(),
 			"start"  :  self.getStart(),
-			"end"  :  self.getEnd()
+			"end"  :  self.getEnd(),
+			"date" : self.getDate()
 		}
 		
 	def map(self, data):
@@ -49,12 +57,14 @@ class Operates(object):
 		self.setDay(data["day"])
 		self.setStart(data["start"])
 		self.setEnd(data["end"])
+		self.setDate(data["date"])
 
 	def reset(self):
 		self.bar = None
 		self.day = None
 		self.start = None
 		self.end = None
+		self.date = None
 
 	def requestMap(self,request):
 		if variable.isEmpty(request):
@@ -63,13 +73,15 @@ class Operates(object):
 		day = str(request.get('day'))
 		start = str(request.get('start'))
 		end = str(request.get('end'))
-		if variable.isEmpty(bar) or variable.isEmpty(day) or variable.isEmpty(start) or variable.isEmpty(end):
+		date = str(request.get('date'))
+		if variable.isEmpty(bar) or variable.isEmpty(day) or variable.isEmpty(start) or variable.isEmpty(end) or variable.isEmpty(date):
 			raise MissingParamaters("Missing parameter")
 		self.setBar(bar)
 		self.setDay(day)
 		self.setStart(start)
 		self.setEnd(end)
+		self.setDate(date)
 
 
 	def __str__(self):
-		return "bar = %s , day = %s, start = %s, end = %s" % (self.getBar(), self.getDay(), self.getStart(), self.getEnd())
+		return "bar = %s , day = %s, start = %s, end = %s, date = %s" % (self.getBar(), self.getDay(), self.getStart(), self.getEnd(), self.getDate())

@@ -5,7 +5,7 @@ import v1.Repos.ShiftsRepo as ShiftsRepo
 
  
    
-def getLastDate():
+def insertShiftsForToday():
     shiftRepo = ShiftsRepo.ShiftsRepo()
     date =  shiftRepo.getLastInsertedDate()
 
