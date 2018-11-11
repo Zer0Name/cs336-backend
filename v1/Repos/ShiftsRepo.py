@@ -21,7 +21,30 @@ class ShiftsRepo(SQL.SQL_table):
 		for item in items:
 			print item
 
-	
+	def getLastInsertedDate(self):
+		sql = "Select * from Shifts group by date order by date desc"
+		items = self.query(sql,Shifts)
+		return items[0].getDate()
+
+
+	def getLastShifts(self,date):
+		datetime_object = datetime.strptime(date, "%Y-%m-%d")
+		datetime_object = datetime_object - timedelta(days=6)
+		sql = "Select * from Shifts where date = \"" +str(str(datetime_object).split()[0]) + "\""
+		items = self.query(sql,Shifts)
+		return items
+
+	def insertShiftsForToday(self,listOfPrevousDayObjects,date):
+		datetime_object = datetime.strptime(date, "%Y-%m-%d")
+		datetime_object = datetime_object + timedelta(days=1)
+		for item in listOfPrevousDayObjects:
+			item.setDate(str(str(datetime_object).split()[0]))
+			sql = "INSERT INTO Shifts (bar, bartender,day, start, end, date )VALUES (%s,%s,%s,%s,%s,%s)"
+			vals = (item.getBar(),item.getBartender(),item.getDay(),item.getStart(),item.getEnd(),item.getDate())
+			#insert new object in to table
+			self.insertWithoutClose(sql,vals)
+		self.close()
+		
 
 	def updateSHIFT(self):
 		# date_N_days_ago = datetime.now() - timedelta(days=30)
