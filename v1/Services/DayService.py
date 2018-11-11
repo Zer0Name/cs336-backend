@@ -1,6 +1,11 @@
 from flask import Flask, jsonify, Blueprint, request, json, make_response
 import v1.Repos.DayRepo as DayRepo
 
+def getAllDay():
+    dayRepo = DayRepo.DayRepo() 
+    results = dayRepo.getAllDay()
+    return  jsonify([e.toJson() for e in results])
+
 '''
 checks to make:
 No day can have the same name

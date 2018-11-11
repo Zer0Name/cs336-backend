@@ -1,6 +1,10 @@
 from flask import Flask, jsonify, Blueprint, request, json, make_response
 import v1.Repos.OperatesRepo as OperatesRepo
 
+def getAllOperates():
+    operatesRepo = OperatesRepo.OperatesRepo() 
+    results = operatesRepo.getAllOperates()
+    return  jsonify([e.toJson() for e in results])
 
 def getOperatesForBar(bar):
 	operatesRepo = OperatesRepo.OperatesRepo() 

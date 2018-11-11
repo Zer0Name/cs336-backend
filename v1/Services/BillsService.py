@@ -1,6 +1,11 @@
 from flask import Flask, jsonify, Blueprint, request, json, make_response
 import v1.Repos.BillsRepo as BillsRepo
 
+def getAllBills():
+    billsRepo = BillsRepo.BillsRepo() 
+    results = billsRepo.getAllBills()
+    return  jsonify([e.toJson() for e in results])
+
 '''
 checks to make:
 no duplicate entries

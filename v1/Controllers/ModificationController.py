@@ -134,6 +134,10 @@ def deleteBartender():
 	return bartenderService.deleteBartender(bartender)
 
 # --------------------- BAR FOOD------------------------------
+@modificationController.route('/barfood', methods=['GET'])
+def getAllBarFood():
+    return barFoodService.getAllBarFood()
+
 @modificationController.route('/barfood/insert', methods=['POST'])
 def insertBarFood():
 	barFood = BarFood()
@@ -157,6 +161,10 @@ def deleteBarFood():
 	return barFoodService.deleteBarFood(barFood)
 
 # --------------------- DAY ------------------------------
+@modificationController.route('/day', methods=['GET'])
+def getAllDay():
+    return dayService.getAllDay()
+
 @modificationController.route('/day/insert', methods=['POST'])
 def insertDay():
 	day = Day()
@@ -180,6 +188,10 @@ def deleteDay():
 	return dayService.deleteDay(day)
 
 # --------------------- FREQUENTS ------------------------------
+@modificationController.route('/frequents', methods=['GET'])
+def getAllFrequents():
+    return frequentsService.getAllFrequents()
+
 @modificationController.route('/frequents/insert', methods=['POST'])
 def insertFrequents():
 	frequents = Frequents()
@@ -204,6 +216,10 @@ def deleteFrequents():
 	return frequentsService.deleteFrequents(frequents)
 
 # --------------------- LIKES ------------------------------
+@modificationController.route('/likes', methods=['GET'])
+def getAllLikes():
+    return likesService.getAllLikes()
+
 @modificationController.route('/likes/insert', methods=['POST'])
 def insertLikes():
 	likes = Likes()
@@ -228,6 +244,10 @@ def deleteLikes():
 	return likesService.deleteLikes(likes)
 
 # --------------------- SELLSBEER ------------------------------
+@modificationController.route('/sellsBeer', methods=['GET'])
+def getAllSellsBeer():
+    return sellsBeerService.getAllSellsBeer()
+
 @modificationController.route('/sellsBeer/insert', methods=['POST'])
 def insertSellsBeer():
 	sellsBeer = SellsBeer()
@@ -252,6 +272,10 @@ def deleteSellsBeer():
 	return sellsBeerService.deleteSellsBeer(sellsBeer)
 
 # --------------------- SELLSFOOD ------------------------------
+@modificationController.route('/sellsFood', methods=['GET'])
+def getAllSellsFood():
+    return sellsFoodService.getAllSellsFood()
+
 @modificationController.route('/sellsFood/insert', methods=['POST'])
 def insertSellsFood():
 	sellsFood = SellsFood()
@@ -276,6 +300,10 @@ def deleteSellsFood():
 	return sellsFoodService.deleteSellsFood(sellsFood)
 
 # --------------------- OPERATES ------------------------------
+@modificationController.route('/operates', methods=['GET'])
+def getAllOperates():
+    return operatesService.getAllOperates()
+
 @modificationController.route('/operates/insert', methods=['POST'])
 def insertOperates():
 	operates = Operates()
@@ -300,6 +328,10 @@ def deleteOperates():
 	return operatesService.deleteOperates(operates)
 
 # --------------------- INVENTORY ------------------------------
+@modificationController.route('/inventory', methods=['GET'])
+def getAllInventory():
+    return inventoryService.getAllInventory()
+
 @modificationController.route('/inventory/insert', methods=['POST'])
 def insertInventory():
 	inventory = Inventory()
@@ -325,6 +357,10 @@ def deleteInventory():
 	return inventoryService.deleteInventory(inventory)
 
 # --------------------- TRANSACTIONS ------------------------------
+@modificationController.route('/transactions', methods=['GET'])
+def getAllTransactions():
+    return transactionsService.getAllTransactions()
+
 @modificationController.route('/transactions/insert', methods=['POST'])
 def insertTransactions():
 	transactions = Transactions()
@@ -349,6 +385,10 @@ def deleteTransactions():
 	return transactionsService.deleteTransactions(transactions)
 
 # --------------------- BILLS ------------------------------
+@modificationController.route('/bills', methods=['GET'])
+def getAllBills():
+    return billsService.getAllBills()
+
 @modificationController.route('/bills/insert', methods=['POST'])
 def insertBills():
 	bills = Bills()
@@ -372,6 +412,10 @@ def deleteBills():
 	return billsService.deleteBills(bills)
 
 # --------------------- SHIFTS ------------------------------
+@modificationController.route('/shifts', methods=['GET'])
+def getAllShifts():
+    return shiftsService.getAllShifts()
+
 @modificationController.route('/shifts/insert', methods=['POST'])
 def insertShifts():
 	shifts = Shifts()
