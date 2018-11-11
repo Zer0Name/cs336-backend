@@ -60,5 +60,17 @@ class ShiftsRepo(SQL.SQL_table):
 		self.close()
 
 
+	def insertShifts(self,shifts):
+		sql = "INSERT INTO Shifts (bar, bartender, day, start, end, date) VALUES (%s,%s,%s,%s,%s,%s)"
+		vals = (shifts.getBar(), shifts.getBartender(), shifts.getDay(),shifts.getStart(), shifts.getEnd(), shifts.getDate())
+		return self.insert(sql,vals)
 
-			
+	def updateShifts(self,shifts,oldBar, oldBartender, oldDate):
+		sql = "UPDATE Shifts SET bar = %s, bartender = %s, day = %s, start = %s, end = %s, date = %s  WHERE bar = %s and bartender = %s and date = %s "
+		vals = (shifts.getBar(), shifts.getBartender(), shifts.getDay(), shifts.getStart(), shifts.getEnd(),shifts.getDay(), oldBar, oldBartender, oldDate)
+		return self.update(sql,vals)
+
+	def deleteShifts(self,shifts):
+		sql = "DELETE FROM Shifts WHERE bar = %s and bartender = %s  and date = %s "
+		vals = (shifts.getBar(), shifts.getBartender(), shifts.getDate())
+		return self.delete(sql,vals)	
