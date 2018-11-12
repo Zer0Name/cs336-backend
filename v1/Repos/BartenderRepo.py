@@ -1,5 +1,6 @@
 import v1.Repos.SQL as SQL
 from v1.Entity.Bartender import Bartender
+from v1.Entity.Bar import Bar
 from v1.DTO.ShiftsDTO import ShiftsDTO
 from v1.DTO.QuantityDTO import QuantityDTO
 
@@ -11,6 +12,12 @@ class BartenderRepo(SQL.SQL_table):
 	def getAllBartenders(self):
 		sql = "Select * from Bartender"
 		items = self.query(sql,Bartender)
+		return items
+	
+	def getBarsWorkAt(self, bartender):
+		sql = "SELECT DISTINCT b.* FROM Shifts s, Bar b WHERE s.bartender = \""+str(bartender)+"\" AND \
+				b.name = s.bar;"
+		items = self.query(sql,Bar)
 		return items
 	
 	#need to add dates to shifts table and include here

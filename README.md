@@ -930,6 +930,44 @@ baseURL/v1/beer/sale/time/distribution?beer=Code Blue
 ---
 
 ---
+**URL: /v1/bartender/works**
+
+- Description: Will return all bars that a given bartender works at
+- request type: GET
+
+### Request: 
+```
+params:
+    bartender = "name of bartender"
+
+```
+### Response: 
+```
+[
+    {
+        "name": String,
+        "state": String
+    }
+]
+```
+
+### Example request: 
+```
+baseURL/v1/bartender/works?bartender=Aaron Allen
+```
+### Example response: 
+```
+[
+    {
+        "name": "Deep Glass Bar",
+        "state": "FL"
+    }
+]
+```
+
+---
+
+---
 **URL: /v1/bartender/shifts/past**
 
 - Description: Gets all shifts a given bartender has had in the past at a given bar
