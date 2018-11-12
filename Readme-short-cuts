@@ -7,6 +7,9 @@ python -m py_compile python-file
 -- base user for lambda call
 https://xja36rg9of.execute-api.us-east-1.amazonaws.com/dev
 
+--URL for website
+https://group64.herokuapp.com
+
 -- copyright 
 #  Created by Aryeh Pechet on 10/28/18.
 #  Copyright © 2018 Aryeh Pechet. All rights reserved.
