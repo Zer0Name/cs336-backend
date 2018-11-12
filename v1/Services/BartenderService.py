@@ -6,6 +6,11 @@ def getAllBartenders():
     results = bartenderRepo.getAllBartenders()
     return  jsonify([e.toJson() for e in results])
 
+def getBarsWorkAt(bartender):
+    bartenderRepo = BartenderRepo.BartenderRepo()
+    results = bartenderRepo.getBarsWorkAt(bartender)
+    return  jsonify([e.toJson() for e in results])
+
 def getAllPastShifts(bartender,bar):
     bartenderRepo = BartenderRepo.BartenderRepo()
     results = bartenderRepo.getAllPastShifts(bartender,bar)
@@ -26,6 +31,8 @@ checks to make:
 No bartender can have the same name
 check is implemented in table
 
+bartender works in bar in the same state 
+
 Check that no drinker has the same name (and phone number?)
 '''
 def insertBartender(bartender):
@@ -37,6 +44,7 @@ checks to make:
 No bartender can have the same name 
 check is implemented in table
 
+bartender works in bar in the same state 
 Check that no drinker has the same name (and phone number?)
 '''
 def updateBartender(bartender,oldName):

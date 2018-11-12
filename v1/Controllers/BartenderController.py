@@ -10,6 +10,13 @@ bartenderController = Blueprint('bartenderController', __name__)
 def getAllBartenders():
     return bartenderService.getAllBartenders()
 
+@bartenderController.route('/works', methods=['GET'])
+def getBarsWorkAt():
+    bartender = str(request.args.get('bartender'))
+    if variable.isEmpty(bartender):
+        raise InvalidInfo("bartender not provided") 
+    return bartenderService.getBarsWorkAt(bartender)
+
 @bartenderController.route('/shifts/past', methods=['GET'])
 def getAllPastShifts():
     bartender = str(request.args.get('bartender'))
