@@ -1218,3 +1218,411 @@ baseURL/v1/manufacturer/liked/top/states?manf=kirin
 ```
 
 ---
+
+---
+**URL: /v1/modification/barfood**
+
+- Description: Will return all bar food that are found in the BarFood table
+- request type: GET
+
+### Request: 
+```
+{
+}
+```
+### Response: 
+```
+[
+  {
+        "name": String
+    }
+]
+```
+
+### Example request: 
+```
+{
+}
+```
+### Example response: 
+```
+[
+    {
+        "name": "Blooming Onion"
+    },
+    {
+        "name": "Buffalo Wings"
+    }
+]
+```
+
+---
+
+---
+**URL: /v1/modification/day**
+
+- Description: Will return all day that are found in the Day table
+- request type: GET
+
+### Request: 
+```
+{
+}
+```
+### Response: 
+```
+[
+  {
+        "name": String
+    }
+]
+```
+
+### Example request: 
+```
+{
+}
+```
+### Example response: 
+```
+[
+    {
+        "name": "Friday"
+    },
+    {
+        "name": "Monday"
+    }
+]
+```
+
+---
+
+---
+**URL: /v1/modification/frequents**
+
+- Description: Will return all tuples that are found in the Frequents table
+- request type: GET
+
+### Request: 
+```
+{
+}
+```
+### Response: 
+```
+[
+    {
+        "bar": String,
+        "drinker": String
+    }
+]
+```
+
+### Example request: 
+```
+{
+}
+```
+### Example response: 
+```
+[
+    {
+        "bar": "Brave Olive Pub",
+        "drinker": "Aaron Adkins"
+    },
+    {
+        "bar": "Spicy Cats Tavern",
+        "drinker": "Aaron Betancourt"
+    }
+]
+```
+
+---
+
+---
+**URL: /v1/modification/likes**
+
+- Description: Will return all tuples that are found in the Likes table
+- request type: GET
+
+### Request: 
+```
+{
+}
+```
+### Response: 
+```
+[
+    {
+        "beer": String,
+        "drinker": String
+    }
+]
+```
+
+### Example request: 
+```
+{
+}
+```
+### Example response: 
+```
+[
+    {
+        "beer": "Amstel Lager",
+        "drinker": "Aaron Adkins"
+    },
+    {
+        "beer": "Cauldron Brew",
+        "drinker": "Aaron Adkins"
+    }
+]
+```
+
+---
+
+---
+**URL: /v1/modification/inventory**
+
+- Description: Will return all tuples that are found in the Inventory table
+- request type: GET
+
+### Request: 
+```
+{
+}
+```
+### Response: 
+```
+[
+    {
+        "bar": String,
+        "beer": String,
+        "date": String,
+        "endquantity": String,
+        "startquantity": String
+    }
+]
+```
+
+### Example request: 
+```
+{
+}
+```
+### Example response: 
+```
+[
+     {
+        "bar": "Fluffy Husband",
+        "beer": "Hibiscus Ginger Beer",
+        "date": "2018-10-11",
+        "endquantity": "113",
+        "startquantity": "127"
+    },
+    {
+        "bar": "Discreet Elderberry Pub",
+        "beer": "Lawnmower Lager",
+        "date": "2018-10-13",
+        "endquantity": "169",
+        "startquantity": "183"
+    }
+]
+```
+
+---
+
+---
+**URL: /v1/modification/operates**
+
+- Description: Will return all tuples that are found in the Operates table
+- request type: GET
+
+### Request: 
+```
+{
+}
+```
+### Response: 
+```
+[
+    {
+        "bar": String,
+        "date": String,
+        "day": String,
+        "end": String,
+        "start": String
+    }
+]
+```
+
+### Example request: 
+```
+{
+}
+```
+### Example response: 
+```
+[
+    {
+        "bar": "Absent Snow",
+        "date": "2018-10-15",
+        "day": "Monday",
+        "end": "23:45",
+        "start": "12:00"
+    },
+    {
+        "bar": "Absent Snow",
+        "date": "2018-10-09",
+        "day": "Tuesday",
+        "end": "22:00",
+        "start": "09:00"
+    }
+]
+```
+
+---
+
+---
+**URL: /v1/modification/sellsbeer**
+
+- Description: Will return all tuples that are found in the SellsBeer table
+- request type: GET
+
+### Request: 
+```
+{
+}
+```
+### Response: 
+```
+[
+    {
+        "barname": String,
+        "beername": String,
+        "price": String
+    }
+]
+```
+
+### Example request: 
+```
+{
+}
+```
+### Example response: 
+```
+[
+    {
+        "barname": "Absent Snow",
+        "beername": "North Beach Ale",
+        "price": "4.40"
+    },
+    {
+        "barname": "Absent Snow",
+        "beername": "Dry Stout",
+        "price": "9.99"
+    }
+]
+```
+
+---
+
+---
+**URL: /v1/modification/sellsfood**
+
+- Description: Will return all tuples that are found in the SellsFood table
+- request type: GET
+
+### Request: 
+```
+{
+}
+```
+### Response: 
+```
+[
+    {
+        "barname": String,
+        "foodname": String,
+        "price": String
+    }
+]
+```
+
+### Example request: 
+```
+{
+}
+```
+### Example response: 
+```
+[
+    {
+        "barname": "Absent Snow",
+        "foodname": "Waffle Fries",
+        "price": "4.74"
+    },
+    {
+        "barname": "Absent Snow",
+        "foodname": "Blooming Onion",
+        "price": "8.89"
+    }
+]
+```
+
+---
+
+---
+**URL: /v1/modification/shifts**
+
+- Description: Will return all tuples that are found in the Shifts table
+- request type: GET
+
+### Request: 
+```
+{
+}
+```
+### Response: 
+```
+[
+    {
+        "bar": String,
+        "bartender": String,
+        "date": String,
+        "day": String,
+        "end": String,
+        "start": String
+    }
+]
+```
+
+### Example request: 
+```
+{
+}
+```
+### Example response: 
+```
+[
+    {
+        "bar": "Absent Snow",
+        "bartender": "Carolyn Norman",
+        "date": "2018-10-15",
+        "day": "Monday",
+        "end": "23:45",
+        "start": "15:00"
+    },
+    {
+        "bar": "Absent Snow",
+        "bartender": "Brandon Campbell",
+        "date": "2018-10-15",
+        "day": "Monday",
+        "end": "23:45",
+        "start": "15:00"
+    }
+]
+```
+
+---
