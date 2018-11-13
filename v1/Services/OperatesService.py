@@ -50,7 +50,7 @@ def insertOperates(operates):
 	return operatesRepo.insertOperates(operates)
 
 
-def updateOperates(operates,oldDay, oldBar):
+def updateOperates(operates,oldDate, oldBar):
 	barRepo = BarRepo.BarRepo()
 	if not barRepo.bar_exists(operates.getBar()):
 		raise Error("bar does not exist")
@@ -58,6 +58,10 @@ def updateOperates(operates,oldDay, oldBar):
 	dayRepo = DayRepo.DayRepo()
 	if not dayRepo.day_exists(operates.getDay()):
 		raise Error("day does not exist")
+	
+	operatesRepo = OperatesRepo.OperatesRepo()
+	if operatesRepo.duplicate_entry(operates.getBar(), operates.getDate()) and (not operates.getBar() == oldBar or not operates.getOldDate() == oldDate):
+		raise Error("Duplicate Entry")
 
 	if not (operates.getEnd() <= "24:00" and operates.getStart() < operates.getEnd()):
 		raise Error("Invalid hours provided")
@@ -80,7 +84,7 @@ def updateOperates(operates,oldDay, oldBar):
 			raise Error("Update would result in bill(s) would result in a time stamp when bar is closed. Please update Bills table first.")
 	
 	operatesRepo = OperatesRepo.OperatesRepo()
-	return operatesRepo.updateOperates(operates, oldDay, oldBar)
+	return operatesRepo.updateOperates(operates, oldDate, oldBar)
 
 ''' 
 checks:

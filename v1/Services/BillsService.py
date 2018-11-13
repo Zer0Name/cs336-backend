@@ -85,7 +85,11 @@ def updateBills(bills,oldBillId):
 
 	drinkerRepo = DrinkersRepo.DrinkersRepo()
 	if not drinkerRepo.drinker_exists(bills.getDrinker()):
-		raise Error("drinker does not exist") 
+		raise Error("drinker does not exist")
+
+	billsRepo = BillsRepo.BillsRepo()
+	if billsRepo.duplicate_entry(bills.getBillId()) and not(bills.getBillId() == oldBillId):
+		raise Error("duplicate entry")  
 
 	datetime_object = datetime.strptime(bills.getDate(), "%Y-%m-%d")
 	if not calendar.day_name[datetime_object.weekday()] == bills.getDay():

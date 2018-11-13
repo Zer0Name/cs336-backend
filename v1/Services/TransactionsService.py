@@ -39,9 +39,11 @@ def insertTransactions(transactions):
 		barFoodRepo = BarFoodRepo.BarFoodRepo()
 		if not barFoodRepo.barFood_exists(transactions.getItem()):
 			raise Error("Food does not exist")
+
 		sellsFoodRepo = SellsFoodRepo.SellsFoodRepo()
 		if not sellsFoodRepo.bar_sells_food(transactions.getBar(),transactions.getItem()):
 			raise Error("Bar doesn't sell the food")
+
 		sellsFoodRepo = SellsFoodRepo.SellsFoodRepo()
 		price = sellsFoodRepo.get_price(transactions.getBar(), transactions.getItem())
 		if not price*int(transactions.getQuantity()) == transactions.getPrice():
@@ -127,6 +129,10 @@ def updateTransactions(transactions,oldBillId, oldItem):
 
 	if not(transactions.getType()=="beer") or not(transactions.getType()=="food"):
 		raise Error("Invalid Type")
+	
+	transactionsRepo = TransactionsRepo.TransactionsRepo()
+	if transactionsRepo.duplicate_entry(transactions.getBillId(), transactions.getItem()) and (not transactions.getBillId() == oldBillId or not transactions.getItem() == oldItem):
+		raise Error("Duplicate Entry")
 
 	if transactions.getType() == "food":
 		barFoodRepo = BarFoodRepo.BarFoodRepo()

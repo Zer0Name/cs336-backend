@@ -19,19 +19,19 @@ class OperatesRepo(SQL.SQL_table):
 		return items
 	
 	def insertOperates(self,operates):
-		sql = "INSERT INTO Operates (bar, day, start, end) VALUES (%s, %s, %s, %s)"
-		vals = (operates.getBar(),operates.getDay(), operates.getStart(), operates.getEnd())
+		sql = "INSERT INTO Operates (bar, day, start, end, date) VALUES (%s, %s, %s, %s, %s)"
+		vals = (operates.getBar(),operates.getDay(), operates.getStart(), operates.getEnd(), operates.getDate())
 		return self.insert(sql,vals)
 
 
-	def updateOperates(self,operates,oldDay, oldBar):
-		sql = "UPDATE Operates SET bar = %s, day = %s, start = %s, end = %s WHERE bar = %s and day = %s "
-		vals = (operates.getBar(),operates.getDay(), operates.getStart(), operates.getEnd(), oldBar, oldDay)
+	def updateOperates(self,operates,oldDate, oldBar):
+		sql = "UPDATE Operates SET bar = %s, day = %s, start = %s, end = %s, date = %s WHERE bar = %s and date = %s "
+		vals = (operates.getBar(),operates.getDay(), operates.getStart(), operates.getEnd(), operates.getDate(), oldBar, oldDate)
 		return self.update(sql,vals)
 
 	def deleteOperates(self,operates):
-		sql = "DELETE FROM Operates WHERE bar = %s and day = %s "
-		vals = (operates.getBar(),operates.getDay())
+		sql = "DELETE FROM Operates WHERE bar = %s and date = %s "
+		vals = (operates.getBar(),operates.getDate())
 		return self.delete(sql,vals)
 
 	def updateIncorrectOperates(self):
