@@ -15,6 +15,11 @@ class BarRepo(SQL.SQL_table):
 		sql = "Select * from Bar"
 		items = self.query(sql,Bar)
 		return items
+
+	def getBar(self,bar):
+		sql = "Select * from Bar where name = \"" +str(bar)+ "\" "
+		items = self.query(sql,Bar)
+		return items 
 	
 	def getTop10RankBySalesOfManf(self, manf):
 		sql = "SELECT  bar AS name, SUM(startquantity) - SUM(endquantity) AS amount \

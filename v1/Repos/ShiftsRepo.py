@@ -13,6 +13,12 @@ class ShiftsRepo(SQL.SQL_table):
 		items = self.query(sql,Shifts)
 		return items
 
+	def getShifts(self,bartender,date):
+		sql = "Select * from Shifts where bartender = \"" + str(bartender) + "\" and date = \"" + str(date) + "\" " 
+		items = self.query(sql,Shifts)
+		return items
+
+
 	def getBartenderpreviousShift(self,bartender):
 		date_N_days_ago = datetime.now() - timedelta(days=7)
 		

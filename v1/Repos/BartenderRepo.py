@@ -14,6 +14,11 @@ class BartenderRepo(SQL.SQL_table):
 		items = self.query(sql,Bartender)
 		return items
 	
+	def getBartender(self,Bartender):
+		sql = "Select * from Bartender where name = \"" +str(Bartender)+ "\" "
+		items = self.query(sql,Bar)
+		return items 
+
 	def getBarsWorkAt(self, bartender):
 		sql = "SELECT DISTINCT b.* FROM Shifts s, Bar b WHERE s.bartender = \""+str(bartender)+"\" AND \
 				b.name = s.bar;"
