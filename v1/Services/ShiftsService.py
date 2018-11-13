@@ -79,7 +79,7 @@ def insertShifts(shifts):
 
 	shiftsRepo = ShiftsRepo.ShiftsRepo()
 	# return shiftsRepo.insertShifts(shifts)
-	return "a"
+	return shiftsRepo.insertShifts(shifts)
 
 '''
 checks to make:
@@ -138,7 +138,7 @@ def updateShifts(shifts,oldBar, oldBartender, oldDate):
 
 	shiftsRepo = ShiftsRepo.ShiftsRepo()
 	# return shiftsRepo.updateShifts(shifts, oldBar, oldBartender, oldDate)
-	return "a"
+	return shiftsRepo.updateShifts(shifts, oldBar, oldBartender, oldDate)
 
 ''' 
 checks:

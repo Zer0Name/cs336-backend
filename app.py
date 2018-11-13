@@ -40,12 +40,22 @@ def CreateUserException(error):
 	return response
 
 
-import v1.Repos.OperatesRepo as OperatesRepo
+import v1.Services.ShiftsService as shiftsService
+from v1.Entity.Shifts import Shifts
 
 @app.route('/')
 def hello_world():
 	# operatesRepo = OperatesRepo.OperatesRepo()
 	# results = operatesRepo.updateIncorrectOperates()
+	# shifts = Shifts()
+	# shifts.setBar("Bloody Lady")
+	# shifts.setBartender("Marion Devore")
+	# shifts.setDay("Monday")
+	# shifts.setStart("15:00")
+	# shifts.setEnd("23:45")
+	# shifts.setDate("2018-10-15")
+	# print shifts
+	# shiftsService.insertShifts(shifts)
 	return "hello chris I am your master"
 
 
