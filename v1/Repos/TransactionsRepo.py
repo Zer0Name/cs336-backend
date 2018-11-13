@@ -11,6 +11,11 @@ class TransactionsRepo(SQL.SQL_table):
 		sql = "Select * from Transactions"
 		items = self.query(sql,Transactions)
 		return items
+	
+	def getAllTransactionsForBillId(self, bill_id):
+		sql = "Select * from Transactions where bill_id = \""+str(bill_id)+"\""
+		items = self.query(sql,Transactions)
+		return items
 
 	#need to delete bar, drinker, and date once update transactions
 	def insertTransactions(self,transactions):
