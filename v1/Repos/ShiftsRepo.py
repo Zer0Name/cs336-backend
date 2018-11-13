@@ -19,6 +19,10 @@ class ShiftsRepo(SQL.SQL_table):
 		items = self.query(sql,Shifts)
 		return items
 
+	def getShiftsForBar(self,bar,date):
+		sql = "Select * from Shifts where bar = \"" + str(bar) + "\" and date = \"" + str(date) + "\" " 
+		items = self.query(sql,Shifts)
+		return items
 
 	def getBartenderpreviousShift(self,bartender):
 		date_N_days_ago = datetime.now() - timedelta(days=7)

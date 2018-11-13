@@ -35,8 +35,13 @@ class BillsRepo(SQL.SQL_table):
 		return self.delete(sql,vals)
 
 
-	def getBillsByBartenderAndDate(self,bertender,date):
-		sql = "Select * from Bills where bartender = \"" +str(bertender)+"\" and date = \"" +str(date)+"\" " 
+	def getBillsByBartenderAndDate(self,bartender,date):
+		sql = "Select * from Bills where bartender = \"" +str(bartender)+"\" and date = \"" +str(date)+"\" " 
+		items = self.query(sql,Bills)
+		return items
+	
+	def getBillsByBarAndDate(self,bar,date):
+		sql = "Select * from Bills where bar = \"" +str(bar)+"\" and date = \"" +str(date)+"\" " 
 		items = self.query(sql,Bills)
 		return items
 
