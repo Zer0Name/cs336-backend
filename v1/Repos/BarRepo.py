@@ -4,7 +4,7 @@ from v1.DTO.QuantityDTO import QuantityDTO
 from v1.Entity.Bar import Bar
 from v1.DTO.PeriodDistributionDTO import PeriodDistributionDTO
 from v1.DTO.TimeDistributionDTO import TimeDistributionDTO
-
+from v1.DTO.TrueFalseDTO import TrueFalseDTO
 
 class BarRepo(SQL.SQL_table):
 	
@@ -160,3 +160,10 @@ class BarRepo(SQL.SQL_table):
 		sql = "DELETE FROM Bar WHERE name = %s "
 		vals = (bar.getName(),)
 		return self.delete(sql,vals)
+
+	def bar_exists(self, bar):
+		sql = "SELECT NOT EXISTS(SELECT * FROM Bar WHERE name = \""+str(bar)+"\") AS value"
+		items = self.query(sql,TrueFalseDTO)
+		if items[0].value == 1:
+			return True
+		return False

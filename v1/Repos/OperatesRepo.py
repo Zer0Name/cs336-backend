@@ -1,6 +1,7 @@
 import v1.Repos.SQL as SQL
 from datetime import datetime, timedelta
 from v1.Entity.Operates import Operates
+from v1.DTO.TrueFalseDTO import TrueFalseDTO
 
 class OperatesRepo(SQL.SQL_table):
 	
@@ -67,3 +68,13 @@ class OperatesRepo(SQL.SQL_table):
 			#insert new object in to table
 			self.insertWithoutClose(sql,vals)
 		self.close()
+	
+	#covers pattern 1
+	def time_during_operating_hours(self, time, bar, date):
+		sql = "SELECT EXISTS(SELECT * FROM Operates WHERE  \
+				AND bar = \""+str(bar)+"\" AND date = \""+str(date)+"\" \
+				AND \""+str(time)+"\" >= start AND \""+str(time)+"\" <= end) AS value)"
+		items = self.query(sql,TrueFalseDTO)
+		if items[0].value == 1:
+			return True
+		return False
