@@ -38,6 +38,11 @@ end time is before the bar closes
 '''
 def insertShifts(shifts):
 
+	bartenderRepo = BartenderRepo.BartenderRepo()
+	bartenderArray = bartenderRepo.getBartender(shifts.getBartender())
+	if variable.isEmptyArray(bartenderArray):
+		raise Error("Bartender does not exist")
+
 	shiftsRepo = ShiftsRepo.ShiftsRepo()
 	items = shiftsRepo.getShifts(shifts.getBartender(), shifts.getDate())
 	if not variable.isEmpty(items):
@@ -47,11 +52,6 @@ def insertShifts(shifts):
 	barArray = barRepo.getBar(shifts.getBar())
 	if variable.isEmptyArray(barArray):
 		raise Error("Bar does not exist")
-
-	bartenderRepo = BartenderRepo.BartenderRepo()
-	bartenderArray = bartenderRepo.getBartender(shifts.getBartender())
-	if variable.isEmptyArray(bartenderArray):
-		raise Error("Bartender does not exist")
 
 	datetime_object = datetime.strptime(shifts.getDate(), "%Y-%m-%d")
 	if str(calendar.day_name[datetime_object.weekday()]) != str(shifts.getDay()):
@@ -69,13 +69,13 @@ def insertShifts(shifts):
 		raise Error("bar does not operate on that day")
 
 	if operate.getStart() < shifts.getStart() or operate.getEnd() > shifts.getEnd():
-		raise Error("bar is closed during bartenders shift")
+		raise Error("bar is closed during bartender's shift")
 
 	if shifts.getStart() >= operate.getEnd():
-		raise Error("shifts hour error start time cant be before end time")
+		raise Error("shifts hour error: start time cannot be before end time")
 
 	if barArray[0].getState() != bartenderArray[0].getState():
-		raise Error("bartender cant live in a different state than the bar")
+		raise Error("bartender cannot live in a different state than the bar")
 
 	shiftsRepo = ShiftsRepo.ShiftsRepo()
 	# return shiftsRepo.insertShifts(shifts)
@@ -91,6 +91,12 @@ start time is after the bar opens
 end time is before the bar closes 
 '''
 def updateShifts(shifts,oldBar, oldBartender, oldDate):
+	bartenderRepo = BartenderRepo.BartenderRepo()
+	bartenderArray = bartenderRepo.getBartender(shifts.getBartender())
+	if variable.isEmptyArray(bartenderArray):
+		raise Error("Bartender does not exist")
+
+	#not necessary for update?
 	shiftsRepo = ShiftsRepo.ShiftsRepo()
 	items = shiftsRepo.getShifts(shifts.getBartender(), shifts.getDate())
 	if not variable.isEmpty(items):
@@ -100,11 +106,6 @@ def updateShifts(shifts,oldBar, oldBartender, oldDate):
 	barArray = barRepo.getBar(shifts.getBar())
 	if variable.isEmptyArray(barArray):
 		raise Error("Bar does not exist")
-
-	bartenderRepo = BartenderRepo.BartenderRepo()
-	bartenderArray = bartenderRepo.getBartender(shifts.getBartender())
-	if variable.isEmptyArray(bartenderArray):
-		raise Error("Bartender does not exist")
 
 	datetime_object = datetime.strptime(shifts.getDate(), "%Y-%m-%d")
 	if str(calendar.day_name[datetime_object.weekday()]) != str(shifts.getDay()):
@@ -122,14 +123,18 @@ def updateShifts(shifts,oldBar, oldBartender, oldDate):
 		raise Error("bar does not operate on that day")
 
 	if operate.getStart() < shifts.getStart() or operate.getEnd() > shifts.getEnd():
-		raise Error("bar is closed during bartenders shift")
+		raise Error("bar is closed during bartender's shift")
 
 	if shifts.getStart() >= operate.getEnd():
-		raise Error("shifts hour error start time cant be before end time")
+		raise Error("shifts hour error: start time cannot be before end time")
 
 	if barArray[0].getState() != bartenderArray[0].getState():
-		raise Error("bartender cant live in a different state than the bar")
+		raise Error("bartender cannot live in a different state than the bar")
 
+	billsRepo = BillsRepo.BillsRepo()
+	transcations = billsRepo.getBillsByBartenderAndDate(shifts.getBartender(),shifts.getDate())
+	if not variable.isEmptyArray(transcations):
+		raise Error("Bartender has transcations during the current shift that need to be deleted or updated before trying to update this shift")
 
 	shiftsRepo = ShiftsRepo.ShiftsRepo()
 	# return shiftsRepo.updateShifts(shifts, oldBar, oldBartender, oldDate)
@@ -144,6 +149,6 @@ def deleteShifts(shifts):
 	billsRepo = BillsRepo.BillsRepo()
 	transcations = billsRepo.getBillsByBartenderAndDate(shifts.getBartender(),shifts.getDate())
 	if not variable.isEmptyArray(transcations):
-		raise Error("Bartender has transcation during the shift, please delete them before trying to delete shift")
+		raise Error("Bartender has transcations during the shift, please delete them before trying to delete shift")
 	shiftsRepo = ShiftsRepo.ShiftsRepo()
 	return shiftsRepo.deleteShifts(shifts)
