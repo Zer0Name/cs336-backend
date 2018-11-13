@@ -5,6 +5,7 @@ import v1.Repos.ShiftsRepo as ShiftsRepo
 import v1.Repos.BarRepo as BarRepo
 import v1.Repos.BartenderRepo as BartenderRepo
 import v1.Repos.OperatesRepo as OperatesRepo
+import v1.Repos.BillsRepo as BillsRepo
 from v1.Exceptions.Error import Error
 import v1.Util.Variable as variable
 from datetime import datetime, timedelta
@@ -140,5 +141,9 @@ would need to update transactions? or past transactions stay the same???
 can't delete if no other bartender(s) has a shift during that time
 '''
 def deleteShifts(shifts):
+	billsRepo = BillsRepo.BillsRepo()
+	transcations = billsRepo.getBillsByBartenderAndDate(shifts.getBartender(),shifts.getDate())
+	if not variable.isEmptyArray(transcations):
+		raise Error("Bartender has transcation during the shift, please delete them before trying to delete shift")
 	shiftsRepo = ShiftsRepo.ShiftsRepo()
 	return shiftsRepo.deleteShifts(shifts)

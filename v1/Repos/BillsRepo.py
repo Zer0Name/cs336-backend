@@ -26,3 +26,10 @@ class BillsRepo(SQL.SQL_table):
 		sql = "DELETE FROM Bills WHERE bill_id = %s "
 		vals = (bills.getBillId())
 		return self.delete(sql,vals)
+
+
+	def getBillsByBartenderAndDate(self,bertender,date):
+		sql = "Select * from Bills where bartender = \"" +str(bertender)+"\" and date = \"" +str(date)+"\" " 
+		items = self.query(sql,Bills)
+		return items
+
