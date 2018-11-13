@@ -122,7 +122,6 @@ def insertTransactions(transactions):
 	transactionsRepo = TransactionsRepo.TransactionsRepo()
 	return transactionsRepo.insertTransactions(transactions)
 
-#do I need to use oldBillId or OldItem anywhere?
 def updateTransactions(transactions,oldBillId, oldItem):
 	if int(transactions.getQuantity()) <= 0:
 		raise Error("Invalid Quantity")

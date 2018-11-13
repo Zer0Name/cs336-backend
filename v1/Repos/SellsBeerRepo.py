@@ -42,4 +42,12 @@ class SellsBeerRepo(SQL.SQL_table):
 				AND  beername = \""+str(beer)+"\""
 		items = self.query(sql,TrueFalseDTO)
 		return int(items[0].value)
+	
+	def duplicate_entry(self, beer, bar):
+		sql = "SELECT EXISTS(SELECT * FROM SellsBeer WHERE beername = \""+str(beer)+"\" \
+					AND barname = \""+str(bar)+"\") AS value"
+		items = self.query(sql,TrueFalseDTO)
+		if int(items[0].value) == 1:
+			return True
+		return False
 
