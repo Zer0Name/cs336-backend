@@ -28,9 +28,9 @@ class BartenderRepo(SQL.SQL_table):
 	
 	#need to add dates to shifts table and include here
 	def getAllPastShifts(self,bartender,bar):
-		sql = "SELECT day, start, end \
+		sql = "SELECT date, day, start, end \
 		FROM Shifts \
-		WHERE bartender = \""+str(bartender)+"\" AND bar = \""+str(bar)+"\""
+		WHERE bartender = \""+str(bartender)+"\" AND bar = \""+str(bar)+"\" AND date < curdate();"
 		items = self.query(sql,ShiftsDTO)
 		return items
 	

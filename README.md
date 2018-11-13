@@ -983,6 +983,7 @@ params:
 ```
 [
     {
+        "date": String,
         "day": String,
         "end": String,
         "start": String
@@ -998,11 +999,13 @@ baseURL/v1/bartender/shifts/past?bartender=Alice Fico&bar=Latino Magpie
 ```
 [
     {
+        "date": "2018-10-15"
         "day": "Monday",
         "end": "23:15",
         "start": "15:00"
     },
     {
+        "date": "2018-10-09"
         "day": "Tuesday",
         "end": "14:50",
         "start": "11:00"
