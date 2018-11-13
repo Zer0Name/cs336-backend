@@ -94,3 +94,12 @@ class ShiftsRepo(SQL.SQL_table):
 		if int(items[0].value) == 1:
 			return True
 		return False
+	
+	def shift_at_time(self, time, bar, date):
+		sql = "SELECT EXISTS(SELECT * FROM Shifts WHERE \
+				bar = \""+str(bar)+"\" AND date = \""+str(date)+"\" \
+				AND \""+str(time)+"\" >= start AND \""+str(time)+"\" <= end) AS value"
+		items = self.query(sql,TrueFalseDTO)
+		if int(items[0].value) == 1:
+			return True
+		return False
