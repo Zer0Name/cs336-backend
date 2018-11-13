@@ -10,7 +10,7 @@ def getAllShifts():
   
 def insertShiftsForToday():
     shiftRepo = ShiftsRepo.ShiftsRepo()
-    date =  shiftRepo.getLastInsertedDate()
+    date =  str(shiftRepo.getLastInsertedDate())
 
     shiftRepo = ShiftsRepo.ShiftsRepo()
     items = shiftRepo.getLastShifts(date)

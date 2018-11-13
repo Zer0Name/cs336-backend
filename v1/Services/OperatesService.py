@@ -46,7 +46,7 @@ def deleteOperates(operates):
 
 def insertOperatesForToday():
     operatesRepo = OperatesRepo.OperatesRepo()
-    date =  operatesRepo.getLastInsertedDate()
+    date =  str(operatesRepo.getLastInsertedDate())
 
     operatesRepo = OperatesRepo.OperatesRepo()
     items = operatesRepo.getLastOperates(date)
