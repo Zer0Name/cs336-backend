@@ -2,6 +2,7 @@ import v1.Repos.SQL as SQL
 
 from v1.Entity.Shifts import Shifts
 from datetime import datetime, timedelta
+from v1.DTO.TrueFalseDTO import TrueFalseDTO
 
 class ShiftsRepo(SQL.SQL_table):
 	
@@ -80,3 +81,12 @@ class ShiftsRepo(SQL.SQL_table):
 		sql = "DELETE FROM Shifts WHERE bar = %s and bartender = %s  and date = %s "
 		vals = (shifts.getBar(), shifts.getBartender(), shifts.getDate())
 		return self.delete(sql,vals)	
+	
+	def time_during_shift(self, time, bartender, bar, date):
+		sql = "SELECT EXISTS(SELECT * FROM Shifts WHERE bartender = \""+str(bartender)+"\" \
+				AND bar = \""+str(bar)+"\" AND date = \""+str(date)+"\" \
+				AND \""+str(time)+"\" >= start AND \""+str(time)+"\" <= end) AS value"
+		items = self.query(sql,TrueFalseDTO)
+		if int(items[0].value) == 1:
+			return True
+		return False

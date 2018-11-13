@@ -1,6 +1,8 @@
 import v1.Repos.SQL as SQL
 
 from v1.Entity.Bills import Bills
+from v1.Entity.Transactions import Transactions
+from v1.DTO.TrueFalseDTO import TrueFalseDTO
 
 class BillsRepo(SQL.SQL_table):
 	
@@ -33,3 +35,23 @@ class BillsRepo(SQL.SQL_table):
 		items = self.query(sql,Bills)
 		return items
 
+
+	#checks for insert and update
+	
+	def duplicate_entry(self, bill_id):
+		sql = "SELECT EXISTS(SELECT * FROM Bills WHERE bill_id = \""+str(bill_id)+"\") AS value"
+		items = self.query(sql,TrueFalseDTO)
+		if int(items[0].value) == 1:
+			return True
+		return False
+	
+	def check_items_price(self, bill_id, items_price):
+		sql = "SELECT * FROM Transactions WHERE bill_id = \""+str(bill_id)+"\""
+		items = self.query(sql,Transactions)
+		count = 0.00
+		for t in items:
+			count = count + t.getPrice()
+		if float(count) == float(items_price):
+			return True
+		return False
+	

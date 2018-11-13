@@ -3,6 +3,7 @@ from v1.Entity.Bartender import Bartender
 from v1.Entity.Bar import Bar
 from v1.DTO.ShiftsDTO import ShiftsDTO
 from v1.DTO.QuantityDTO import QuantityDTO
+from v1.DTO.TrueFalseDTO import TrueFalseDTO
 
 class BartenderRepo(SQL.SQL_table):
 	
@@ -75,3 +76,10 @@ class BartenderRepo(SQL.SQL_table):
 		sql = "DELETE FROM Bartender WHERE name = %s "
 		vals = (Bartender.getName(),)
 		return self.delete(sql,vals)
+
+	def bartender_exists(self, bartender):
+		sql = "SELECT EXISTS(SELECT * FROM Bartender WHERE name = \""+str(bartender)+"\") AS value"
+		items = self.query(sql,TrueFalseDTO)
+		if int(items[0].value) == 1:
+			return True
+		return False

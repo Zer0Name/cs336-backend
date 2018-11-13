@@ -3,11 +3,12 @@ from v1.Entity.Drinker import Drinker
 from v1.DTO.DrinkerTransactionDTO import DrinkerTransactionDTO
 from v1.DTO.QuantityDTO import QuantityDTO
 from v1.DTO.PeriodDistributionDTO import PeriodDistributionDTO
+from v1.DTO.TrueFalseDTO import TrueFalseDTO
 
-class DrinkerRepo(SQL.SQL_table):
+class DrinkersRepo(SQL.SQL_table):
 	
 	def __init__(self):
-		super(DrinkerRepo, self).__init__()
+		super(DrinkersRepo, self).__init__()
 
 	def getAllDrinkers(self):
 		sql = "Select * from Drinker"
@@ -94,3 +95,10 @@ class DrinkerRepo(SQL.SQL_table):
 		sql = "DELETE FROM Drinker WHERE name = %s "
 		vals = (drinker.getName(),)
 		return self.delete(sql,vals)
+	
+	def drinker_exists(self, drinker):
+		sql = "SELECT EXISTS(SELECT * FROM Drinker WHERE name = \""+str(drinker)+"\") AS value"
+		items = self.query(sql,TrueFalseDTO)
+		if int(items[0].value) == 1:
+			return True
+		return False
