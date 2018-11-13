@@ -6,7 +6,7 @@ import v1.Repos.BartenderRepo as BartenderRepo
 import v1.Repos.OperatesRepo as OperatesRepo
 import v1.Repos.ShiftsRepo as ShiftsRepo
 import v1.Repos.TransactionsRepo as TransactionsRepo
-import v1.Services.TransactionsService as transactionsService
+
 from v1.Exceptions.Error import Error
 from datetime import datetime, timedelta
 import calendar
@@ -123,6 +123,7 @@ def deleteBills(bills):
 	transactionsRepo = TransactionsRepo.TransactionsRepo()
 	results = transactionsRepo.getAllTransactionsForBillId(bills.getBillId())
 	for r in results:
-		transactionsService.deleteTransactions(r)
+		transactionsRepo = TransactionsRepo.TransactionsRepo()
+		transactionsRepo.deleteTransactions(r)
 	billsRepo = BillsRepo.BillsRepo()
 	return billsRepo.deleteBills(bills)
