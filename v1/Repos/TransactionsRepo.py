@@ -1,6 +1,7 @@
 import v1.Repos.SQL as SQL
 
 from v1.Entity.Transactions import Transactions
+from v1.DTO.TrueFalseDTO import TrueFalseDTO
 
 class TransactionsRepo(SQL.SQL_table):
 	
@@ -33,3 +34,24 @@ class TransactionsRepo(SQL.SQL_table):
 		sql = "DELETE FROM Transactions WHERE bill_id = %s and item = %s "
 		vals = (transactions.getBillId(), transactions.getItem())
 		return self.delete(sql,vals)
+	
+	#checks
+	def duplicate_entry(self, bill_id, item):
+		sql = "SELECT EXISTS(SELECT * FROM Transactions WHERE bill_id = \""+str(bill_id)+"\" \
+				 AND item = \""+str(item)+"\") AS value"
+		items = self.query(sql,TrueFalseDTO)
+		if int(items[0].value) == 1:
+			return True
+		return False
+	
+	def get_quantity(self, bill_id, item):
+		sql = "SELECT quantity AS value FROM Transactions WHERE bill_id = \""+str(bill_id)+"\" \
+				 AND item = \""+str(item)+"\""
+		items = self.query(sql,TrueFalseDTO)
+		return int(items[0].value)
+	
+	def get_items_price(self, bill_id, item):
+		sql = "SELECT items_price AS value FROM Transactions WHERE bill_id = \""+str(bill_id)+"\" \
+				 AND item = \""+str(item)+"\""
+		items = self.query(sql,TrueFalseDTO)
+		return float(items[0].value)

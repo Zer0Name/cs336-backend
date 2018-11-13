@@ -78,3 +78,12 @@ class OperatesRepo(SQL.SQL_table):
 		if int(items[0].value) == 1:
 			return True
 		return False
+	
+	#checks
+	def duplicate_entry(self, bar, date):
+		sql = "SELECT EXISTS(SELECT * FROM Operates WHERE bar = \""+str(bar)+"\" \
+				 AND date = \""+str(date)+"\") AS value"
+		items = self.query(sql,TrueFalseDTO)
+		if int(items[0].value) == 1:
+			return True
+		return False

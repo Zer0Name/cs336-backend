@@ -1,6 +1,7 @@
 import v1.Repos.SQL as SQL
 
 from v1.Entity.SellsBeer import SellsBeer
+from v1.DTO.TrueFalseDTO import TrueFalseDTO
 
 class SellsBeerRepo(SQL.SQL_table):
 	
@@ -27,4 +28,18 @@ class SellsBeerRepo(SQL.SQL_table):
 		sql = "DELETE FROM SellsBeer WHERE beername = %s and barname = %s "
 		vals = (sellsBeer.getBeer(),sellsBeer.getBar())
 		return self.delete(sql,vals)
+	
+	def bar_sells_beer(self, bar, beer):
+		sql = "SELECT EXISTS(SELECT * FROM SellsBeer WHERE barname = \""+str(bar)+"\" \
+				AND  beername = \""+str(beer)+"\") AS value"
+		items = self.query(sql,TrueFalseDTO)
+		if int(items[0].value) == 1:
+			return True
+		return False
+	
+	def get_price(self, bar, beer):
+		sql = "SELECT price AS value FROM SellsBeer WHERE barname = \""+str(bar)+"\" \
+				AND  beername = \""+str(beer)+"\""
+		items = self.query(sql,TrueFalseDTO)
+		return int(items[0].value)
 

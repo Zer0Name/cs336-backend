@@ -91,10 +91,6 @@ def updateBills(bills,oldBillId):
 	if not calendar.day_name[datetime_object.weekday()] == bills.getDay():
 		raise Error("Day does not match date")
 
-	billsRepo = BillsRepo.BillsRepo()
-	if billsRepo.duplicate_entry(bills.getBillId()):
-		raise Error("duplicate entry") 
-
 	operatesRepo = OperatesRepo.OperatesRepo() 
 	if not operatesRepo.time_during_operating_hours(bills.getTime(), bills.getBar(), bills.getDate()):
 		raise Error("Bar is not open during that time")

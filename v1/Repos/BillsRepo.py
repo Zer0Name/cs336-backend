@@ -13,6 +13,11 @@ class BillsRepo(SQL.SQL_table):
 		sql = "Select * from Bills"
 		items = self.query(sql,Bills)
 		return items
+	
+	def getBill(self, bill_id):
+		sql = "Select * from Bills WHERE bill_id = \""+str(bill_id)+"\""
+		items = self.query(sql,Bills)
+		return items[0]
 
 	def insertBills(self,bills):
 		sql = "INSERT INTO Bills (bill_id, bar, drinker, date, items_price, tax_price, tip, total_price, time, bartender, day) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"

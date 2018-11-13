@@ -12,6 +12,13 @@ class InventoryRepo(SQL.SQL_table):
 		sql = "Select * from Inventory"
 		items = self.query(sql,Inventory)
 		return items
+	
+	def getInventory(self, bar, beer, date):
+		sql = "Select * from Inventory WHERE bar = \""+str(bar)+"\" \
+				AND beer = \""+str(beer)+"\" AND date >= \""+str(date)+"\" \
+				ORDER BY date ASC"
+		items = self.query(sql,Inventory)
+		return items
 
 	def insertInventory(self,inventory):
 		sql = "INSERT INTO Inventory (bar, beer, date, startquantity, endquantity) VALUES (%s,%s,%s,%s,%s)"

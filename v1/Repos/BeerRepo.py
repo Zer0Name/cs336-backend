@@ -1,6 +1,6 @@
 import v1.Repos.SQL as SQL
 from v1.Entity.Beer import Beer
-
+from v1.DTO.TrueFalseDTO import TrueFalseDTO
 from v1.DTO.QuantityDTO import QuantityDTO
 
 
@@ -100,3 +100,10 @@ class BeerRepo(SQL.SQL_table):
 		sql = "DELETE FROM Beer WHERE name = %s "
 		vals = (Beer.getName(),)
 		return self.delete(sql,vals)
+	
+	def beer_exists(self, beer):
+		sql = "SELECT EXISTS(SELECT * FROM Beer WHERE name = \""+str(beer)+"\") AS value"
+		items = self.query(sql,TrueFalseDTO)
+		if int(items[0].value) == 1:
+			return True
+		return False
