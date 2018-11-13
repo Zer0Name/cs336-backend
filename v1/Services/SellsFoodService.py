@@ -1,5 +1,6 @@
 from flask import Flask, jsonify, Blueprint, request, json, make_response
 import v1.Repos.SellsFoodRepo as SellsFoodRepo
+from v1.Exceptions.Error import Error
 
 def getAllSellsFood():
     sellsFoodRepo = SellsFoodRepo.SellsFoodRepo() 
@@ -14,6 +15,9 @@ bar exists
 '''
 def insertSellsFood(sellsFood):
 	sellsFoodRepo = SellsFoodRepo.SellsFoodRepo()
+	if sellsFoodRepo.duplicate_entry(sellsFood.getFood(), sellsFood.getBar()):
+		raise Error("Duplicate Entry")
+	sellsFoodRepo = SellsFoodRepo.SellsFoodRepo()
 	return sellsFoodRepo.insertSellsFood(sellsFood)
 
 '''
@@ -23,6 +27,9 @@ Food exists
 bar exists
 '''
 def updateSellsFood(sellsFood,oldFood, oldBar):
+	sellsFoodRepo = SellsFoodRepo.SellsFoodRepo()
+	if sellsFoodRepo.duplicate_entry(sellsFood.getFood(), sellsFood.getBar()) and (not oldFood == sellsFood.getFood() or not oldBar == sellsFood.getBar()):
+		raise Error("Duplicate Entry")
 	sellsFoodRepo = SellsFoodRepo.SellsFoodRepo()
 	return sellsFoodRepo.updateSellsFood(sellsFood, oldFood, oldBar)
 

@@ -106,6 +106,7 @@ def deleteOperates(operates):
 		if b.getTime() < operates.getStart() or b.getTime() > operates.getEnd():
 			raise Error("Deleting these operating hours in bill(s) would result in a time stamp when bar is closed. Please update Bills table first.")
 	
+
 	operatesRepo = OperatesRepo.OperatesRepo()
 	return operatesRepo.deleteOperates(operates)
 
