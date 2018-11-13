@@ -46,7 +46,7 @@ def insertShifts(shifts):
 	shiftsRepo = ShiftsRepo.ShiftsRepo()
 	items = shiftsRepo.getShifts(shifts.getBartender(), shifts.getDate())
 	if not variable.isEmpty(items):
-		raise Error("Duplicate entry")
+		raise Error("Bartender can only have one shift on a given date")
 
 	barRepo = BarRepo.BarRepo()
 	barArray = barRepo.getBar(shifts.getBar())
@@ -96,11 +96,11 @@ def updateShifts(shifts,oldBar, oldBartender, oldDate):
 	if variable.isEmptyArray(bartenderArray):
 		raise Error("Bartender does not exist")
 
-	#not necessary for update?
+	#pattern 5
 	shiftsRepo = ShiftsRepo.ShiftsRepo()
 	items = shiftsRepo.getShifts(shifts.getBartender(), shifts.getDate())
 	if not variable.isEmpty(items):
-		raise Error("Duplicate entry")
+		raise Error("Bartender can only have one shift on a given date")
 
 	barRepo = BarRepo.BarRepo()
 	barArray = barRepo.getBar(shifts.getBar())
