@@ -34,18 +34,17 @@ class BillsRepo(SQL.SQL_table):
 	def duplicate_entry(self, bill_id):
 		sql = "SELECT EXISTS(SELECT * FROM Bills WHERE bill_id = \""+str(bill_id)+"\") AS value"
 		items = self.query(sql,TrueFalseDTO)
-		if items[0].value == 1:
+		if int(items[0].value) == 1:
 			return True
 		return False
 	
 	def check_items_price(self, bill_id, items_price):
 		sql = "SELECT * FROM Transactions WHERE bill_id = \""+str(bill_id)+"\""
 		items = self.query(sql,Transactions)
-		count = 0
+		count = 0.00
 		for t in items:
 			count = count + t.getPrice()
-		if count == items_price:
+		if float(count) == float(items_price):
 			return True
 		return False
 	
-	#check tax and total in service since no queries needed, same for if day corresponds to date

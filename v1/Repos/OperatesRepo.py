@@ -72,9 +72,9 @@ class OperatesRepo(SQL.SQL_table):
 	#covers pattern 1
 	def time_during_operating_hours(self, time, bar, date):
 		sql = "SELECT EXISTS(SELECT * FROM Operates WHERE  \
-				AND bar = \""+str(bar)+"\" AND date = \""+str(date)+"\" \
-				AND \""+str(time)+"\" >= start AND \""+str(time)+"\" <= end) AS value)"
+				bar = \""+str(bar)+"\" AND date = \""+str(date)+"\" \
+				AND \""+str(time)+"\" >= start AND \""+str(time)+"\" <= end) AS value"
 		items = self.query(sql,TrueFalseDTO)
-		if items[0].value == 1:
+		if int(items[0].value) == 1:
 			return True
 		return False

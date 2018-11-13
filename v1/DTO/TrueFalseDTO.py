@@ -15,4 +15,10 @@ class TrueFalseDTO(object):
 		
 	def map(self, data):
 		self.value = str(data["value"])
+	
+	def getValue(self):
+		return self.value
+
+	def __str__(self):
+		return "value = %s" % (self.getValue())
 

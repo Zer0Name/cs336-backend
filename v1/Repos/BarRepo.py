@@ -162,8 +162,8 @@ class BarRepo(SQL.SQL_table):
 		return self.delete(sql,vals)
 
 	def bar_exists(self, bar):
-		sql = "SELECT NOT EXISTS(SELECT * FROM Bar WHERE name = \""+str(bar)+"\") AS value"
+		sql = "SELECT EXISTS(SELECT * FROM Bar WHERE name = \""+str(bar)+"\") AS value"
 		items = self.query(sql,TrueFalseDTO)
-		if items[0].value == 1:
+		if int(items[0].value) == 1:
 			return True
 		return False

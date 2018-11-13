@@ -79,8 +79,8 @@ class ShiftsRepo(SQL.SQL_table):
 	def time_during_shift(self, time, bartender, bar, date):
 		sql = "SELECT EXISTS(SELECT * FROM Shifts WHERE bartender = \""+str(bartender)+"\" \
 				AND bar = \""+str(bar)+"\" AND date = \""+str(date)+"\" \
-				AND \""+str(time)+"\" >= start AND \""+str(time)+"\" <= end) AS value)"
+				AND \""+str(time)+"\" >= start AND \""+str(time)+"\" <= end) AS value"
 		items = self.query(sql,TrueFalseDTO)
-		if items[0].value == 1:
+		if int(items[0].value) == 1:
 			return True
 		return False

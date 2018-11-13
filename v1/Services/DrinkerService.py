@@ -1,35 +1,35 @@
 from flask import Flask, jsonify, Blueprint, request, json, make_response
-import v1.Repos.DrinkersRepo as DrinkerRepo
+import v1.Repos.DrinkersRepo as DrinkersRepo
 
 def getAllDrinkers():
-    drinkerRepo = DrinkerRepo.DrinkerRepo()
+    drinkerRepo = DrinkersRepo.DrinkersRepo()
     results = drinkerRepo.getAllDrinkers()
     return  jsonify([e.toJson() for e in results])
 
 def getDrinkerTransactions(drinker):
-    drinkerRepo = DrinkerRepo.DrinkerRepo()
+    drinkerRepo = DrinkersRepo.DrinkersRepo()
     results = drinkerRepo.getDrinkerTransactions(drinker)
     return  jsonify([e.toJson() for e in results])  
 
 def getDrinkerTopBeer(drinker):
-    drinkerRepo = DrinkerRepo.DrinkerRepo()
+    drinkerRepo = DrinkersRepo.DrinkersRepo()
     results = drinkerRepo.getDrinkerTopBeer(drinker)
     return  jsonify([e.toJson() for e in results])  
 
 def getDrinkerBarSpending(drinker):
-    drinkerRepo = DrinkerRepo.DrinkerRepo()
+    drinkerRepo = DrinkersRepo.DrinkersRepo()
     results = drinkerRepo.getDrinkerBarSpending(drinker)
     return  jsonify([e.toJson() for e in results])  
 
 
 def getDrinkerSpendingByDay(drinker):
-    drinkerRepo = DrinkerRepo.DrinkerRepo()
+    drinkerRepo = DrinkersRepo.DrinkersRepo()
     results = drinkerRepo.getDrinkerSpendingByDay(drinker)
     return  jsonify([e.toJson() for e in results])  
 
 
 def getDrinkerSpendingByWeek(drinker):
-    drinkerRepo = DrinkerRepo.DrinkerRepo()
+    drinkerRepo = DrinkersRepo.DrinkersRepo()
     results = drinkerRepo.getDrinkerSpendingByWeek(drinker)
     return  jsonify([e.toJson() for e in results])  
 
@@ -46,7 +46,7 @@ check is implemented in table
 Check that no bartender has the same name (and phone number?)
 '''
 def insertDrinker(drinker):
-	drinkerRepo = DrinkerRepo.DrinkerRepo()
+	drinkerRepo = DrinkersRepo.DrinkersRepo()
 	return drinkerRepo.insertDrinker(drinker)
 
 '''
@@ -57,10 +57,10 @@ check is implemented in table
 Check that no bartender has the same name (and phone number?)
 '''
 def updateDrinker(drinker,oldName):
-	drinkerRepo = DrinkerRepo.DrinkerRepo()
+	drinkerRepo = DrinkersRepo.DrinkersRepo()
 	return drinkerRepo.updateDrinker(drinker,oldName)
 
 ''' no check cascade should be handled by table '''
 def deleteDrinker(drinker):
-	drinkerRepo = DrinkerRepo.DrinkerRepo()
+	drinkerRepo = DrinkersRepo.DrinkersRepo()
 	return drinkerRepo.deleteDrinker(drinker)

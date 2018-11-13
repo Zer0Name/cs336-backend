@@ -97,8 +97,8 @@ class DrinkersRepo(SQL.SQL_table):
 		return self.delete(sql,vals)
 	
 	def drinker_exists(self, drinker):
-		sql = "SELECT NOT EXISTS(SELECT * FROM Drinker WHERE name = \""+str(drinker)+"\") AS value"
+		sql = "SELECT EXISTS(SELECT * FROM Drinker WHERE name = \""+str(drinker)+"\") AS value"
 		items = self.query(sql,TrueFalseDTO)
-		if items[0].value == 1:
+		if int(items[0].value) == 1:
 			return True
 		return False
