@@ -50,7 +50,7 @@ def insertShifts(shifts):
 
 	shiftsRepo = ShiftsRepo.ShiftsRepo()
 	items = shiftsRepo.getShifts(shifts.getBartender(), shifts.getDate())
-	if not variable.isEmpty(items):
+	if len(items) != 0:
 		raise Error("Bartender can only have one shift on a given date")
 
 	barRepo = BarRepo.BarRepo()
@@ -62,28 +62,17 @@ def insertShifts(shifts):
 	if str(calendar.day_name[datetime_object.weekday()]) != str(shifts.getDay()):
 		raise Error("Day does not match date")
 
-	operatesRepo = OperatesRepo.OperatesRepo()
-	items = operatesRepo.getOperatesForBar(shifts.getBar())
-	operate = None
-	for item in items:
-		if item.getDate() == shifts.getDate():
-			operate = item
-			break
-	
-	if variable.isEmpty(operate):
-		raise Error("bar does not operate on that day")
-
-	if operate.getStart() < shifts.getStart() or operate.getEnd() > shifts.getEnd():
-		raise Error("bar is closed during bartender's shift")
-
-	if shifts.getStart() >= operate.getEnd():
+	if shifts.getStart() >= shifts.getEnd():
 		raise Error("shifts hour error: start time cannot be before end time")
+
+	operatesRepo = OperatesRepo.OperatesRepo()
+	if not operatesRepo.shift_during_operating_hours(shifts.getStart(), shifts.getEnd(), shifts.getBar(), shifts.getDate()):
+		raise Error("bar does not operate during that shift")
 
 	if barArray[0].getState() != bartenderArray[0].getState():
 		raise Error("bartender cannot live in a different state than the bar")
 
 	shiftsRepo = ShiftsRepo.ShiftsRepo()
-	# return shiftsRepo.insertShifts(shifts)
 	return shiftsRepo.insertShifts(shifts)
 
 '''
@@ -116,22 +105,12 @@ def updateShifts(shifts,oldBar, oldBartender, oldDate):
 	if str(calendar.day_name[datetime_object.weekday()]) != str(shifts.getDay()):
 		raise Error("Day does not match date")
 
-	operatesRepo = OperatesRepo.OperatesRepo()
-	items = operatesRepo.getOperatesForBar(shifts.getBar())
-	operate = None
-	for item in items:
-		if item.getDate() == shifts.getDate():
-			operate = item
-			break
-	
-	if variable.isEmpty(operate):
-		raise Error("bar does not operate on that day")
-
-	if operate.getStart() < shifts.getStart() or operate.getEnd() > shifts.getEnd():
-		raise Error("bar is closed during bartender's shift")
-
-	if shifts.getStart() >= operate.getEnd():
+	if shifts.getStart() >= shifts.getEnd():
 		raise Error("shifts hour error: start time cannot be before end time")
+		
+	operatesRepo = OperatesRepo.OperatesRepo()
+	if not operatesRepo.shift_during_operating_hours(shifts.getStart(), shifts.getEnd(), shifts.getBar(), shifts.getDate()):
+		raise Error("bar does not operate during that shift")
 
 	if barArray[0].getState() != bartenderArray[0].getState():
 		raise Error("bartender cannot live in a different state than the bar")
@@ -142,7 +121,6 @@ def updateShifts(shifts,oldBar, oldBartender, oldDate):
 		raise Error("Bartender has transcations during the current shift that need to be deleted or updated before trying to update this shift")
 
 	shiftsRepo = ShiftsRepo.ShiftsRepo()
-	# return shiftsRepo.updateShifts(shifts, oldBar, oldBartender, oldDate)
 	return shiftsRepo.updateShifts(shifts, oldBar, oldBartender, oldDate)
 
 ''' 

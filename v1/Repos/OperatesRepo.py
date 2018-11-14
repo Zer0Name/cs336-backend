@@ -87,3 +87,12 @@ class OperatesRepo(SQL.SQL_table):
 		if int(items[0].value) == 1:
 			return True
 		return False
+	
+	def shift_during_operating_hours(self, start, end, bar, date):
+		sql = "SELECT EXISTS(SELECT * FROM Operates WHERE  \
+				bar = \""+str(bar)+"\" AND date = \""+str(date)+"\" \
+				AND \""+str(start)+"\" >= start AND \""+str(end)+"\" <= end) AS value"
+		items = self.query(sql,TrueFalseDTO)
+		if int(items[0].value) == 1:
+			return True
+		return False
