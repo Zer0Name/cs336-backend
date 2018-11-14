@@ -4,7 +4,7 @@ import v1.Repos.InventoryRepo as InventoryRepo
 def getAllInventory(num):
 	inventoryRepo = InventoryRepo.InventoryRepo() 
 	results = inventoryRepo.getAllInventory()
-	if len(results) < num:
+	if len(results) <= num:
 		return jsonify([])
 	if num+5000 >= len(results):
 		return  jsonify([e.toJson() for e in results[num:]])

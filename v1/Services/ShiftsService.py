@@ -14,7 +14,7 @@ import calendar
 def getAllShifts(num):
 	shiftsRepo = ShiftsRepo.ShiftsRepo() 
 	results = shiftsRepo.getAllShifts()
-	if len(results) < num:
+	if len(results) <= num:
 		return jsonify([])
 	if num+5000 >= len(results):
 		return  jsonify([e.toJson() for e in results[num:]])

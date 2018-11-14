@@ -13,7 +13,7 @@ import v1.Services.InventoryService as inventoryService
 def getAllTransactions(num):
 	transactionsRepo = TransactionsRepo.TransactionsRepo() 
 	results = transactionsRepo.getAllTransactions()
-   	if len(results) < num:
+   	if len(results) <= num:
 		return jsonify([])
 	if num+5000 >= len(results):
 		return  jsonify([e.toJson() for e in results[num:]])
@@ -172,7 +172,7 @@ def updateTransactions(transactions,oldBillId, oldItem):
 		bill = billsRepo.getBill(transactions.getBillId())
 		if len(bill) == 0:
 			raise Error("No bill has been created for this transaction. Please insert a bill and try again.")
-			
+
 		#see if can update inventory
 		inventoryRepo = InventoryRepo.InventoryRepo()
 		#gets all inventory from date and after for a bar and beer

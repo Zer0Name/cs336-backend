@@ -14,7 +14,7 @@ import calendar
 def getAllBills(num):
 	billsRepo = BillsRepo.BillsRepo() 
 	results = billsRepo.getAllBills()
-	if len(results) < num:
+	if len(results) <= num:
 		return jsonify([])
 	if num+5000 >= len(results):
 		return  jsonify([e.toJson() for e in results[num:]])

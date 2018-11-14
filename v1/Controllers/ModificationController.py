@@ -302,8 +302,7 @@ def deleteSellsFood():
 # --------------------- OPERATES ------------------------------
 @modificationController.route('/operates', methods=['GET'])
 def getAllOperates():
-	req = request.get_json()
-	num = str(req.get('num'))
+	num = int(request.args.get('num'))
 	if variable.isEmpty(num):
 		raise MissingParamaters("Missing parameter")
 	return operatesService.getAllOperates(num)
@@ -334,8 +333,7 @@ def deleteOperates():
 # --------------------- INVENTORY ------------------------------
 @modificationController.route('/inventory', methods=['GET'])
 def getAllInventory():
-	req = request.get_json()
-	num = str(req.get('num'))
+	num = int(request.args.get('num'))
 	if variable.isEmpty(num):
 		raise MissingParamaters("Missing parameter")
 	return inventoryService.getAllInventory(num)
