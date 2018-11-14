@@ -15,10 +15,10 @@ class SQL_table(object):
 	
 	def getConnection(self):
 		mydb = mysql.connector.connect(
-		host="project336.cuyc1x8g0d0t.us-east-1.rds.amazonaws.com",
+		host="pro-336.cuyc1x8g0d0t.us-east-1.rds.amazonaws.com",
 		user="student",
 		passwd="Database123",
-		gdatabase="project336"
+		database = "project336"
 		)
 		return mydb
 
@@ -41,7 +41,6 @@ class SQL_table(object):
 			final_results.append(obj)
 		self.close()
 		return final_results
-
 
 	def insert(self,sql,vals):
 		try:
