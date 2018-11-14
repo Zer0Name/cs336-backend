@@ -15,7 +15,7 @@ bar exists
 '''
 def insertSellsFood(sellsFood):
 	sellsFoodRepo = SellsFoodRepo.SellsFoodRepo()
-	if sellsFoodRepo.duplicate_entry(sellsFood.getFood(), sellsFood.getBar()):
+	if sellsFoodRepo.duplicate_entry(sellsFood.getFoodname(), sellsFood.getBarname()):
 		raise Error("Duplicate Entry")
 	sellsFoodRepo = SellsFoodRepo.SellsFoodRepo()
 	return sellsFoodRepo.insertSellsFood(sellsFood)
@@ -28,7 +28,7 @@ bar exists
 '''
 def updateSellsFood(sellsFood,oldFood, oldBar):
 	sellsFoodRepo = SellsFoodRepo.SellsFoodRepo()
-	if sellsFoodRepo.duplicate_entry(sellsFood.getFood(), sellsFood.getBar()) and (not oldFood == sellsFood.getFood() or not oldBar == sellsFood.getBar()):
+	if sellsFoodRepo.duplicate_entry(sellsFood.getFoodname(), sellsFood.getBarname()) and (not oldFood == sellsFood.getFoodname() or not oldBar == sellsFood.getBarname()):
 		raise Error("Duplicate Entry")
 	sellsFoodRepo = SellsFoodRepo.SellsFoodRepo()
 	return sellsFoodRepo.updateSellsFood(sellsFood, oldFood, oldBar)

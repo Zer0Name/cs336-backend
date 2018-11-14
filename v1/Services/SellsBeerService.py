@@ -17,7 +17,7 @@ pattern #3
 '''
 def insertSellsBeer(sellsBeer):
 	sellsBeerRepo = SellsBeerRepo.SellsBeerRepo()
-	if sellsBeerRepo.duplicate_entry(sellsBeer.getBeer(), sellsBeer.getBar()):
+	if sellsBeerRepo.duplicate_entry(sellsBeer.getBeername(), sellsBeer.getBarname()):
 		raise Error("Duplicate Entry")
 	sellsBeerRepo = SellsBeerRepo.SellsBeerRepo()
 	#return sellsBeerRepo.insertSellsBeer(sellsBeer)
