@@ -93,7 +93,7 @@ def updateShifts(shifts,oldBar, oldBartender, oldDate):
 	#pattern 5
 	shiftsRepo = ShiftsRepo.ShiftsRepo()
 	items = shiftsRepo.getShifts(shifts.getBartender(), shifts.getDate())
-	if not variable.isEmpty(items) and (not shifts.getBartender() == oldBartender or not shifts.getBar() == oldBar or not shifts.getDate() == oldDate):
+	if len(items) != 0 and (not shifts.getBartender() == oldBartender or not shifts.getBar() == oldBar or not shifts.getDate() == oldDate):
 		raise Error("Bartender can only have one shift on a given date")
 
 	barRepo = BarRepo.BarRepo()
