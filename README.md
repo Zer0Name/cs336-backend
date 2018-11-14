@@ -1667,3 +1667,85 @@ baseURL/v1/manufacturer/liked/top/states?manf=kirin
 ```
 
 ---
+
+---
+**URL: /v1/modification/bills**
+
+- Description: Will return all bills that are found in the Bills table
+- request type: GET
+
+### Request: 
+```
+{
+}
+```
+### Response: 
+```
+[
+    {
+        "bill_id"  :  String,
+        "bar" :  String,
+        "date" :  String,
+        "drinker" :  String,
+        "items_price" :  String,
+        "tax_price" :  String,
+        "tip" :  String,
+        "total_price" : String,
+        "time" :  String,
+        "bartender" : String,
+        "day" :  String
+    }
+]
+```
+
+### Example request: 
+```
+{
+}
+```
+### Example response: 
+```
+[
+    
+]
+```
+
+---
+
+---
+**URL: /v1/modification/transactions**
+
+- Description: Will return all transactions that are found in the Transactions table
+- request type: GET
+
+### Request: 
+```
+{
+}
+```
+### Response: 
+```
+[
+    {
+        "bill_id"  :  String,
+        "quantity" :  String,
+        "item" :  String,
+        "item_type" :  String,
+        "price" :  String
+    }
+]
+```
+
+### Example request: 
+```
+{
+}
+```
+### Example response: 
+```
+[
+    
+]
+```
+
+---

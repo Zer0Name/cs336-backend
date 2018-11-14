@@ -17,7 +17,7 @@ class ManufacturerRepo(SQL.SQL_table):
 		items = self.query(sql,NameDTO)
 		return items
 
-	#need to change dates to current date
+	
 	def getTop10StatesWithHighestSalesInTheLastWeek(self,manf):
 		sql = "SELECT b1.state AS name, SUM(t.quantity) AS amount \
 				FROM (SELECT name AS beer \
@@ -25,7 +25,7 @@ class ManufacturerRepo(SQL.SQL_table):
 				WHERE manf = \""+str(manf)+"\") m, \
 				(SELECT bill_id, date, bar \
 				FROM Bills \
-				WHERE date BETWEEN date_sub(\""+str("2018-10-22")+"\",INTERVAL 1 WEEK) AND '2018-10-22') b, \
+				WHERE date BETWEEN date_sub(curdate(),INTERVAL 1 WEEK) AND curdate()) b, \
 				Transactions t, Bar b1 \
 				WHERE b.bill_id = t.bill_id AND t.item = m.beer AND b1.name = b.bar \
 				GROUP BY b1.state \
