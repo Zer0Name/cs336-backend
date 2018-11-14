@@ -15,18 +15,18 @@ class SellsBeerRepo(SQL.SQL_table):
 	
 	def insertSellsBeer(self,sellsBeer):
 		sql = "INSERT INTO SellsBeer (beername, barname, price) VALUES (%s, %s, %s)"
-		vals = (sellsBeer.getBeer(),sellsBeer.getBar(), sellsBeer.getPrice())
+		vals = (sellsBeer.getBeername(),sellsBeer.getBarname(), sellsBeer.getPrice())
 		return self.insert(sql,vals)
 
 
 	def updateSellsBeer(self,sellsBeer,oldBeer, oldBar):
 		sql = "UPDATE SellsBeer SET beername = %s, barname = %s, price = %s WHERE beername = %s and barname = %s "
-		vals = (sellsBeer.getBeer(),sellsBeer.getBar(), sellsBeer.getPrice(), oldBeer, oldBar)
+		vals = (sellsBeer.getBeername(),sellsBeer.getBarname(), sellsBeer.getPrice(), oldBeer, oldBar)
 		return self.update(sql,vals)
 
 	def deleteSellsBeer(self,sellsBeer):
 		sql = "DELETE FROM SellsBeer WHERE beername = %s and barname = %s "
-		vals = (sellsBeer.getBeer(),sellsBeer.getBar())
+		vals = (sellsBeer.getBeername(),sellsBeer.getBarname())
 		return self.delete(sql,vals)
 	
 	def bar_sells_beer(self, bar, beer):
