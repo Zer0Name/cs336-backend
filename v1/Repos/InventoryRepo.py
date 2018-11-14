@@ -9,7 +9,7 @@ class InventoryRepo(SQL.SQL_table):
 		super(InventoryRepo, self).__init__()
 
 	def getAllInventory(self):
-		sql = "Select * from Inventory"
+		sql = "Select * from Inventory ORDER BY bar"
 		items = self.query(sql,Inventory)
 		return items
 	

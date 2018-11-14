@@ -136,7 +136,7 @@ def deleteBartender():
 # --------------------- BAR FOOD------------------------------
 @modificationController.route('/barfood', methods=['GET'])
 def getAllBarFood():
-    return barFoodService.getAllBarFood()
+	return barFoodService.getAllBarFood()
 
 @modificationController.route('/barfood/insert', methods=['POST'])
 def insertBarFood():
@@ -163,7 +163,7 @@ def deleteBarFood():
 # --------------------- DAY ------------------------------
 @modificationController.route('/day', methods=['GET'])
 def getAllDay():
-    return dayService.getAllDay()
+	return dayService.getAllDay()
 
 @modificationController.route('/day/insert', methods=['POST'])
 def insertDay():
@@ -190,7 +190,7 @@ def deleteDay():
 # --------------------- FREQUENTS ------------------------------
 @modificationController.route('/frequents', methods=['GET'])
 def getAllFrequents():
-    return frequentsService.getAllFrequents()
+	return frequentsService.getAllFrequents()
 
 @modificationController.route('/frequents/insert', methods=['POST'])
 def insertFrequents():
@@ -218,7 +218,7 @@ def deleteFrequents():
 # --------------------- LIKES ------------------------------
 @modificationController.route('/likes', methods=['GET'])
 def getAllLikes():
-    return likesService.getAllLikes()
+	return likesService.getAllLikes()
 
 @modificationController.route('/likes/insert', methods=['POST'])
 def insertLikes():
@@ -246,7 +246,7 @@ def deleteLikes():
 # --------------------- SELLSBEER ------------------------------
 @modificationController.route('/sellsbeer', methods=['GET'])
 def getAllSellsBeer():
-    return sellsBeerService.getAllSellsBeer()
+	return sellsBeerService.getAllSellsBeer()
 
 @modificationController.route('/sellsbeer/insert', methods=['POST'])
 def insertSellsBeer():
@@ -274,7 +274,7 @@ def deleteSellsBeer():
 # --------------------- SELLSFOOD ------------------------------
 @modificationController.route('/sellsfood', methods=['GET'])
 def getAllSellsFood():
-    return sellsFoodService.getAllSellsFood()
+	return sellsFoodService.getAllSellsFood()
 
 @modificationController.route('/sellsfood/insert', methods=['POST'])
 def insertSellsFood():
@@ -302,7 +302,11 @@ def deleteSellsFood():
 # --------------------- OPERATES ------------------------------
 @modificationController.route('/operates', methods=['GET'])
 def getAllOperates():
-    return operatesService.getAllOperates()
+	req = request.get_json()
+	num = str(req.get('num'))
+	if variable.isEmpty(num):
+		raise MissingParamaters("Missing parameter")
+	return operatesService.getAllOperates(num)
 
 @modificationController.route('/operates/insert', methods=['POST'])
 def insertOperates():
@@ -330,7 +334,11 @@ def deleteOperates():
 # --------------------- INVENTORY ------------------------------
 @modificationController.route('/inventory', methods=['GET'])
 def getAllInventory():
-    return inventoryService.getAllInventory()
+	req = request.get_json()
+	num = str(req.get('num'))
+	if variable.isEmpty(num):
+		raise MissingParamaters("Missing parameter")
+	return inventoryService.getAllInventory(num)
 
 @modificationController.route('/inventory/insert', methods=['POST'])
 def insertInventory():
@@ -359,7 +367,11 @@ def deleteInventory():
 # --------------------- TRANSACTIONS ------------------------------
 @modificationController.route('/transactions', methods=['GET'])
 def getAllTransactions():
-    return transactionsService.getAllTransactions()
+	req = request.get_json()
+	num = str(req.get('num'))
+	if variable.isEmpty(num):
+		raise MissingParamaters("Missing parameter")
+	return transactionsService.getAllTransactions(num)
 
 @modificationController.route('/transactions/insert', methods=['POST'])
 def insertTransactions():
@@ -387,7 +399,11 @@ def deleteTransactions():
 # --------------------- BILLS ------------------------------
 @modificationController.route('/bills', methods=['GET'])
 def getAllBills():
-    return billsService.getAllBills()
+	req = request.get_json()
+	num = str(req.get('num'))
+	if variable.isEmpty(num):
+		raise MissingParamaters("Missing parameter")
+	return billsService.getAllBills(num)
 
 @modificationController.route('/bills/insert', methods=['POST'])
 def insertBills():
@@ -414,7 +430,11 @@ def deleteBills():
 # --------------------- SHIFTS ------------------------------
 @modificationController.route('/shifts', methods=['GET'])
 def getAllShifts():
-    return shiftsService.getAllShifts()
+	req = request.get_json()
+	num = str(req.get('num'))
+	if variable.isEmpty(num):
+		raise MissingParamaters("Missing parameter")
+	return shiftsService.getAllShifts(num)
 
 @modificationController.route('/shifts/insert', methods=['POST'])
 def insertShifts():

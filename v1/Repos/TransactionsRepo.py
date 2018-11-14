@@ -9,7 +9,7 @@ class TransactionsRepo(SQL.SQL_table):
 		super(TransactionsRepo, self).__init__()
 
 	def getAllTransactions(self):
-		sql = "Select * from Transactions"
+		sql = "Select * from Transactions ORDER BY bill_id"
 		items = self.query(sql,Transactions)
 		return items
 	

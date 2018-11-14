@@ -8,10 +8,15 @@ from v1.Exceptions.Error import Error
 from datetime import datetime, timedelta
 import calendar
 
-def getAllOperates():
+def getAllOperates(num):
 	operatesRepo = OperatesRepo.OperatesRepo() 
 	results = operatesRepo.getAllOperates()
-	return  jsonify([e.toJson() for e in results])
+	if len(results) < num:
+		return jsonify([])
+	if num+5000 >= len(results):
+		return  jsonify([e.toJson() for e in results[num:]])
+	else:
+		return  jsonify([e.toJson() for e in results[num: num+5000]])
 
 def getOperatesForBar(bar):
 	operatesRepo = OperatesRepo.OperatesRepo() 

@@ -10,7 +10,7 @@ class BillsRepo(SQL.SQL_table):
 		super(BillsRepo, self).__init__()
 
 	def getAllBills(self):
-		sql = "Select * from Bills"
+		sql = "Select * from Bills ORDER BY bill_id"
 		items = self.query(sql,Bills)
 		return items
 	

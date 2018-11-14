@@ -1425,13 +1425,13 @@ baseURL/v1/manufacturer/liked/top/states?manf=kirin
 ---
 **URL: /v1/modification/inventory**
 
-- Description: Will return all tuples that are found in the Inventory table
+- Description: Will return tuples [num, num + 5000) that are found in the Inventory table
 - request type: GET
 
 ### Request: 
 ```
-{
-}
+params:
+    num = "starting row index for table"
 ```
 ### Response: 
 ```
@@ -1448,8 +1448,7 @@ baseURL/v1/manufacturer/liked/top/states?manf=kirin
 
 ### Example request: 
 ```
-{
-}
+baseurl/v1/modification/inventory?num =0
 ```
 ### Example response: 
 ```
@@ -1476,13 +1475,13 @@ baseURL/v1/manufacturer/liked/top/states?manf=kirin
 ---
 **URL: /v1/modification/operates**
 
-- Description: Will return all tuples that are found in the Operates table
+- Description: Will return [num, num + 5000) tuples that are found in the Operates table
 - request type: GET
 
 ### Request: 
 ```
-{
-}
+params:
+    num = "starting row index for table"
 ```
 ### Response: 
 ```
@@ -1499,8 +1498,7 @@ baseURL/v1/manufacturer/liked/top/states?manf=kirin
 
 ### Example request: 
 ```
-{
-}
+baseurl/v1/modification/operates?num =0
 ```
 ### Example response: 
 ```
@@ -1617,13 +1615,13 @@ baseURL/v1/manufacturer/liked/top/states?manf=kirin
 ---
 **URL: /v1/modification/shifts**
 
-- Description: Will return all tuples that are found in the Shifts table
+- Description: Will return [num, num + 5000) tuples that are found in the Shifts table
 - request type: GET
 
 ### Request: 
 ```
-{
-}
+params:
+    num = "starting row index for table"
 ```
 ### Response: 
 ```
@@ -1641,8 +1639,7 @@ baseURL/v1/manufacturer/liked/top/states?manf=kirin
 
 ### Example request: 
 ```
-{
-}
+baseurl/v1/modification/shifts?num =0
 ```
 ### Example response: 
 ```
@@ -1671,13 +1668,13 @@ baseURL/v1/manufacturer/liked/top/states?manf=kirin
 ---
 **URL: /v1/modification/bills**
 
-- Description: Will return all bills that are found in the Bills table
+- Description: Will return [num, num + 5000) bills that are found in the Bills table
 - request type: GET
 
 ### Request: 
 ```
-{
-}
+params:
+    num = "starting row index for table"
 ```
 ### Response: 
 ```
@@ -1700,8 +1697,7 @@ baseURL/v1/manufacturer/liked/top/states?manf=kirin
 
 ### Example request: 
 ```
-{
-}
+baseurl/v1/modification/bills?num =0
 ```
 ### Example response: 
 ```
@@ -1715,13 +1711,13 @@ baseURL/v1/manufacturer/liked/top/states?manf=kirin
 ---
 **URL: /v1/modification/transactions**
 
-- Description: Will return all transactions that are found in the Transactions table
+- Description: Will return [num, num + 5000) transactions that are found in the Transactions table
 - request type: GET
 
 ### Request: 
 ```
-{
-}
+params:
+    num = "starting row index for table"
 ```
 ### Response: 
 ```
@@ -1738,8 +1734,7 @@ baseURL/v1/manufacturer/liked/top/states?manf=kirin
 
 ### Example request: 
 ```
-{
-}
+baseurl/v1/modification/transactions?num =0
 ```
 ### Example response: 
 ```

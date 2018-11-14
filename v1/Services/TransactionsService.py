@@ -10,10 +10,15 @@ import v1.Services.BillsService as billsService
 import v1.Repos.InventoryRepo as InventoryRepo
 import v1.Services.InventoryService as inventoryService
 
-def getAllTransactions():
-    transactionsRepo = TransactionsRepo.TransactionsRepo() 
-    results = transactionsRepo.getAllTransactions()
-    return  jsonify([e.toJson() for e in results])
+def getAllTransactions(num):
+	transactionsRepo = TransactionsRepo.TransactionsRepo() 
+	results = transactionsRepo.getAllTransactions()
+   	if len(results) < num:
+		return jsonify([])
+	if num+5000 >= len(results):
+		return  jsonify([e.toJson() for e in results[num:]])
+	else:
+		return  jsonify([e.toJson() for e in results[num: num+5000]])
 
 '''
 checks to make:
