@@ -89,7 +89,8 @@ def updateOperates(operates,oldDate, oldBar):
 			raise Error("Update would result in bill(s) would result in a time stamp when bar is closed. Please update Bills table first.")
 	
 	operatesRepo = OperatesRepo.OperatesRepo()
-	return operatesRepo.updateOperates(operates, oldDate, oldBar)
+	#return operatesRepo.updateOperates(operates, oldDate, oldBar)
+	return "hello"
 
 ''' 
 checks:

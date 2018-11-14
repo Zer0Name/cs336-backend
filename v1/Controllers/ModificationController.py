@@ -320,10 +320,10 @@ def updateOperates():
 	req = request.get_json()
 	operates.requestMap(req)
 	oldBar = str(req.get('old_bar'))
-	oldDay = str(req.get('old_day'))
-	if variable.isEmpty(oldBar) or variable.isEmpty(oldDay):
+	oldDate = str(req.get('old_date'))
+	if variable.isEmpty(oldBar) or variable.isEmpty(oldDate):
 		raise MissingParamaters("Missing parameter")
-	return operatesService.updateOperates(operates, oldDay, oldBar)
+	return operatesService.updateOperates(operates, oldDate, oldBar)
 
 @modificationController.route('/operates/delete', methods=['POST'])
 def deleteOperates():

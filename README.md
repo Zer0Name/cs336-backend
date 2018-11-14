@@ -1705,8 +1705,7 @@ baseurl/v1/modification/bills?num =0
     
 ]
 ```
-
----
+--- NOTE if an array of len 0 is returned there is nothing else to return. 
 
 ---
 **URL: /v1/modification/transactions**
@@ -1734,7 +1733,7 @@ params:
 
 ### Example request: 
 ```
-baseurl/v1/modification/transactions?num =0
+baseurl/v1/modification/transactions?num=0
 ```
 ### Example response: 
 ```
@@ -1743,4 +1742,4 @@ baseurl/v1/modification/transactions?num =0
 ]
 ```
 
----
+--- NOTE if an array of len 0 is returned there is nothing else to return. 
