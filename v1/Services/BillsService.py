@@ -11,15 +11,15 @@ from v1.Exceptions.Error import Error
 from datetime import datetime, timedelta
 import calendar
 
-def getAllBills(num):
+def getAllBills(num = 0):
 	billsRepo = BillsRepo.BillsRepo() 
 	results = billsRepo.getAllBills()
 	if len(results) < 5000:
 		return  jsonify([e.toJson() for e in results])
-	if num+1 >= len(results):
+	if num+5000 >= len(results):
 		return  jsonify([e.toJson() for e in results[num:]])
 	else:
-		return  jsonify([e.toJson() for e in results[num: num+1]])
+		return  jsonify([e.toJson() for e in results[num: num+5000]])
 
 '''
 checks to make:
