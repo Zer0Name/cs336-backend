@@ -3,6 +3,15 @@
 **Base url: https://xja36rg9of.execute-api.us-east-1.amazonaws.com/dev**
 
 ---
+**Assumptions**
+- If you delete a bill or a transaction, inventory will not be restocked. 
+- Inventory cannot be modified in any way through the front end. 
+- If you insert into Transactions and there is already a tuple with that bill id and item then the quantity for that tuple will be updated to include the number of items you were trying to insert.
+- There can be times when the bar is open and no bartender has a shift.
+
+
+---
+---
 **URL: /v1/drinker**
 
 - Description: Will return all drinkers that are found in the drinker table
