@@ -10,7 +10,7 @@ class Transactions(object):
 		self.bill_id = None
 		self.quantity = None
 		self.item = None
-		self.item_type = None
+		self.type = None
 		self.price = None
 
 	def setBillId(self, bill_id):
@@ -23,7 +23,7 @@ class Transactions(object):
 		self.item = str(item)
 
 	def setType(self, item_type):
-		self.item_type = str(item_type)
+		self.type = str(item_type)
 	
 	def setPrice(self, price):
 		self.price = str(price)
@@ -38,7 +38,7 @@ class Transactions(object):
 		return str(self.item)
 
 	def getType(self):
-		return str(self.item_type)
+		return str(self.type)
 	
 	def getPrice(self):
 		return str(self.price)
@@ -48,7 +48,7 @@ class Transactions(object):
 			"bill_id"  :  self.getBillId(),
 			"quantity" :  self.getQuantity(),
 			"item" :  self.getItem(),
-			"item_type" :  self.getType(),
+			"type" :  self.getType(),
 			"price" :  self.getPrice()
 		}
 		
@@ -56,14 +56,14 @@ class Transactions(object):
 		self.setBillId(data["bill_id"])
 		self.setQuantity(data["quantity"])
 		self.setItem(data["item"])
-		self.setType(data["item_type"])
+		self.setType(data["type"])
 		self.setPrice(data["price"])
 
 	def reset(self):
 		self.bill_id = None
 		self.quantity = None
 		self.item = None
-		self.item_type = None
+		self.type = None
 		self.price = None
 
 
