@@ -367,8 +367,7 @@ def deleteInventory():
 # --------------------- TRANSACTIONS ------------------------------
 @modificationController.route('/transactions', methods=['GET'])
 def getAllTransactions():
-	req = request.get_json()
-	num = str(req.get('num'))
+	num = int(request.args.get('num'))
 	if variable.isEmpty(num):
 		raise MissingParamaters("Missing parameter")
 	return transactionsService.getAllTransactions(num)
@@ -399,8 +398,7 @@ def deleteTransactions():
 # --------------------- BILLS ------------------------------
 @modificationController.route('/bills', methods=['GET'])
 def getAllBills():
-	req = request.get_json()
-	num = str(req.get('num'))
+	num = int(request.args.get('num'))
 	if variable.isEmpty(num):
 		raise MissingParamaters("Missing parameter")
 	return billsService.getAllBills(num)
@@ -430,8 +428,7 @@ def deleteBills():
 # --------------------- SHIFTS ------------------------------
 @modificationController.route('/shifts', methods=['GET'])
 def getAllShifts():
-	req = request.get_json()
-	num = str(req.get('num'))
+	num = int(request.args.get('num'))
 	if variable.isEmpty(num):
 		raise MissingParamaters("Missing parameter")
 	return shiftsService.getAllShifts(num)
