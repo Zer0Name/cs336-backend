@@ -49,6 +49,7 @@ class SellsBeer(object):
 	def requestMap(self,request):
 		if variable.isEmpty(request):
 			return "Error"
+		print request
 		beername = str(request.get('beername'))
 		barname = str(request.get('barname'))
 		price = str(request.get('price'))

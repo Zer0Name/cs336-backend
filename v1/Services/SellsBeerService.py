@@ -20,7 +20,8 @@ def insertSellsBeer(sellsBeer):
 	if sellsBeerRepo.duplicate_entry(sellsBeer.getBeer(), sellsBeer.getBar()):
 		raise Error("Duplicate Entry")
 	sellsBeerRepo = SellsBeerRepo.SellsBeerRepo()
-	return sellsBeerRepo.insertSellsBeer(sellsBeer)
+	#return sellsBeerRepo.insertSellsBeer(sellsBeer)
+	return "hello"
 
 '''
 checks to make:
@@ -34,7 +35,8 @@ def updateSellsBeer(sellsBeer,oldBeer, oldBar):
 	if sellsBeerRepo.duplicate_entry(sellsBeer.getBeer(), sellsBeer.getBar()) and (not oldBeer == sellsBeer.getBeer() or not oldBar == sellsBeer.getBar()):
 		raise Error("Duplicate Entry")
 	sellsBeerRepo = SellsBeerRepo.SellsBeerRepo()
-	return sellsBeerRepo.updateSellsBeer(sellsBeer, oldBeer, oldBar)
+	#return sellsBeerRepo.updateSellsBeer(sellsBeer, oldBeer, oldBar)
+	return "hello"
 
 ''' no check cascade should be handled by table '''
 def deleteSellsBeer(sellsBeer):
