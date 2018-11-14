@@ -114,18 +114,22 @@ def insertTransactions(transactions):
 		transactions.setQuantity(quantity + transactions.getQuantity())
 
 		updateTransactions(transactions, transactions.getBillId(), transactions.getItem())
-
-		#update bills
+	else:
 		billsRepo = BillsRepo.BillsRepo()
 		bill = billsRepo.getBill(transactions.getBillId())
-		items_price = float(bill.getItemsPrice())
-		bill.setItemsPrice(items_price + price)
-		bill.setTaxPrice(round(bill.getItemsPrice()*0.07,2))
-		bill.setTotalPrice(float(bill.getItemsPrice())+ float(bill.getTaxPrice())+ float(bill.getTip()))
-		billsService.updateBills(bill, bill.getBillId())
-	
-	transactionsRepo = TransactionsRepo.TransactionsRepo()
-	return transactionsRepo.insertTransactions(transactions)
+		if len(bill) == 0:
+			raise Error("No bill has been created for this transaction. Please insert a bill and try again.")
+		transactionsRepo = TransactionsRepo.TransactionsRepo()
+		transactionsRepo.insertTransactions(transactions)
+	#update bills
+	billsRepo = BillsRepo.BillsRepo()
+	bill = billsRepo.getBill(transactions.getBillId())
+	items_price = float(bill.getItemsPrice())
+	bill.setItemsPrice(items_price + price)
+	bill.setTaxPrice(round(bill.getItemsPrice()*0.07,2))
+	bill.setTotalPrice(float(bill.getItemsPrice())+ float(bill.getTaxPrice())+ float(bill.getTip()))
+	billsService.updateBills(bill, bill.getBillId())
+	return "success"
 
 def updateTransactions(transactions,oldBillId, oldItem):
 	if int(transactions.getQuantity()) <= 0:
@@ -164,6 +168,11 @@ def updateTransactions(transactions,oldBillId, oldItem):
 		if not price*int(transactions.getQuantity()) == transactions.getPrice():
 			raise Error("Incorrect price")
 
+		billsRepo = BillsRepo.BillsRepo()
+		bill = billsRepo.getBill(transactions.getBillId())
+		if len(bill) == 0:
+			raise Error("No bill has been created for this transaction. Please insert a bill and try again.")
+			
 		#see if can update inventory
 		inventoryRepo = InventoryRepo.InventoryRepo()
 		#gets all inventory from date and after for a bar and beer
