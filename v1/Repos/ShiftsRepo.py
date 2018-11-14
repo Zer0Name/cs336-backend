@@ -10,7 +10,7 @@ class ShiftsRepo(SQL.SQL_table):
 		super(ShiftsRepo, self).__init__()
 
 	def getAllShifts(self):
-		sql = "Select * from Shifts"
+		sql = "Select * from Shifts ORDER BY bartender"
 		items = self.query(sql,Shifts)
 		return items
 

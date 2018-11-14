@@ -9,7 +9,7 @@ class OperatesRepo(SQL.SQL_table):
 		super(OperatesRepo, self).__init__()
 
 	def getAllOperates(self):
-		sql = "Select * from Operates"
+		sql = "Select * from Operates ORDER BY bar"
 		items = self.query(sql,Operates)
 		return items
 	

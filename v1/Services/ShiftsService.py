@@ -11,10 +11,15 @@ import v1.Util.Variable as variable
 from datetime import datetime, timedelta
 import calendar
 
-def getAllShifts():
+def getAllShifts(num):
 	shiftsRepo = ShiftsRepo.ShiftsRepo() 
 	results = shiftsRepo.getAllShifts()
-	return  jsonify([e.toJson() for e in results])
+	if len(results) < num:
+		return jsonify([])
+	if num+5000 >= len(results):
+		return  jsonify([e.toJson() for e in results[num:]])
+	else:
+		return  jsonify([e.toJson() for e in results[num: num+5000]])
   
 def insertShiftsForToday():
 	shiftRepo = ShiftsRepo.ShiftsRepo()
