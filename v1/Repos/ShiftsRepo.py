@@ -72,7 +72,7 @@ class ShiftsRepo(SQL.SQL_table):
 
 	def updateShifts(self,shifts,oldBar, oldBartender, oldDate):
 		sql = "UPDATE Shifts SET bar = %s, bartender = %s, day = %s, start = %s, end = %s, date = %s  WHERE bar = %s and bartender = %s and date = %s "
-		vals = (shifts.getBar(), shifts.getBartender(), shifts.getDay(), shifts.getStart(), shifts.getEnd(),shifts.getDay(), oldBar, oldBartender, oldDate)
+		vals = (shifts.getBar(), shifts.getBartender(), shifts.getDay(), shifts.getStart(), shifts.getEnd(),shifts.getDate(), oldBar, oldBartender, oldDate)
 		return self.update(sql,vals)
 
 	def deleteShifts(self,shifts):
