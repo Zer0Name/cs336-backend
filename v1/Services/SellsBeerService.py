@@ -4,9 +4,29 @@ import v1.DTO.TrueFalseDTO as TrueFalseDTO
 from v1.Exceptions.Error import Error
 
 def getAllSellsBeer():
-    sellsBeerRepo = SellsBeerRepo.SellsBeerRepo() 
-    results = sellsBeerRepo.getAllSellsBeer()
-    return  jsonify([e.toJson() for e in results])
+	sellsBeerRepo = SellsBeerRepo.SellsBeerRepo() 
+	results = sellsBeerRepo.getAllSellsBeer()
+	return  jsonify([e.toJson() for e in results])
+
+def get_price_for_quantity(bar, beer, quantity):
+	sellsBeerRepo = SellsBeerRepo.SellsBeerRepo() 
+	results = sellsBeerRepo.get_price_for_quantity(bar, beer, quantity)
+	return  jsonify(str(results))
+
+def get_price(bar,beer):
+	sellsBeerRepo = SellsBeerRepo.SellsBeerRepo() 
+	results = sellsBeerRepo.get_price(bar, beer)
+	return  jsonify(str(results))
+
+def get_beers_for_bar(bar):
+	sellsBeerRepo = SellsBeerRepo.SellsBeerRepo() 
+	results = sellsBeerRepo.get_beers_for_bar(bar)
+	return  jsonify([e.toJson() for e in results])
+
+def get_bar_for_beers(beer):
+	sellsBeerRepo = SellsBeerRepo.SellsBeerRepo() 
+	results = sellsBeerRepo.get_bar_for_beers(beer)
+	return  jsonify([e.toJson() for e in results])
 
 '''
 checks to make:

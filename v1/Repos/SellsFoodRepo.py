@@ -63,7 +63,7 @@ class SellsFoodRepo(SQL.SQL_table):
 		items = self.query(sql,NameDTO)
 		return items
 	
-	def get_bar_for_food(self, food):
+	def get_bars_for_foods(self, food):
 		sql = "SELECT barname AS name FROM SellsFood WHERE foodname = \""+str(food)+"\""
 		items = self.query(sql,NameDTO)
 		return items

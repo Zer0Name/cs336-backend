@@ -7,6 +7,26 @@ def getAllSellsFood():
     results = sellsFoodRepo.getAllSellsFood()
     return  jsonify([e.toJson() for e in results])
 
+def get_price_for_quantity(bar, food, quantity):
+	sellsFoodRepo = SellsFoodRepo.SellsFoodRepo() 
+	results = sellsFoodRepo.get_price_for_quantity(bar, food, quantity)
+	return  jsonify(str(results))
+
+def get_price(bar,food):
+	sellsFoodRepo = SellsFoodRepo.SellsFoodRepo() 
+	results = sellsFoodRepo.get_price(bar, food)
+	return  jsonify(str(results))
+
+def get_foods_for_bar(bar):
+	sellsFoodRepo = SellsFoodRepo.SellsFoodRepo()  
+	results = sellsFoodRepo.get_foods_for_bar(bar)
+	return  jsonify([e.toJson() for e in results])
+
+def get_bars_for_foods(food):
+	sellsFoodRepo = SellsFoodRepo.SellsFoodRepo()  
+	results = sellsFoodRepo.get_bars_for_foods(food)
+	return  jsonify([e.toJson() for e in results])
+
 '''
 checks to make:
 no duplicate entries
