@@ -66,15 +66,20 @@ def insertBills(bills):
 	if not shiftsRepo.time_during_shift(bills.getTime(), bills.getBartender(), bills.getBar(), bills.getDate()):
 		raise Error("Bartender does not have shift at the bar and/or on that date and/or during that time")
 
-	if not float(bills.getTaxPrice()) == round(float(bills.getItemsPrice())*0.07,2):
-		raise Error("Tax is not 7 percent of the items price")
+	# if not float(bills.getTaxPrice()) == round(float(bills.getItemsPrice())*0.07,2):
+	# 	raise Error("Tax is not 7 percent of the items price")
 
-	if not float(bills.getTaxPrice()) + float(bills.getTip()) + float(bills.getItemsPrice()) == float(bills.getTotalPrice()):
-		raise Error("Incorrect total price")
+	# if not float(bills.getTaxPrice()) + float(bills.getTip()) + float(bills.getItemsPrice()) == float(bills.getTotalPrice()):
+	# 	raise Error("Incorrect total price")
 	
-	billsRepo = BillsRepo.BillsRepo()
-	if not billsRepo.check_items_price(bills.getBillId(), bills.getItemsPrice()):
-		raise Error("Price of all the items doesn't match the total of the corresponding transactions") 
+	# billsRepo = BillsRepo.BillsRepo()
+	# if not billsRepo.check_items_price(bills.getBillId(), bills.getItemsPrice()):
+	# 	raise Error("Price of all the items doesn't match the total of the corresponding transactions") 
+
+	# bills.setTaxPrice(0)
+	# bills.setItemsPrice(0)
+	# bills.setTip(0)
+	# bills.setTotalPrice(0)
 
 	return billsRepo.insertBills(bills)
 
@@ -108,15 +113,15 @@ def updateBills(bills,oldBillId):
 	if not shiftsRepo.time_during_shift(bills.getTime(), bills.getBartender(), bills.getBar(), bills.getDate()):
 		raise Error("Bartender does not have shift at the bar and/or on that date and/or during that time")
 
-	if not float(bills.getTaxPrice()) == round(float(bills.getItemsPrice())*0.07,2):
-		raise Error("Tax is not 7 percent of the items price")
+	# if not float(bills.getTaxPrice()) == round(float(bills.getItemsPrice())*0.07,2):
+	# 	raise Error("Tax is not 7 percent of the items price")
 
-	if not float(bills.getTaxPrice()) + float(bills.getTip()) + float(bills.getItemsPrice()) == float(bills.getTotalPrice()):
-		raise Error("Incorrect total price")
+	# if not float(bills.getTaxPrice()) + float(bills.getTip()) + float(bills.getItemsPrice()) == float(bills.getTotalPrice()):
+	# 	raise Error("Incorrect total price")
 	
-	billsRepo = BillsRepo.BillsRepo()
-	if not billsRepo.check_items_price(bills.getBillId(), bills.getItemsPrice()):
-		raise Error("Price of all the items doesn't match the total of the corresponding transactions")
+	# billsRepo = BillsRepo.BillsRepo()
+	# if not billsRepo.check_items_price(bills.getBillId(), bills.getItemsPrice()):
+	# 	raise Error("Price of all the items doesn't match the total of the corresponding transactions")
 
 	return billsRepo.updateBills(bills, oldBillId)
 
