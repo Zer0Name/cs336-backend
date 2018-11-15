@@ -42,23 +42,41 @@ class InventoryRepo(SQL.SQL_table):
 		items = self.query(sql,Inventory)
 		return items
 
-	def insertInventoryForToday(self,listOfPrevousDayObjects):
-		num = 1	
-		for item in listOfPrevousDayObjects:
-			inventory = Inventory()
-			inventory.setBeer(item.getBeer())
-			inventory.setBar(item.getBar())
-			date_N_days_ago = datetime.now() - timedelta(days=num-1)
-			inventory.setDate(str(str(date_N_days_ago).split()[0]))
-			inventory.setStartQuantity(item.getEndQuantity())
-			inventory.setEndQuantity(item.getEndQuantity())
+	# def insertInventoryForToday(self,listOfPrevousDayObjects):
+	# 	num = 1	
+	# 	for item in listOfPrevousDayObjects:
+	# 		inventory = Inventory()
+	# 		inventory.setBeer(item.getBeer())
+	# 		inventory.setBar(item.getBar())
+	# 		date_N_days_ago = datetime.now() - timedelta(days=num-1)
+	# 		inventory.setDate(str(str(date_N_days_ago).split()[0]))
+	# 		inventory.setStartQuantity(item.getEndQuantity())
+	# 		inventory.setEndQuantity(item.getEndQuantity())
 
-			sql = "INSERT INTO Inventory (bar, beer, date, startquantity, endquantity )VALUES (%s,%s,%s,%s,%s)"
-			vals = (inventory.getBar(),inventory.getBeer(),inventory.getDate(),inventory.getStartQuantity(),inventory.getEndQuantity())
+	# 		sql = "INSERT INTO Inventory (bar, beer, date, startquantity, endquantity )VALUES (%s,%s,%s,%s,%s)"
+	# 		vals = (inventory.getBar(),inventory.getBeer(),inventory.getDate(),inventory.getStartQuantity(),inventory.getEndQuantity())
 		
-			#insert new object in to table
-			self.insertWithoutClose(sql,vals)
-		self.close()
+	# 		#insert new object in to table
+	# 		self.insertWithoutClose(sql,vals)
+	# 	self.close()
 
-		return "Success"
+		# return "Success"
+
+	def getLastInsertedDate(self):
+		sql = "Select * from Inventory group by date order by date desc"
+		items = self.query(sql,Inventory)
+		return items[0].getDate()
+
+
+	def getLastInvetory(self,date):
+		sql = "Select * from Inventory where date = \"" + str(date) + "\""
+		items = self.query(sql,Inventory)
+		return items
+
+	def insertInventoryForToday(self,inventory):
+		sql = "INSERT INTO Inventory (bar, beer, date, startquantity, endquantity )VALUES (%s,%s,%s,%s,%s)"
+		vals = (inventory.getBar(),inventory.getBeer(),inventory.getDate(),inventory.getStartQuantity(),inventory.getEndQuantity())
+		return self.insert(sql,vals)
+		
+
 
