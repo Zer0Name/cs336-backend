@@ -58,7 +58,7 @@ class SellsFoodRepo(SQL.SQL_table):
 		items = self.query(sql,TrueFalseDTO)
 		return int(items[0].value)
 	
-	def get_foods_for_bar(self, food):
+	def get_foods_for_bar(self, bar):
 		sql = "SELECT foodname AS name FROM SellsFood WHERE barname = \""+str(bar)+"\""
 		items = self.query(sql,NameDTO)
 		return items
