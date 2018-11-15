@@ -21,6 +21,7 @@ def insertSellsBeer(sellsBeer):
 		raise Error("Duplicate Entry")
 	sellsBeerRepo = SellsBeerRepo.SellsBeerRepo()
 	return sellsBeerRepo.insertSellsBeer(sellsBeer)
+	
 
 '''
 checks to make:
