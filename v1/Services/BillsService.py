@@ -55,7 +55,7 @@ def insertBills(bills):
 		raise Error("Day does not match date")
 
 	billsRepo = BillsRepo.BillsRepo()
-	if billsRepo.duplicate_entry(bills.getBillId()):
+	if billsRepo.duplicate_entry(bills.getBillId()) and not(bills.getBillId() == oldBillId):
 		raise Error("duplicate entry") 
 
 	operatesRepo = OperatesRepo.OperatesRepo() 
@@ -80,7 +80,7 @@ def insertBills(bills):
 	# bills.setItemsPrice(0)
 	# bills.setTip(0)
 	# bills.setTotalPrice(0)
-
+	billsRepo = BillsRepo.BillsRepo()
 	return billsRepo.insertBills(bills)
 
 def updateBills(bills,oldBillId):
@@ -122,7 +122,7 @@ def updateBills(bills,oldBillId):
 	# billsRepo = BillsRepo.BillsRepo()
 	# if not billsRepo.check_items_price(bills.getBillId(), bills.getItemsPrice()):
 	# 	raise Error("Price of all the items doesn't match the total of the corresponding transactions")
-
+	billsRepo = BillsRepo.BillsRepo()
 	return billsRepo.updateBills(bills, oldBillId)
 
 ''' 
