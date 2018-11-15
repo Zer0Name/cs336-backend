@@ -31,7 +31,7 @@ class BillsRepo(SQL.SQL_table):
 
 	def deleteBills(self,bills):
 		sql = "DELETE FROM Bills WHERE bill_id = %s "
-		vals = (bills.getBillId())
+		vals = (bills.getBillId(),)
 		return self.delete(sql,vals)
 
 

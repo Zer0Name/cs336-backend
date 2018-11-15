@@ -55,7 +55,7 @@ def insertBills(bills):
 		raise Error("Day does not match date")
 
 	billsRepo = BillsRepo.BillsRepo()
-	if billsRepo.duplicate_entry(bills.getBillId()) and not(bills.getBillId() == oldBillId):
+	if billsRepo.duplicate_entry(bills.getBillId()):
 		raise Error("duplicate entry") 
 
 	operatesRepo = OperatesRepo.OperatesRepo() 
