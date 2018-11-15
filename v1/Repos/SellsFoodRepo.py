@@ -2,6 +2,7 @@ import v1.Repos.SQL as SQL
 
 from v1.Entity.SellsFood import SellsFood
 from v1.DTO.TrueFalseDTO import TrueFalseDTO
+from v1.DTO.NameDTO import NameDTO
 
 class SellsFoodRepo(SQL.SQL_table):
 	
