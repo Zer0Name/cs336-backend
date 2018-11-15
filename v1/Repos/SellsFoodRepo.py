@@ -50,3 +50,19 @@ class SellsFoodRepo(SQL.SQL_table):
 		if int(items[0].value) == 1:
 			return True
 		return False
+
+	def get_price_for_quantity(self, bar, food, quantity):
+		sql = "SELECT price*\""+int(quantity)+"\" AS value FROM SellsFood WHERE barname = \""+str(bar)+"\" \
+				AND  foodname = \""+str(food)+"\""
+		items = self.query(sql,TrueFalseDTO)
+		return int(items[0].value)
+	
+	def get_foods_for_bar(self, food):
+		sql = "SELECT foodname AS name FROM SellsFood WHERE barname = \""+str(bar)+"\""
+		items = self.query(sql,NameDTO)
+		return items
+	
+	def get_bar_for_food(self, food):
+		sql = "SELECT barname AS name FROM SellsFood WHERE foodname = \""+str(food)+"\""
+		items = self.query(sql,NameDTO)
+		return items
