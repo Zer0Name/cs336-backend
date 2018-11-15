@@ -58,16 +58,11 @@ class OperatesRepo(SQL.SQL_table):
 		items = self.query(sql,Operates)
 		return items
 
-	def insertOperatesForToday(self,listOfPrevousDayObjects,date):
-		datetime_object = datetime.strptime(date, "%Y-%m-%d")
-		datetime_object = datetime_object + timedelta(days=1)
-		for item in listOfPrevousDayObjects:
-			item.setDate(str(str(datetime_object).split()[0]))
-			sql = "INSERT INTO Operates (bar, day, start, end, date)VALUES (%s,%s,%s,%s,%s)"
-			vals = (item.getBar(), item.getDay(), item.getStart(), item.getEnd(), item.getDate() )
-			#insert new object in to table
-			self.insertWithoutClose(sql,vals)
-		self.close()
+	def insertOperatesForToday(self,item):
+		sql = "INSERT INTO Operates (bar, day, start, end, date)VALUES (%s,%s,%s,%s,%s)"
+		vals = (item.getBar(), item.getDay(), item.getStart(), item.getEnd(), item.getDate() )
+		#insert new object in to table
+		return self.insert(sql,vals)
 	
 	#covers pattern 1
 	def time_during_operating_hours(self, time, bar, date):

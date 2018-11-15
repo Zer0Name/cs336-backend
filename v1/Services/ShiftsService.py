@@ -24,12 +24,23 @@ def getAllShifts(num):
 def insertShiftsForToday():
 	shiftRepo = ShiftsRepo.ShiftsRepo()
 	date =  str(shiftRepo.getLastInsertedDate())
+	date_N_days_ago = datetime.now()
+	if str(str(date_N_days_ago).split()[0]) == str(date):
+		return "day already inserted"
 
 	shiftRepo = ShiftsRepo.ShiftsRepo()
 	items = shiftRepo.getLastShifts(date)
 
-	shiftRepo = ShiftsRepo.ShiftsRepo()
-	shiftRepo.insertShiftsForToday(items,date)
+	datetime_object = datetime.strptime(date, "%Y-%m-%d")
+	datetime_object = datetime_object + timedelta(days=1)
+
+	for item in items:
+		item.setDate(str(str(datetime_object).split()[0]))
+		try:
+			shiftRepo = ShiftsRepo.ShiftsRepo()
+			shiftRepo.insertShiftsForToday(item)
+		except:
+			pass
 	return "Success"
 
 '''

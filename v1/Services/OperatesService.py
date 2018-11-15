@@ -119,9 +119,22 @@ def insertOperatesForToday():
 	operatesRepo = OperatesRepo.OperatesRepo()
 	date =  str(operatesRepo.getLastInsertedDate())
 
+	date_N_days_ago = datetime.now()
+	if str(str(date_N_days_ago).split()[0]) == str(date):
+		return "day already inserted"
+		
 	operatesRepo = OperatesRepo.OperatesRepo()
 	items = operatesRepo.getLastOperates(date)
 
-	operatesRepo = OperatesRepo.OperatesRepo()
-	operatesRepo.insertOperatesForToday(items,date)
+	datetime_object = datetime.strptime(date, "%Y-%m-%d")
+	datetime_object = datetime_object + timedelta(days=1)
+
+	for item in items:
+		item.setDate(str(str(datetime_object).split()[0]))
+		try:
+			operatesRepo = OperatesRepo.OperatesRepo()
+			operatesRepo.insertOperatesForToday(item)
+		except:
+			pass
+
 	return "Success"

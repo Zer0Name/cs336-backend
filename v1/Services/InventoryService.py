@@ -1,5 +1,6 @@
 from flask import Flask, jsonify, Blueprint, request, json, make_response
 import v1.Repos.InventoryRepo as InventoryRepo
+from datetime import datetime, timedelta
 
 def getAllInventory(num):
 	inventoryRepo = InventoryRepo.InventoryRepo() 
@@ -12,11 +13,25 @@ def getAllInventory(num):
 		return  jsonify([e.toJson() for e in results[num: num+5000]])
 
 def insertInventoryForToday():
+
 	inventoryRepo = InventoryRepo.InventoryRepo()
-	items  = inventoryRepo.getAllInventoryFromYesterday()
+	date =  str(inventoryRepo.getLastInsertedDate())
+	date_N_days_ago = datetime.now()
+	if str(str(date_N_days_ago).split()[0]) == str(date):
+		return "day already inserted"
+
 	inventoryRepo = InventoryRepo.InventoryRepo()
-	inventoryRepo.insertInventoryForToday(items)
+	items = inventoryRepo.getLastInvetory(date)
+
+	for item in items:
+		item.setDate(str(str(date_N_days_ago).split()[0]))
+		try:
+			inventoryRepo = InventoryRepo.InventoryRepo()
+			inventoryRepo.insertInventoryForToday(item)
+		except:
+			pass
 	return "success"
+
 
 '''
 checks to make:
