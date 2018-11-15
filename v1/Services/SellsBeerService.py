@@ -32,7 +32,7 @@ pattern #3
 '''
 def updateSellsBeer(sellsBeer,oldBeer, oldBar):
 	sellsBeerRepo = SellsBeerRepo.SellsBeerRepo()
-	if sellsBeerRepo.duplicate_entry(sellsBeer.getBeer(), sellsBeer.getBar()) and (not oldBeer == sellsBeer.getBeer() or not oldBar == sellsBeer.getBar()):
+	if sellsBeerRepo.duplicate_entry(sellsBeer.getBeername(), sellsBeer.getBarname()) and (not oldBeer == sellsBeer.getBeername() or not oldBar == sellsBeer.getBarname()):
 		raise Error("Duplicate Entry")
 	sellsBeerRepo = SellsBeerRepo.SellsBeerRepo()
 	return sellsBeerRepo.updateSellsBeer(sellsBeer, oldBeer, oldBar)
