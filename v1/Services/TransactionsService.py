@@ -36,123 +36,122 @@ def insertTransactions(transactions):
 	if int(transactions.getQuantity()) <= 0:
 		raise Error("Invalid Quantity")
 
-	if not(transactions.getType()=="beer") or not(transactions.getType()=="food"):
-		raise Error("Invalid Type")
+	billsRepo = BillsRepo.BillsRepo()
+	bill = billsRepo.getBillArray(transactions.getBillId())
+	if len(bill) == 0:
+		raise Error("No bill has been created for this transaction. Please insert a bill and try again.")
+	bill = bill[0]
 
-	
+	transactionsRepo = TransactionsRepo.TransactionsRepo()
+	if transactionsRepo.duplicate_entry(transactions.getBillId(), transactions.getItem()):
+		raise Error("item is already a transactions for the current bill please use update to change amount of the item")
+
 	if transactions.getType() == "food":
 		barFoodRepo = BarFoodRepo.BarFoodRepo()
 		if not barFoodRepo.barFood_exists(transactions.getItem()):
 			raise Error("Food does not exist")
 
 		sellsFoodRepo = SellsFoodRepo.SellsFoodRepo()
-		if not sellsFoodRepo.bar_sells_food(transactions.getBar(),transactions.getItem()):
+		if not sellsFoodRepo.bar_sells_food(bill.getBar(),transactions.getItem()):
 			raise Error("Bar doesn't sell the food")
 
-		# sellsFoodRepo = SellsFoodRepo.SellsFoodRepo()
-		# price = sellsFoodRepo.get_price(transactions.getBar(), transactions.getItem())
-		# if not price*int(transactions.getQuantity()) == transactions.getPrice():
-		# 	raise Error("Incorrect price")
+		sellsFoodRepo = SellsFoodRepo.SellsFoodRepo()
+		price = sellsFoodRepo.get_price(bill.getBar(), transactions.getItem())
+
 		
 	if transactions.getType() == "beer":
+		
 		beerRepo = BeerRepo.BeerRepo()
 		if not beerRepo.beer_exists(transactions.getItem()):
 			raise Error("Beer does not exist")
 
 		sellsBeerRepo = SellsBeerRepo.SellsBeerRepo()
-		if not sellsBeerRepo.bar_sells_beer(transactions.getBar(),transactions.getItem()):
+		if not sellsBeerRepo.bar_sells_beer(bill.getBar(),transactions.getItem()):
 			raise Error("Bar doesn't sell the beer")
 
-		# sellsBeerRepo = SellsBeerRepo.SellsBeerRepo()
-		# price = sellsBeerRepo.get_price(transactions.getBar(), transactions.getItem())
-		# if not price*int(transactions.getQuantity()) == transactions.getPrice():
-		# 	raise Error("Incorrect price")
+		sellsBeerRepo = SellsBeerRepo.SellsBeerRepo()
+		price = sellsBeerRepo.get_price(bill.getBar(), transactions.getItem())
+
+
+		inventoryRepo = InventoryRepo.InventoryRepo()
+		#gets all inventory from date and after for a bar and beer
+		results = inventoryRepo.getInventoryForToday(bill.getBar(), transactions.getItem(), bill.getDate())
+		if len(results) == 0:
+			raise Error("no inventory found for the bar")
+
 
 		#see if can update inventory
 		inventoryRepo = InventoryRepo.InventoryRepo()
 		#gets all inventory from date and after for a bar and beer
-		results = inventoryRepo.getInventory(transactions.getBar(), transactions.getBeer(), transactions.getDate())
-
-		#number of the beer trying to sell
-		transactionsRepo = TransactionsRepo.TransactionsRepo()
-		quantity = transactionsRepo.get_quantity(transactions.getBillId(), transactions.getItem())
+		results = inventoryRepo.getInventory(bill.getBar(), transactions.getItem(), bill.getDate())
+		if len(results) == 0:
+			raise Error("no inventory found for the bar")
 
 		#see if violates pattern
-		results[0].setEndQuantity(results[0].getEndQuantity()-quantity)
+		results[0].setEndQuantity(int(results[0].getEndQuantity())- int(transactions.getQuantity()))
 		for r in range(1, len(results)):
-			results[r].setStartQuantity(results[r-1].getEndQuantity())
-			results[r].setEndQuantity(results[r].getEndQuantity()-quantity)
-			if results[r].getEndQuantity() < 0:
+			results[r].setStartQuantity(int(results[r-1].getEndQuantity()))
+			results[r].setEndQuantity(int(results[r].getEndQuantity())-int(transactions.getQuantity()))
+			if int(results[r].getEndQuantity()) < 0:
 				raise Error("Violates Pattern 4: not enough inventory")
 
 		#doesn't violate pattern 4
 		inventoryRepo = InventoryRepo.InventoryRepo()
 		#gets all inventory from date and after for a bar and beer
-		results = inventoryRepo.getInventory(transactions.getBar(), transactions.getBeer(), transactions.getDate())
+		results = inventoryRepo.getInventory(bill.getBar(), transactions.getItem(), bill.getDate())
 
-		#number of the beer trying to sell
-		transactionsRepo = TransactionsRepo.TransactionsRepo()
-		quantity = transactionsRepo.get_quantity(transactions.getBillId(), transactions.getItem())
 
 		#update inventory
-		results[0].setEndQuantity(results[0].getEndQuantity()-quantity)
+		results[0].setEndQuantity(int(results[0].getEndQuantity())-int(transactions.getQuantity()))
 		inventoryService.updateInventory(results[0], results[0].getDate(), results[0].getBar(), results[0].getBeer())
 		for r in range(1, len(results)):
 			results[r].setStartQuantity(results[r-1].getEndQuantity())
-			results[r].setEndQuantity(results[r].getEndQuantity()-quantity)
+			results[r].setEndQuantity(int(results[r].getEndQuantity()) -int(transactions.getQuantity()))
 			inventoryService.updateInventory(results[r], results[r].getDate(), results[r].getBar(), results[r].getBeer())
 
+
 	transactionsRepo = TransactionsRepo.TransactionsRepo()
-	if transactionsRepo.duplicate_entry(transactions.getBillId(), transactions.getItem()):
-		#update transaction
-		transactionsRepo = TransactionsRepo.TransactionsRepo()
+	transactionsRepo.insertTransactions(transactions)
 
-		price = float(transactionsRepo.get_items_price(transactions.getBillId(), transactions.getItem()))
-		transactions.setItemsPrice(price + transactions.getItemsPrice())
-
-		quantity = transactionsRepo.get_quantity(transactions.getBillId(), transactions.getItem())
-		transactions.setQuantity(quantity + transactions.getQuantity())
-
-		updateTransactions(transactions, transactions.getBillId(), transactions.getItem())
-	else:
-		billsRepo = BillsRepo.BillsRepo()
-		bill = billsRepo.getBill(transactions.getBillId())
-		if len(bill) == 0:
-			raise Error("No bill has been created for this transaction. Please insert a bill and try again.")
-		transactionsRepo = TransactionsRepo.TransactionsRepo()
-		transactionsRepo.insertTransactions(transactions)
 	#update bills
 	billsRepo = BillsRepo.BillsRepo()
 	bill = billsRepo.getBill(transactions.getBillId())
-	items_price = float(bill.getItemsPrice())
-	bill.setItemsPrice(items_price + price)
-	bill.setTaxPrice(round(bill.getItemsPrice()*0.07,2))
+	items_price = float(transactions.getPrice())
+	bill.setItemsPrice(items_price + float(bill.getItemsPrice()))
+	bill.setTaxPrice(round(float(bill.getItemsPrice())*0.07,2))
 	bill.setTotalPrice(float(bill.getItemsPrice())+ float(bill.getTaxPrice())+ float(bill.getTip()))
 	billsService.updateBills(bill, bill.getBillId())
+
 	return "success"
 
 def updateTransactions(transactions,oldBillId, oldItem):
 	if int(transactions.getQuantity()) <= 0:
 		raise Error("Invalid Quantity")
-
-	if not(transactions.getType()=="beer") or not(transactions.getType()=="food"):
-		raise Error("Invalid Type")
 	
 	transactionsRepo = TransactionsRepo.TransactionsRepo()
 	if transactionsRepo.duplicate_entry(transactions.getBillId(), transactions.getItem()) and (not transactions.getBillId() == oldBillId or not transactions.getItem() == oldItem):
 		raise Error("Duplicate Entry")
+
+	billsRepo = BillsRepo.BillsRepo()
+	bill = billsRepo.getBillArray(transactions.getBillId())
+	if len(bill) == 0:
+		raise Error("No bill has been created for this transaction. Please insert a bill and try again.")
+	bill = bill[0]
+
+	transactionsRepo = TransactionsRepo.TransactionsRepo()
+	trans = transactionsRepo.get_transaction(oldBillId, oldItem)
+	if len(trans) == 0:
+		raise Error("no transcation found")
+	trans = trans[0]
 
 	if transactions.getType() == "food":
 		barFoodRepo = BarFoodRepo.BarFoodRepo()
 		if not barFoodRepo.barFood_exists(transactions.getItem()):
 			raise Error("Food does not exist")
 		sellsFoodRepo = SellsFoodRepo.SellsFoodRepo()
-		if not sellsFoodRepo.bar_sells_food(transactions.getBar(),transactions.getItem()):
+		if not sellsFoodRepo.bar_sells_food(bill.getBar(),transactions.getItem()):
 			raise Error("Bar doesn't sell the food")
-		# sellsFoodRepo = SellsFoodRepo.SellsFoodRepo()
-		# price = sellsFoodRepo.get_price(transactions.getBar(), transactions.getItem())
-		# if not price*int(transactions.getQuantity()) == transactions.getPrice():
-		# 	raise Error("Incorrect price")
+
 		
 	if transactions.getType() == "beer":
 		beerRepo = BeerRepo.BeerRepo()
@@ -160,7 +159,7 @@ def updateTransactions(transactions,oldBillId, oldItem):
 			raise Error("Beer does not exist")
 
 		sellsBeerRepo = SellsBeerRepo.SellsBeerRepo()
-		if not sellsBeerRepo.bar_sells_beer(transactions.getBar(),transactions.getItem()):
+		if not sellsBeerRepo.bar_sells_beer(bill.getBar(),transactions.getItem()):
 			raise Error("Bar doesn't sell the beer")
 
 		# sellsBeerRepo = SellsBeerRepo.SellsBeerRepo()
@@ -168,57 +167,64 @@ def updateTransactions(transactions,oldBillId, oldItem):
 		# if not price*int(transactions.getQuantity()) == transactions.getPrice():
 		# 	raise Error("Incorrect price")
 
-		billsRepo = BillsRepo.BillsRepo()
-		bill = billsRepo.getBill(transactions.getBillId())
-		if len(bill) == 0:
-			raise Error("No bill has been created for this transaction. Please insert a bill and try again.")
 
-		#see if can update inventory
 		inventoryRepo = InventoryRepo.InventoryRepo()
 		#gets all inventory from date and after for a bar and beer
-		results = inventoryRepo.getInventory(transactions.getBar(), transactions.getBeer(), transactions.getDate())
+		results = inventoryRepo.getInventory(bill.getBar(), transactions.getItem(), bill.getDate())
+		if len(results) == 0:
+			raise Error("no inventory found for the bar")
+
 
 		#number of the beer trying to sell
-		transactionsRepo = TransactionsRepo.TransactionsRepo()
-		quantity = transactionsRepo.get_quantity(transactions.getBillId(), transactions.getItem())
+		# transactionsRepo = TransactionsRepo.TransactionsRepo()
+		# quantity = transactionsRepo.get_quantity(transactions.getBillId(), transactions.getItem())
+
+		quantity = int(transactions.getQuantity()) - int(trans.getQuantity())
+
 
 		#see if violates pattern
-		results[0].setEndQuantity(results[0].getEndQuantity()-quantity)
+		results[0].setEndQuantity(int(results[0].getEndQuantity()) - quantity)
 		for r in range(1, len(results)):
 			results[r].setStartQuantity(results[r-1].getEndQuantity())
-			results[r].setEndQuantity(results[r].getEndQuantity()-quantity)
+			results[r].setEndQuantity(int(results[r].getEndQuantity()) -quantity)
 			if results[r].getEndQuantity() < 0:
 				raise Error("Violates Pattern 4: not enough inventory")
 
 		#doesn't violate pattern 4
 		inventoryRepo = InventoryRepo.InventoryRepo()
 		#gets all inventory from date and after for a bar and beer
-		results = inventoryRepo.getInventory(transactions.getBar(), transactions.getBeer(), transactions.getDate())
+		results = inventoryRepo.getInventory(bill.getBar(), transactions.getItem(), bill.getDate())
 
 		#number of the beer trying to sell
-		transactionsRepo = TransactionsRepo.TransactionsRepo()
-		quantity = transactionsRepo.get_quantity(transactions.getBillId(), transactions.getItem())
+		# transactionsRepo = TransactionsRepo.TransactionsRepo()
+		# quantity = transactionsRepo.get_quantity(transactions.getBillId(), transactions.getItem())
 
 		#update inventory
-		results[0].setEndQuantity(results[0].getEndQuantity()-quantity)
+		results[0].setEndQuantity(int(results[0].getEndQuantity()) - quantity)
 		inventoryService.updateInventory(results[0], results[0].getDate(), results[0].getBar(), results[0].getBeer())
 		for r in range(1, len(results)):
 			results[r].setStartQuantity(results[r-1].getEndQuantity())
-			results[r].setEndQuantity(results[r].getEndQuantity()-quantity)
+			results[r].setEndQuantity(int(results[r].getEndQuantity()) - quantity)
 			inventoryService.updateInventory(results[r], results[r].getDate(), results[r].getBar(), results[r].getBeer())
 
+
+
+
+	
 	#update transaction
 	transactionsRepo = TransactionsRepo.TransactionsRepo()
 	transactionsRepo.updateTransactions(transactions, oldBillId, oldItem)
 
+	#remove all item price from bill
+	bill.setItemsPrice(float(bill.getItemsPrice()) - float(trans.getPrice()) )
+
 	#update bills
-	billsRepo = BillsRepo.BillsRepo()
-	bill = billsRepo.getBill(transactions.getBillId())
 	items_price = float(bill.getItemsPrice())
-	bill.setItemsPrice(items_price + price)
-	bill.setTaxPrice(round(bill.getItemsPrice()*0.07,2))
+	bill.setItemsPrice(items_price + float(transactions.getPrice()))
+	bill.setTaxPrice(round(float(bill.getItemsPrice())*0.07,2))
 	bill.setTotalPrice(float(bill.getItemsPrice())+ float(bill.getTaxPrice())+ float(bill.getTip()))
 	billsService.updateBills(bill, bill.getBillId())
+
 	
 	return "success"
 
@@ -230,8 +236,8 @@ def deleteTransactions(transactions):
 	billsRepo = BillsRepo.BillsRepo()
 	bill = billsRepo.getBill(transactions.getBillId())
 	items_price = float(bill.getItemsPrice())
-	bill.setItemsPrice(items_price - transactions.getPrice())
-	bill.setTaxPrice(round(bill.getItemsPrice()*0.07,2))
+	bill.setItemsPrice(items_price - float(transactions.getPrice()))
+	bill.setTaxPrice(round(float(bill.getItemsPrice())*0.07,2))
 	bill.setTotalPrice(float(bill.getItemsPrice())+ float(bill.getTaxPrice())+ float(bill.getTip()))
 	billsService.updateBills(bill, bill.getBillId())
 	transactionsRepo = TransactionsRepo.TransactionsRepo()
