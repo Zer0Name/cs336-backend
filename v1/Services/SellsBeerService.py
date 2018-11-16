@@ -8,6 +8,11 @@ def getAllSellsBeer():
 	results = sellsBeerRepo.getAllSellsBeer()
 	return  jsonify([e.toJson() for e in results])
 
+def getAllBeersAndPrices(bar):
+	sellsBeerRepo = SellsBeerRepo.SellsBeerRepo() 
+	results = sellsBeerRepo.getAllBeersAndPrices(bar)
+	return  jsonify([e.toJson() for e in results])
+
 def get_price_for_quantity(bar, beer, quantity):
 	sellsBeerRepo = SellsBeerRepo.SellsBeerRepo() 
 	results = sellsBeerRepo.get_price_for_quantity(bar, beer, quantity)

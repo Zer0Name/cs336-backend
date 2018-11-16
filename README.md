@@ -1577,6 +1577,47 @@ baseurl/v1/modification/operates?num =0
 ---
 
 ---
+**URL: /v1/modification/sellsbeer/prices**
+
+- Description: Will return all beers and their corresponding prices for a given bar
+- request type: GET
+
+### Request: 
+```
+params:
+    bar: "name of bar"
+```
+### Response: 
+```
+[
+    {
+        "beername": String,
+        "price": String
+    }
+]
+```
+
+### Example request: 
+```
+baseurl/v1/modification/sellsbeer/prices?bar=Absent Snow
+```
+### Example response: 
+```
+[
+    {
+        "beername": "North Beach Ale",
+        "price": "4.40"
+    },
+    {
+        "beername": "Dry Stout",
+        "price": "9.99"
+    }
+]
+```
+
+---
+
+---
 **URL: /v1/modification/sellsfood**
 
 - Description: Will return all tuples that are found in the SellsFood table
@@ -1613,6 +1654,47 @@ baseurl/v1/modification/operates?num =0
     },
     {
         "barname": "Absent Snow",
+        "foodname": "Blooming Onion",
+        "price": "8.89"
+    }
+]
+```
+
+---
+
+---
+**URL: /v1/modification/sellsfood/prices**
+
+- Description: Will return all food and their corresponding prices for a given bar
+- request type: GET
+
+### Request: 
+```
+params:
+    bar: "name of bar"
+```
+### Response: 
+```
+[
+    {
+        "foodname": String,
+        "price": String
+    }
+]
+```
+
+### Example request: 
+```
+baseurl/v1/modification/sellsfood/prices?bar=Absent Snow
+```
+### Example response: 
+```
+[
+    {
+        "foodname": "Waffle Fries",
+        "price": "4.74"
+    },
+    {
         "foodname": "Blooming Onion",
         "price": "8.89"
     }

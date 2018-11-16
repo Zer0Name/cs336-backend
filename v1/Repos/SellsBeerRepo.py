@@ -3,6 +3,7 @@ import v1.Repos.SQL as SQL
 from v1.Entity.SellsBeer import SellsBeer
 from v1.DTO.TrueFalseDTO import TrueFalseDTO
 from v1.DTO.NameDTO import NameDTO
+from v1.DTO.QuantityDTO import QuantityDTO
 
 class SellsBeerRepo(SQL.SQL_table):
 	
@@ -12,6 +13,11 @@ class SellsBeerRepo(SQL.SQL_table):
 	def getAllSellsBeer(self):
 		sql = "Select * from SellsBeer"
 		items = self.query(sql,SellsBeer)
+		return items
+	
+	def getAllBeersAndPrices(self, bar):
+		sql = "Select beername AS name, price AS amount from SellsBeer WHERE barname = \""+str(bar)+"\";"
+		items = self.query(sql,QuantityDTO)
 		return items
 	
 	def insertSellsBeer(self,sellsBeer):

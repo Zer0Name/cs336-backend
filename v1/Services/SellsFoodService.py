@@ -27,6 +27,11 @@ def get_bars_for_foods(food):
 	results = sellsFoodRepo.get_bars_for_foods(food)
 	return  jsonify([e.toJson() for e in results])
 
+def getAllFoodAndPrices(bar):
+	sellsFoodRepo = SellsFoodRepo.SellsFoodRepo()  
+	results = sellsFoodRepo.getAllFoodAndPrices(bar)
+	return  jsonify([e.toJson() for e in results])
+
 '''
 checks to make:
 no duplicate entries

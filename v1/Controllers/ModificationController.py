@@ -256,6 +256,14 @@ def get_price():
 		raise MissingParamaters("Missing parameter")
 	return sellsBeerService.get_price(bar, beer)
 
+@modificationController.route('/sellsbeer/prices', methods=['GET'])
+def getAllBeersAndPrices():
+	bar = str(request.args.get('bar'))
+	if variable.isEmpty(bar):
+		raise MissingParamaters("Missing parameter")
+	return sellsBeerService.getAllBeersAndPrices(bar)
+
+
 @modificationController.route('/sellsbeer/price/quantity', methods=['GET'])
 def get_price_for_quantity():
 	bar = str(request.args.get('bar'))
@@ -273,11 +281,11 @@ def get_beers_for_bar():
 	return sellsBeerService.get_beers_for_bar(bar)
 
 @modificationController.route('/sellsbeer/bars', methods=['GET'])
-def get_bars_for_beers():
+def get_bar_for_beers():
 	beer = str(request.args.get('beer'))
 	if variable.isEmpty(beer):
 		raise MissingParamaters("Missing parameter")
-	return sellsBeerService.get_bars_for_beers(beer)
+	return sellsBeerService.get_bar_for_beers(beer)
 
 @modificationController.route('/sellsbeer/insert', methods=['POST'])
 def insertSellsBeer():
@@ -306,6 +314,13 @@ def deleteSellsBeer():
 @modificationController.route('/sellsfood', methods=['GET'])
 def getAllSellsFood():
 	return sellsFoodService.getAllSellsFood()
+
+@modificationController.route('/sellsfood/prices', methods=['GET'])
+def getAllFoodAndPrices():
+	bar = str(request.args.get('bar'))
+	if variable.isEmpty(bar):
+		raise MissingParamaters("Missing parameter")
+	return sellsFoodService.getAllFoodAndPrices(bar)
 
 @modificationController.route('/sellsfood/price', methods=['GET'])
 def get_price_food():
