@@ -159,6 +159,7 @@ baseurl/v1/modification/sellsbeer/delete
 	"price"  :  "",
     "old_bar": "",
     "old_beer": ""
+	"start_quantity": ""
 }
 
 SellsFood:

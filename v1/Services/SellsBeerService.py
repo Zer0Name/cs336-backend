@@ -2,6 +2,9 @@ from flask import Flask, jsonify, Blueprint, request, json, make_response
 import v1.Repos.SellsBeerRepo as SellsBeerRepo
 import v1.DTO.TrueFalseDTO as TrueFalseDTO
 from v1.Exceptions.Error import Error
+import v1.Repos.InventoryRepo as InventoryRepo
+from v1.Entity.Inventory import Inventory
+from datetime import date
 
 def getAllSellsBeer():
 	sellsBeerRepo = SellsBeerRepo.SellsBeerRepo() 
@@ -40,10 +43,16 @@ beer exists
 bar exists
 pattern #3
 '''
-def insertSellsBeer(sellsBeer):
+def insertSellsBeer(sellsBeer, startQuantity):
 	sellsBeerRepo = SellsBeerRepo.SellsBeerRepo()
 	if sellsBeerRepo.duplicate_entry(sellsBeer.getBeername(), sellsBeer.getBarname()):
 		raise Error("Duplicate Entry")
+
+	#update inventory for current date for the new beer 
+	curdate = str(date.today())
+	inventoryRepo = InventoryRepo.InventoryRepo()
+	inventoryRepo.insertIntoInventory(sellsBeer.getBarname(), sellsBeer.getBeername(),curdate,startQuantity, startQuantity)
+
 	sellsBeerRepo = SellsBeerRepo.SellsBeerRepo()
 	return sellsBeerRepo.insertSellsBeer(sellsBeer)
 	
@@ -59,6 +68,15 @@ def updateSellsBeer(sellsBeer,oldBeer, oldBar):
 	sellsBeerRepo = SellsBeerRepo.SellsBeerRepo()
 	if sellsBeerRepo.duplicate_entry(sellsBeer.getBeername(), sellsBeer.getBarname()) and (not oldBeer == sellsBeer.getBeername() or not oldBar == sellsBeer.getBarname()):
 		raise Error("Duplicate Entry")
+	
+	#if change name of beer or bar update all tuples in inventory to match
+	if(not oldBeer == sellsBeer.getBeername() or not oldBar == sellsBeer.getBarname()):
+		inventoryRepo = InventoryRepo.InventoryRepo()
+		inventory = inventoryRepo.getInventoryForBarAndBeer(oldBar, oldBeer)
+		for i in range(0, len(inventory)):
+			inventory[i].setBar(sellsBeer.getBarname())
+			inventory[i].setBeer(sellsBeer.getBeername())
+
 	sellsBeerRepo = SellsBeerRepo.SellsBeerRepo()
 	return sellsBeerRepo.updateSellsBeer(sellsBeer, oldBeer, oldBar)
 

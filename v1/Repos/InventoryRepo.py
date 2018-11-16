@@ -13,6 +13,13 @@ class InventoryRepo(SQL.SQL_table):
 		items = self.query(sql,Inventory)
 		return items
 	
+	def getInventoryForBarAndBeer(self, bar, beer):
+		sql = "Select * from Inventory WHERE bar = \""+str(bar)+"\" \
+				AND beer = \""+str(beer)+"\" \
+				ORDER BY date ASC"
+		items = self.query(sql,Inventory)
+		return items
+	
 	def getInventory(self, bar, beer, date):
 		sql = "Select * from Inventory WHERE bar = \""+str(bar)+"\" \
 				AND beer = \""+str(beer)+"\" AND date >= \""+str(date)+"\" \
@@ -29,6 +36,11 @@ class InventoryRepo(SQL.SQL_table):
 	def insertInventory(self,inventory):
 		sql = "INSERT INTO Inventory (bar, beer, date, startquantity, endquantity) VALUES (%s,%s,%s,%s,%s)"
 		vals = (inventory.getBar(),inventory.getBeer(),inventory.getDate(),inventory.getStartQuantity(),inventory.getEndQuantity())
+		return self.insert(sql,vals)
+	
+	def insertIntoInventory(self,bar, beer, date, start, end):
+		sql = "INSERT INTO Inventory (bar, beer, date, startquantity, endquantity) VALUES (%s,%s,%s,%s,%s)"
+		vals = (bar, beer, date, start, end)
 		return self.insert(sql,vals)
 
 	def updateInventory(self,inventory,oldDate, oldBar, oldBeer):
