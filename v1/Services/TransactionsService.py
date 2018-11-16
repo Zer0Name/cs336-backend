@@ -49,10 +49,10 @@ def insertTransactions(transactions):
 		if not sellsFoodRepo.bar_sells_food(transactions.getBar(),transactions.getItem()):
 			raise Error("Bar doesn't sell the food")
 
-		sellsFoodRepo = SellsFoodRepo.SellsFoodRepo()
-		price = sellsFoodRepo.get_price(transactions.getBar(), transactions.getItem())
-		if not price*int(transactions.getQuantity()) == transactions.getPrice():
-			raise Error("Incorrect price")
+		# sellsFoodRepo = SellsFoodRepo.SellsFoodRepo()
+		# price = sellsFoodRepo.get_price(transactions.getBar(), transactions.getItem())
+		# if not price*int(transactions.getQuantity()) == transactions.getPrice():
+		# 	raise Error("Incorrect price")
 		
 	if transactions.getType() == "beer":
 		beerRepo = BeerRepo.BeerRepo()
@@ -63,10 +63,10 @@ def insertTransactions(transactions):
 		if not sellsBeerRepo.bar_sells_beer(transactions.getBar(),transactions.getItem()):
 			raise Error("Bar doesn't sell the beer")
 
-		sellsBeerRepo = SellsBeerRepo.SellsBeerRepo()
-		price = sellsBeerRepo.get_price(transactions.getBar(), transactions.getItem())
-		if not price*int(transactions.getQuantity()) == transactions.getPrice():
-			raise Error("Incorrect price")
+		# sellsBeerRepo = SellsBeerRepo.SellsBeerRepo()
+		# price = sellsBeerRepo.get_price(transactions.getBar(), transactions.getItem())
+		# if not price*int(transactions.getQuantity()) == transactions.getPrice():
+		# 	raise Error("Incorrect price")
 
 		#see if can update inventory
 		inventoryRepo = InventoryRepo.InventoryRepo()
@@ -149,10 +149,10 @@ def updateTransactions(transactions,oldBillId, oldItem):
 		sellsFoodRepo = SellsFoodRepo.SellsFoodRepo()
 		if not sellsFoodRepo.bar_sells_food(transactions.getBar(),transactions.getItem()):
 			raise Error("Bar doesn't sell the food")
-		sellsFoodRepo = SellsFoodRepo.SellsFoodRepo()
-		price = sellsFoodRepo.get_price(transactions.getBar(), transactions.getItem())
-		if not price*int(transactions.getQuantity()) == transactions.getPrice():
-			raise Error("Incorrect price")
+		# sellsFoodRepo = SellsFoodRepo.SellsFoodRepo()
+		# price = sellsFoodRepo.get_price(transactions.getBar(), transactions.getItem())
+		# if not price*int(transactions.getQuantity()) == transactions.getPrice():
+		# 	raise Error("Incorrect price")
 		
 	if transactions.getType() == "beer":
 		beerRepo = BeerRepo.BeerRepo()
@@ -163,10 +163,10 @@ def updateTransactions(transactions,oldBillId, oldItem):
 		if not sellsBeerRepo.bar_sells_beer(transactions.getBar(),transactions.getItem()):
 			raise Error("Bar doesn't sell the beer")
 
-		sellsBeerRepo = SellsBeerRepo.SellsBeerRepo()
-		price = sellsBeerRepo.get_price(transactions.getBar(), transactions.getItem())
-		if not price*int(transactions.getQuantity()) == transactions.getPrice():
-			raise Error("Incorrect price")
+		# sellsBeerRepo = SellsBeerRepo.SellsBeerRepo()
+		# price = sellsBeerRepo.get_price(transactions.getBar(), transactions.getItem())
+		# if not price*int(transactions.getQuantity()) == transactions.getPrice():
+		# 	raise Error("Incorrect price")
 
 		billsRepo = BillsRepo.BillsRepo()
 		bill = billsRepo.getBill(transactions.getBillId())
