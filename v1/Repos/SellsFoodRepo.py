@@ -47,9 +47,9 @@ class SellsFoodRepo(SQL.SQL_table):
 	
 	def get_price(self, bar, food):
 		sql = "SELECT price AS value FROM SellsFood WHERE barname = \""+str(bar)+"\" \
-				AND  beername = \""+str(food)+"\""
+				AND  foodname = \""+str(food)+"\""
 		items = self.query(sql,TrueFalseDTO)
-		return int(items[0].value)
+		return float(items[0].value)
 
 	def duplicate_entry(self, food, bar):
 		sql = "SELECT EXISTS(SELECT * FROM SellsFood WHERE foodname = \""+str(food)+"\" \

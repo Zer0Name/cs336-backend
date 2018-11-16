@@ -73,7 +73,7 @@ class Transactions(object):
 		bill_id = str(request.get('bill_id'))
 		quantity = str(request.get('quantity'))
 		item = str(request.get('item'))
-		item_type = str(request.get('type'))
+		item_type = str(request.get('item_type'))
 		price = str(request.get('price'))
 		if variable.isEmpty(bill_id) or variable.isEmpty(quantity) or variable.isEmpty(item) or variable.isEmpty(item_type) or variable.isEmpty(price):
 			raise MissingParamaters("Missing parameter")

@@ -53,3 +53,9 @@ class TransactionsRepo(SQL.SQL_table):
 				 AND item = \""+str(item)+"\""
 		items = self.query(sql,TrueFalseDTO)
 		return float(items[0].value)
+
+	def get_transaction(self, bill_id, item):
+		sql = "SELECT * FROM Transactions WHERE bill_id = \"" + str(bill_id) + "\" \
+				 AND item = \"" + str(item)+ "\" "
+		items = self.query(sql,Transactions)
+		return items

@@ -48,7 +48,7 @@ class SellsBeerRepo(SQL.SQL_table):
 		sql = "SELECT price AS value FROM SellsBeer WHERE barname = \""+str(bar)+"\" \
 				AND  beername = \""+str(beer)+"\""
 		items = self.query(sql,TrueFalseDTO)
-		return int(items[0].value)
+		return float(items[0].value)
 	
 	def get_price_for_quantity(self, bar, beer, quantity):
 		sql = "SELECT price*\""+int(quantity)+"\" AS value FROM SellsBeer WHERE barname = \""+str(bar)+"\" \

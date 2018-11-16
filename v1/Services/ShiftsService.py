@@ -104,7 +104,7 @@ def updateShifts(shifts,oldBar, oldBartender, oldDate):
 	#pattern 5
 	shiftsRepo = ShiftsRepo.ShiftsRepo()
 	items = shiftsRepo.getShifts(shifts.getBartender(), shifts.getDate())
-	if len(items) != 0 and (not shifts.getBartender() == oldBartender or not shifts.getBar() == oldBar or not shifts.getDate() == oldDate):
+	if len(items) != 0 and (not (shifts.getBartender() == oldBartender) or not (shifts.getBar() == oldBar) or not (shifts.getDate() == oldDate) ) :
 		raise Error("Bartender can only have one shift on a given date")
 
 	barRepo = BarRepo.BarRepo()
@@ -128,8 +128,10 @@ def updateShifts(shifts,oldBar, oldBartender, oldDate):
 
 	billsRepo = BillsRepo.BillsRepo()
 	transcations = billsRepo.getBillsByBartenderAndDate(shifts.getBartender(),shifts.getDate())
-	if not variable.isEmptyArray(transcations):
-		raise Error("Bartender has transcations during the current shift that need to be deleted or updated before trying to update this shift")
+
+	for each in transcations:
+		if  not (shifts.getStart() <=  each.getTime() and  each.getTime() <=  shifts.getEnd()):
+			raise Error("Bartender has transcations during the current shift that need to be deleted or updated before trying to update this shift")
 
 	shiftsRepo = ShiftsRepo.ShiftsRepo()
 	return shiftsRepo.updateShifts(shifts, oldBar, oldBartender, oldDate)
