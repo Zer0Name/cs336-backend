@@ -292,8 +292,7 @@ def insertSellsBeer():
 	sellsBeer = SellsBeer()
 	req = request.get_json()
 	sellsBeer.requestMap(req)
-	startQuantity = str(req.get('start_quantity'))
-	return sellsBeerService.insertSellsBeer(sellsBeer, startQuantity)
+	return sellsBeerService.insertSellsBeer(sellsBeer)
 
 @modificationController.route('/sellsbeer/update', methods=['POST'])
 def updateSellsBeer():

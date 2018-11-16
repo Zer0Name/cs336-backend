@@ -43,11 +43,12 @@ beer exists
 bar exists
 pattern #3
 '''
-def insertSellsBeer(sellsBeer, startQuantity):
+def insertSellsBeer(sellsBeer):
 	sellsBeerRepo = SellsBeerRepo.SellsBeerRepo()
 	if sellsBeerRepo.duplicate_entry(sellsBeer.getBeername(), sellsBeer.getBarname()):
 		raise Error("Duplicate Entry")
 
+	startQuantity = 100
 	#update inventory for current date for the new beer 
 	curdate = str(date.today())
 	inventoryRepo = InventoryRepo.InventoryRepo()
@@ -68,23 +69,19 @@ def updateSellsBeer(sellsBeer,oldBeer, oldBar):
 	sellsBeerRepo = SellsBeerRepo.SellsBeerRepo()
 	if sellsBeerRepo.duplicate_entry(sellsBeer.getBeername(), sellsBeer.getBarname()) and (not oldBeer == sellsBeer.getBeername() or not oldBar == sellsBeer.getBarname()):
 		raise Error("Duplicate Entry")
-	
-	#if change name of beer or bar update all tuples in inventory to match
-	if(not oldBeer == sellsBeer.getBeername() or not oldBar == sellsBeer.getBarname()):
+	print "meow"
+	if (not oldBeer == sellsBeer.getBeername() or not oldBar == sellsBeer.getBarname()):
+		curdate = str(date.today())
 		inventoryRepo = InventoryRepo.InventoryRepo()
-		inventory = inventoryRepo.getInventoryForBarAndBeer(oldBar, oldBeer)
-		for i in range(0, len(inventory)):
-			inv = Inventory()
-			inv.setBar(sellsBeer.getBarname())
-			inv.setBeer(sellsBeer.getBeername())
-			d =inventory[i].getDate()
-			inv.setDate(d)
-			s = inventory[i].getStartQuantity()
-			inv.setStartQuantity(s)
-			e = inventory[i].getEndQuantity()
-			inv.setEndQuantity(e)
+		print "here"
+		result = inventoryRepo.getInventory(sellsBeer.getBarname(), sellsBeer.getBeername(),curdate)
+		print result
+		if len(result) == 0:
+			startQuantity = 100
+			#update inventory for current date for the new beer 
 			inventoryRepo = InventoryRepo.InventoryRepo()
-			inventoryRepo.updateInventory(inv, d, inventory[i].getBar(), inventory[i].getBeer())
+			inventoryRepo.insertIntoInventory(sellsBeer.getBarname(), sellsBeer.getBeername(),curdate,startQuantity, startQuantity)
+		
 
 	sellsBeerRepo = SellsBeerRepo.SellsBeerRepo()
 	return sellsBeerRepo.updateSellsBeer(sellsBeer, oldBeer, oldBar)
