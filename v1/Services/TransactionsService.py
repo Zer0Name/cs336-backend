@@ -89,6 +89,8 @@ def insertTransactions(transactions):
 
 		#see if violates pattern
 		results[0].setEndQuantity(int(results[0].getEndQuantity())- int(transactions.getQuantity()))
+		if int(results[0].getEndQuantity()) < 0:
+				raise Error("Violates Pattern 4: not enough inventory")
 		for r in range(1, len(results)):
 			results[r].setStartQuantity(int(results[r-1].getEndQuantity()))
 			results[r].setEndQuantity(int(results[r].getEndQuantity())-int(transactions.getQuantity()))
@@ -184,10 +186,12 @@ def updateTransactions(transactions,oldBillId, oldItem):
 
 		#see if violates pattern
 		results[0].setEndQuantity(int(results[0].getEndQuantity()) - quantity)
+		if int(results[0].getEndQuantity()) < 0:
+				raise Error("Violates Pattern 4: not enough inventory")
 		for r in range(1, len(results)):
 			results[r].setStartQuantity(results[r-1].getEndQuantity())
 			results[r].setEndQuantity(int(results[r].getEndQuantity()) -quantity)
-			if results[r].getEndQuantity() < 0:
+			if int(results[r].getEndQuantity()) < 0:
 				raise Error("Violates Pattern 4: not enough inventory")
 
 		#doesn't violate pattern 4
