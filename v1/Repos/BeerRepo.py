@@ -30,10 +30,10 @@ class BeerRepo(SQL.SQL_table):
 
 
 	def getBiggestConsumers(self,beer):
-		sql = "SELECT drinker as name, SUM(quantity) AS amount\
-				FROM Transactions \
-				WHERE item = \""+str(beer)+"\" \
-				GROUP BY drinker \
+		sql = "SELECT b.drinker as name, SUM(t.quantity) AS amount\
+				FROM Transactions t, Bills b \
+				WHERE t.bill_id = b.bill_id AND t.item = \""+str(beer)+"\" \
+				GROUP BY b.drinker \
 				ORDER BY amount DESC \
 				LIMIT 10;"
 		items = self.query(sql,QuantityDTO)
