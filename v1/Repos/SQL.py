@@ -16,6 +16,7 @@ class SQL_table(object):
 	def getConnection(self):
 		mydb = mysql.connector.connect(
 		host="pro-336.cuyc1x8g0d0t.us-east-1.rds.amazonaws.com",
+		# host="testing-server.cuyc1x8g0d0t.us-east-1.rds.amazonaws.com",
 		user="student",
 		passwd="Database123",
 		database = "project336"

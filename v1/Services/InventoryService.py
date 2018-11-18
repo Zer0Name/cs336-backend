@@ -23,8 +23,11 @@ def insertInventoryForToday():
 	inventoryRepo = InventoryRepo.InventoryRepo()
 	items = inventoryRepo.getLastInvetory(date)
 
+	datetime_object = datetime.strptime(date, "%Y-%m-%d")
+	datetime_object = datetime_object + timedelta(days=1)
+
 	for item in items:
-		item.setDate(str(str(date_N_days_ago).split()[0]))
+		item.setDate(str(str(datetime_object).split()[0]))
 		try:
 			inventoryRepo = InventoryRepo.InventoryRepo()
 			inventoryRepo.insertInventoryForToday(item)

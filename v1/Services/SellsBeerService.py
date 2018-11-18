@@ -4,7 +4,7 @@ import v1.DTO.TrueFalseDTO as TrueFalseDTO
 from v1.Exceptions.Error import Error
 import v1.Repos.InventoryRepo as InventoryRepo
 from v1.Entity.Inventory import Inventory
-from datetime import date
+from datetime import datetime, timedelta
 
 def getAllSellsBeer():
 	sellsBeerRepo = SellsBeerRepo.SellsBeerRepo() 
@@ -50,7 +50,9 @@ def insertSellsBeer(sellsBeer):
 
 	startQuantity = 100
 	#update inventory for current date for the new beer 
-	curdate = str(date.today())
+	date_N_days_ago = datetime.now()
+	
+	curdate = str(str(date_N_days_ago).split()[0])
 	inventoryRepo = InventoryRepo.InventoryRepo()
 	inventoryRepo.insertIntoInventory(sellsBeer.getBarname(), sellsBeer.getBeername(),curdate,startQuantity, startQuantity)
 
@@ -69,13 +71,12 @@ def updateSellsBeer(sellsBeer,oldBeer, oldBar):
 	sellsBeerRepo = SellsBeerRepo.SellsBeerRepo()
 	if sellsBeerRepo.duplicate_entry(sellsBeer.getBeername(), sellsBeer.getBarname()) and (not oldBeer == sellsBeer.getBeername() or not oldBar == sellsBeer.getBarname()):
 		raise Error("Duplicate Entry")
-	print "meow"
 	if (not oldBeer == sellsBeer.getBeername() or not oldBar == sellsBeer.getBarname()):
-		curdate = str(date.today())
+		date_N_days_ago = datetime.now()
+	
+		curdate = str(str(date_N_days_ago).split()[0])
 		inventoryRepo = InventoryRepo.InventoryRepo()
-		print "here"
 		result = inventoryRepo.getInventory(sellsBeer.getBarname(), sellsBeer.getBeername(),curdate)
-		print result
 		if len(result) == 0:
 			startQuantity = 100
 			#update inventory for current date for the new beer 
