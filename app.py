@@ -9,6 +9,7 @@ from v1.Controllers.ModificationController import modificationController
 from v1.Controllers.BartenderController import bartenderController
 from v1.Controllers.ManufacturerController import manufacturerController
 from v1.Controllers.DailyController import dailyController
+from v1.Controllers.PatternController import patternController
 
 from v1.Exceptions.DrinkerNotFound import DrinkerNotFound
 from v1.Exceptions.InvalidInfo import InvalidInfo
@@ -20,6 +21,7 @@ from flask_cors import CORS
 app = Flask(__name__)
 CORS(app)
 
+app.register_blueprint(patternController,url_prefix='/v1/pattern')
 app.register_blueprint(dailyController,url_prefix='/v1/daily')
 app.register_blueprint(versionController,url_prefix='/v1/version')
 app.register_blueprint(drinkerController,url_prefix='/v1/drinker')
@@ -60,4 +62,4 @@ def hello_world():
 
 
 
-app.run(debug = True, port=8000)
+# app.run(debug = True, port=8000)
